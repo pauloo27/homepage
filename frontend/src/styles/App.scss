@@ -1,0 +1,17 @@
+@import "./Theme.scss";
+
+#header-container,
+#middle-container {
+  display: flex;
+}
+
+#root {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+#middle-container {
+  flex-grow: 1;
+  overflow: hidden;
+}

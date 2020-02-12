@@ -1,0 +1,61 @@
+@import "./Theme.scss";
+
+.modal-content {
+  #trello-login-container {
+    text-align: center;
+  }
+  #trello-login-container.hidden,
+  #list-selector-holder.hidden {
+    display: none;
+  }
+
+  background-color: $backgrounds !important;
+
+  .close {
+    color: $texts;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid $components;
+  }
+
+  .modal-footer {
+    border-top: 1px solid $components;
+  }
+
+  .btn {
+    border: none;
+  }
+
+  .btn-primary {
+    background-color: $success;
+  }
+
+  .btn-secondary {
+    background-color: $error;
+  }
+
+  input {
+    color: $texts;
+    padding: 5px 10px;
+    background: $components;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    transition: all 1s;
+    outline: none;
+    margin: 0 0 10px 0;
+    align-self: center;
+  }
+
+  select {
+    margin-top: 10px;
+    outline: none;
+    color: $texts;
+    background: $components;
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 2px 5px;
+    border: none;
+  }
+}

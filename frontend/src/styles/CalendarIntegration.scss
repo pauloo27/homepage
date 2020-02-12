@@ -1,0 +1,35 @@
+@import "./Theme.scss";
+
+.homepage-calendar {
+  border: none !important;
+  background-color: rgba($backgrounds, 0.8) !important;
+  border-radius: 10px;
+
+  .react-calendar__tile:enabled:hover,
+  .react-calendar__navigation button:enabled:hover {
+    background-color: $backgroundsSecondary !important;
+    border-radius: 10px;
+  }
+
+  .react-calendar__tile--active {
+    background-color: $waiting !important;
+    border-radius: 10px;
+  }
+
+  .react-calendar__navigation__arrow,
+  .react-calendar__navigation__label {
+    color: #f1f1f1 !important;
+  }
+
+  .react-calendar__month-view__days__day {
+    color: $texts;
+  }
+
+  .react-calendar__month-view__days__day--weekend {
+    color: $info;
+  }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: #757575;
+  }
+}

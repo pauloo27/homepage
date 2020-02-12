@@ -1,0 +1,57 @@
+@import "./Theme.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url("/assets/city.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: $backgrounds;
+  height: 100%;
+
+  color: $texts;
+}
+
+html {
+  height: 100%;
+}
+
+.homepage-card {
+  background-color: rgba($backgrounds, 0.7);
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px $backgrounds;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $backgrounds;
+  border-radius: 10px;
+}
+
+.homepage-card-header {
+  display: flex;
+  justify-content: space-between;
+
+  .homepage-card-settings-holder {
+    cursor: pointer;
+    .homepage-card-settings {
+      font-size: 24px;
+    }
+  }
+}

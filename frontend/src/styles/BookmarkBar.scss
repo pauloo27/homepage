@@ -1,0 +1,19 @@
+@import "./Theme.scss";
+
+#bookmark-bar {
+  display: flex;
+  vertical-align: middle;
+  flex-grow: 1;
+
+  .bookmark-entry {
+    margin: 0px 5px;
+    padding: 5px;
+    background-color: $backgrounds;
+    border-radius: 15px;
+    img {
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

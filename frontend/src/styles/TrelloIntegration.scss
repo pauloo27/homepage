@@ -1,0 +1,32 @@
+@import "./Theme.scss";
+
+#homepage-trello {
+  flex-grow: 1;
+}
+
+.trello-card {
+  background-color: rgba($backgrounds, 0.8) !important;
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  .trello-card-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .trello-card-action-anchor {
+    color: $texts;
+  }
+
+  .trello-card-due {
+    margin-top: 2px;
+    margin-right: auto;
+    background: $info;
+    padding: 2px 5px;
+    border-radius: 5px;
+  }
+}

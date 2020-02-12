@@ -1,0 +1,46 @@
+@import "./Theme.scss";
+
+#todo-box {
+  width: 30%;
+  min-width: 30%;
+  overflow-y: auto;
+
+  #todo-new-entry {
+    color: $texts;
+    padding: 4px 4px;
+    background: $backgrounds;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    transition: all 1s;
+    outline: none;
+    margin: 0 0 10px 0;
+    align-self: center;
+  }
+
+  .todo-entry {
+    display: flex;
+    justify-content: space-between;
+
+    .todo-entry-holder {
+      display: flex;
+      .todo-checkbox {
+        cursor: pointer;
+        height: 20px;
+        width: 20px;
+      }
+
+      div.checked {
+        text-decoration: line-through;
+      }
+    }
+  }
+
+  .todo-entry-actions {
+    display: flex;
+    .todo-entry-action {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  }
+}
