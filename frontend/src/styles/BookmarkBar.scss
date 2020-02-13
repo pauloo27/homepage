@@ -4,16 +4,48 @@
   display: flex;
   vertical-align: middle;
   flex-grow: 1;
+  justify-content: space-between;
 
-  .bookmark-entry {
-    margin: 0px 5px;
-    padding: 5px;
-    background-color: $backgrounds;
-    border-radius: 15px;
-    img {
-      vertical-align: middle;
-      width: 30px;
-      height: 30px;
+  #bookmark-edit-toggle {
+    margin-right: 10px;
+  }
+
+  .bookmark-list {
+    display: flex;
+    flex-direction: row;
+
+    .bookmark-entry {
+      margin: 0px 5px;
+      padding: 5px;
+      background-color: $backgrounds;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: row;
+
+      img {
+        vertical-align: middle;
+        width: 30px;
+        height: 30px;
+      }
+
+      .bookmark-edit {
+        margin-left: -30px;
+        vertical-align: top;
+        background-color: rgba(black, 0.7);
+        visibility: hidden;
+
+        padding: 8px;
+        width: 30px;
+        height: 30px;
+
+        cursor: pointer;
+      }
+    }
+  }
+
+  .bookmark-list.editable {
+    .bookmark-edit {
+      visibility: visible;
     }
   }
 }
