@@ -6,7 +6,7 @@ class CalendarIntegration extends Component {
   render() {
     return (
       <div id="calendar-container" className="homepage-card">
-        <h4>Google Calendar:</h4>
+        <h4>Calendar:</h4>
         <Calendar
           locale="en-US"
           value={new Date()}
