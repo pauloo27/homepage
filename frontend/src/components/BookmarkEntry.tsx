@@ -6,6 +6,7 @@ import BookmarkEditor from "./BookmarkEditor";
 interface BookmarkEntryProps {
   id: string;
   onUpdate: Function;
+  onDelete: Function;
   url: string;
   icon: string;
   name: string;
@@ -17,6 +18,11 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
   handleSave = (entry: any) => {
     entry.id = this.props.id;
     this.props.onUpdate(entry);
+  };
+
+  handleDelete = (entry: any) => {
+    entry.id = this.props.id;
+    this.props.onDelete(entry);
   };
 
   render() {
@@ -45,7 +51,9 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
           name={this.props.name}
           url={this.props.url}
           icon={this.props.icon}
+          closeButtonText="Delete"
           onSave={this.handleSave}
+          onClose={this.handleDelete}
         />
       </div>
     );

@@ -31,6 +31,13 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
     this.setState({ editable: !this.state.editable });
   };
 
+  handleBookmarkDelete = async (bookmark: any) => {
+    let entries = this.state.entries;
+    entries = entries.filter(entry => entry.id !== bookmark.id);
+    await this.setState({ entries });
+    this.saveBookmarks();
+  };
+
   handleBookmarkUpdate = async (bookmark: any) => {
     let entries = this.state.entries;
     entries = entries.filter(entry => entry.id !== bookmark.id);
@@ -83,6 +90,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
         url={bookmark.url}
         icon={bookmark.icon}
         onUpdate={this.handleBookmarkUpdate}
+        onDelete={this.handleBookmarkDelete}
       />
     ));
     if (entries.length > 14) {
@@ -129,7 +137,9 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
           name=""
           url=""
           icon=""
+          closeButtonText="Close"
           onSave={this.handleNewBookmark}
+          onClose={() => {}}
         />
       </div>
     );

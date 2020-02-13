@@ -8,6 +8,8 @@ interface BookmarkEditorProps {
   name: string;
   url: string;
   icon: string;
+  closeButtonText: string;
+  onClose: Function;
 }
 
 interface BookmarkEditorState {
@@ -38,6 +40,10 @@ class BookmarkEditor extends Component<
 
   handleIconChange = (e: React.ChangeEvent<HTMLElement>) => {
     this.setState({ icon: (e.target as any).value });
+  };
+
+  handleDelete = () => {
+    this.props.onClose({ name: this.state.name, icon: this.state.icon });
   };
 
   handleSave = () => {
@@ -113,8 +119,9 @@ class BookmarkEditor extends Component<
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
+                onClick={this.handleDelete}
               >
-                Close
+                {this.props.closeButtonText}
               </button>
               <button
                 type="button"
