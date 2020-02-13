@@ -162,14 +162,15 @@ class TrelloSettings extends Component<
       <div
         className="modal fade"
         id="trello-settings-modal"
+        tabIndex={-1}
         role="dialog"
-        aria-labelledby="trello-setings-modal"
+        aria-labelledby="trello-setings-modal-label"
         aria-hidden="true"
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="trello-settings-modal">
+              <h5 className="modal-title" id="trello-settings-modal-label">
                 Trello settings
               </h5>
               <button
