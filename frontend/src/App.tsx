@@ -71,16 +71,29 @@ class App extends Component<any, AppState> {
           <CalendarIntegration />
           {this.loadTrelloIntegration()}
         </div>
-        <div id="background-info">
-          Image by{" "}
-          <a
-            href={this.state.backgroundAuthorLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {this.state.backgroundAuthor}
-          </a>
-          .
+        <div id="footer-container">
+          <div className="footer-info">
+            Homepage made by{" "}
+            <a
+              href={this.state.backgroundAuthorLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Pauloo27
+            </a>{" "}
+            under GPL-2 license.
+          </div>
+          <div id="background-info" className="footer-info">
+            Image by{" "}
+            <a
+              href={this.state.backgroundAuthorLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {this.state.backgroundAuthor}
+            </a>
+            .
+          </div>
         </div>
       </React.Fragment>
     );
