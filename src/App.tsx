@@ -75,7 +75,7 @@ class App extends Component<any, AppState> {
           <div className="footer-info">
             Homepage made by{" "}
             <a
-              href={this.state.backgroundAuthorLink}
+              href="https://github.com/Pauloo27/homepage"
               target="_blank"
               rel="noopener noreferrer"
             >
