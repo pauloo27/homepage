@@ -15,3 +15,13 @@
   flex-grow: 1;
   overflow: hidden;
 }
+
+#background-info {
+  font-size: 12px;
+  background-color: rgba($backgrounds, 0.7);
+  border-radius: 10px;
+  width: max-content;
+  padding: 2px 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
