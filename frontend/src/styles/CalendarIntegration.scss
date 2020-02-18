@@ -1,5 +1,9 @@
 @import "./Theme.scss";
 
+#calendar-clock {
+  text-align: center;
+}
+
 .homepage-calendar {
   border: none !important;
   background-color: rgba($backgrounds, 0.8) !important;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareSquare } from "@fortawesome/free-regular-svg-icons";
+import { withLeadingZeroes } from "../utils/Formater";
 
 interface TrelloCardProps {
   card: any;
@@ -9,20 +10,10 @@ interface TrelloCardProps {
 class TrelloCard extends Component<TrelloCardProps> {
   parseDate = (dateString: string) => {
     const date = new Date(Date.parse(dateString));
-
-    const pad = (number: number, size: number) => {
-      let str = number.toString();
-
-      while (str.length < size) {
-        str = "0" + str;
-      }
-      return str;
-    };
-
-    return `${date.getFullYear()}/${pad(date.getMonth() + 1, 2)}/${pad(
-      date.getDate(),
+    return `${date.getFullYear()}/${withLeadingZeroes(
+      date.getMonth() + 1,
       2
-    )}`;
+    )}/${withLeadingZeroes(date.getDate(), 2)}`;
   };
 
   render() {
