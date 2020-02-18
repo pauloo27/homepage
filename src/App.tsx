@@ -29,7 +29,7 @@ class App extends Component<any, AppState> {
     let background: any;
 
     const now = new Date();
-    if (now.getHours() >= 6 && now.getHours() <= 18) {
+    if (now.getHours() >= 6 && now.getHours() < 18) {
       background = backgroundInfo.day;
     } else {
       background = backgroundInfo.night;
