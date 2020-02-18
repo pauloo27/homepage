@@ -1,0 +1,11 @@
+@import "./Theme.scss";
+
+#homepage-settings-modal {
+  input {
+    margin-top: 10px;
+  }
+
+  .hidden {
+    display: none;
+  }
+}

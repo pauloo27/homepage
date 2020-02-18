@@ -23,9 +23,21 @@
   margin-left: 10px;
   justify-content: space-between;
 
-  div {
-    width: max-content;
+  .footer-info {
     margin-right: 10px;
+    a {
+      margin-left: 3px;
+      margin-right: 3px;
+    }
+
+    .homepage-card-settings-holder {
+      cursor: pointer;
+    }
+  }
+
+  div {
+    display: flex;
+    width: max-content;
     padding: 2px 5px;
     background-color: rgba($backgrounds, 0.7);
     border-radius: 10px;

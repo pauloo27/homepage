@@ -6,14 +6,24 @@ import TodoBox from "./components/TodoBox";
 import TrelloIntegration from "./components/TrelloIntegration";
 import CalendarIntegration from "./components/CalendarIntegration";
 import backgroundInfo from "./assets/background.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
+import SearchEngineSettings from "./components/SearchEngineSettings";
 
 interface AppState {
   backgroundAuthor: string;
   backgroundAuthorLink: string;
+  engineType: string;
+  engineUrl?: string;
 }
 
 class App extends Component<any, AppState> {
-  state = { backgroundAuthor: "", backgroundAuthorLink: "" };
+  state = {
+    backgroundAuthor: "",
+    backgroundAuthorLink: "",
+    engineType: "",
+    engineUrl: undefined
+  };
 
   componentDidMount() {
     let background: any;
@@ -35,6 +45,10 @@ class App extends Component<any, AppState> {
 
   handleTrelloSave = (apiKey?: string, listId?: string) => {
     localStorage.setItem("trello-config", JSON.stringify({ apiKey, listId }));
+  };
+
+  handleSearchEngineSave = (config: any) => {
+    this.setState(config);
   };
 
   loadTrelloIntegration = () => {
@@ -63,7 +77,10 @@ class App extends Component<any, AppState> {
     return (
       <React.Fragment>
         <div id="header-container">
-          <SearchBar />
+          <SearchBar
+            engineType={this.state.engineType}
+            engineUrl={this.state.engineUrl}
+          />
           <BookmarkBar />
         </div>
         <div id="middle-container">
@@ -73,6 +90,16 @@ class App extends Component<any, AppState> {
         </div>
         <div id="footer-container">
           <div className="footer-info">
+            <div
+              className="homepage-card-settings-holder"
+              data-toggle="modal"
+              data-target="#homepage-settings-modal"
+            >
+              <FontAwesomeIcon
+                icon={faCog}
+                className="homepage-card-settings"
+              />
+            </div>
             Homepage made by{" "}
             <a
               href="https://github.com/Pauloo27/homepage"
@@ -81,7 +108,7 @@ class App extends Component<any, AppState> {
             >
               Pauloo27
             </a>{" "}
-            under GPL-2 license.
+            under GPL-2 license
           </div>
           <div id="background-info" className="footer-info">
             Image by{" "}
@@ -92,9 +119,9 @@ class App extends Component<any, AppState> {
             >
               {this.state.backgroundAuthor}
             </a>
-            .
           </div>
         </div>
+        <SearchEngineSettings onSave={this.handleSearchEngineSave} />
       </React.Fragment>
     );
   }
