@@ -11,13 +11,6 @@ class BackgroundInfo extends Component<BackgroundInfoProps> {
   render() {
     return (
       <div id="background-info" className="footer-info">
-        <div
-          className="homepage-card-settings-holder"
-          data-toggle="modal"
-          data-target="#background-settings-modal"
-        >
-          <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
-        </div>
         Image by{" "}
         <a
           href={this.props.backgroundAuthorUrl}
@@ -26,6 +19,13 @@ class BackgroundInfo extends Component<BackgroundInfoProps> {
         >
           {this.props.backgroundAuthor}
         </a>
+        <div
+          className="homepage-card-settings-holder"
+          data-toggle="modal"
+          data-target="#background-settings-modal"
+        >
+          <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
+        </div>
       </div>
     );
   }
