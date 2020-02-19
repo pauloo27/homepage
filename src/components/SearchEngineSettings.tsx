@@ -81,7 +81,7 @@ class SearchEngineSettings extends Component<
               >
                 <span aria-hidden="true">
                   <FontAwesomeIcon icon={faTimes} />
-                </span>{" "}
+                </span>
               </button>
             </div>
             <div className="modal-body">

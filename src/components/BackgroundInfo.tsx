@@ -4,7 +4,7 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 interface BackgroundInfoProps {
   backgroundAuthor: string;
-  backgroundAuthorLink: string;
+  backgroundAuthorUrl: string;
 }
 
 class BackgroundInfo extends Component<BackgroundInfoProps> {
@@ -20,7 +20,7 @@ class BackgroundInfo extends Component<BackgroundInfoProps> {
         </div>
         Image by{" "}
         <a
-          href={this.props.backgroundAuthorLink}
+          href={this.props.backgroundAuthorUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
