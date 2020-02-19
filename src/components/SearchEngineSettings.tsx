@@ -71,7 +71,7 @@ class SearchEngineSettings extends Component<
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="homepage-settings-modal-label">
-                Homepage settings
+                General settings
               </h5>
               <button
                 type="button"
@@ -85,23 +85,26 @@ class SearchEngineSettings extends Component<
               </button>
             </div>
             <div className="modal-body">
-              <select
-                id="search-engine"
-                onChange={this.handleChange}
-                defaultValue={this.state.engineType}
-              >
-                <option value="duckduckgo">DuckDuckGO</option>
-                <option value="google">Google</option>
-                <option value="custom">Custom</option>
-              </select>
-              <input
-                placeholder="Insert custom search engine URL"
-                defaultValue={this.state.engineUrl}
-                onChange={this.handleUrlChange}
-                className={`${
-                  this.state.engineType === "custom" ? "" : "hidden"
-                }`}
-              />
+              <div>
+                <label>Search engine</label>
+                <select
+                  id="search-engine"
+                  onChange={this.handleChange}
+                  defaultValue={this.state.engineType}
+                >
+                  <option value="duckduckgo">DuckDuckGO</option>
+                  <option value="google">Google</option>
+                  <option value="custom">Custom</option>
+                </select>
+                <input
+                  placeholder="Insert custom search engine URL"
+                  defaultValue={this.state.engineUrl}
+                  onChange={this.handleUrlChange}
+                  className={`${
+                    this.state.engineType === "custom" ? "" : "hidden"
+                  }`}
+                />
+              </div>
             </div>
             <div className="modal-footer">
               <button
