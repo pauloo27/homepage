@@ -6,9 +6,10 @@ import TodoBox from "./components/TodoBox";
 import TrelloIntegration from "./components/TrelloIntegration";
 import CalendarIntegration from "./components/CalendarIntegration";
 import backgroundInfo from "./assets/background.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
 import SearchEngineSettings from "./components/SearchEngineSettings";
+import BackgroundSettings from "./components/BackgroundSettings";
+import ProjectInfo from "./components/ProjectInfo";
+import BackgroundInfo from "./components/BackgroundInfo";
 
 interface AppState {
   backgroundAuthor: string;
@@ -89,38 +90,13 @@ class App extends Component<any, AppState> {
           {this.loadTrelloIntegration()}
         </div>
         <div id="footer-container">
-          <div className="footer-info">
-            <div
-              className="homepage-card-settings-holder"
-              data-toggle="modal"
-              data-target="#homepage-settings-modal"
-            >
-              <FontAwesomeIcon
-                icon={faCog}
-                className="homepage-card-settings"
-              />
-            </div>
-            Homepage made by{" "}
-            <a
-              href="https://github.com/Pauloo27/homepage"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Pauloo27
-            </a>{" "}
-            under GPL-2 license
-          </div>
-          <div id="background-info" className="footer-info">
-            Image by{" "}
-            <a
-              href={this.state.backgroundAuthorLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {this.state.backgroundAuthor}
-            </a>
-          </div>
+          <ProjectInfo />
+          <BackgroundInfo
+            backgroundAuthor={this.state.backgroundAuthor}
+            backgroundAuthorLink={this.state.backgroundAuthorLink}
+          />
         </div>
+        <BackgroundSettings />
         <SearchEngineSettings onSave={this.handleSearchEngineSave} />
       </React.Fragment>
     );
