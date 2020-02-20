@@ -36,7 +36,7 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
 
     return (
       <div className="bookmark-entry">
-        <a href={this.props.url} target="_blank" rel="noopener noreferrer">
+        <a href={this.props.url}>
           <img src={icon} alt={`${this.props.name} icon`} />
         </a>
         <div
