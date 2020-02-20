@@ -186,14 +186,15 @@ class TrelloSettings extends Component<
             </div>
             <div className="modal-body">
               <label>
-                Get a API key in{" "}
+                Login into your Trello Account and get an API key in{" "}
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://trello.com/app-key"
                 >
                   https://trello.com/app-key
-                </a>
+                </a>.{" "}
+                Then add the homepage URL to the Allowed Origins.
               </label>
               <input
                 defaultValue={this.state.apiKey}
