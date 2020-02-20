@@ -34,7 +34,7 @@ class SearchBar extends Component<SearchBarProps> {
 
     return (
       <form action={action} id="search-bar-container" className="homepage-card">
-        <input name="q" placeholder={`Search at ${name}`} autoComplete="off" />
+        <input autoFocus name="q" placeholder={`Search at ${name}`} autoComplete="off" />
         <button type="submit">
           <img src={icon} className="icon" alt={`${name} icon`} />
         </button>
