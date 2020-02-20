@@ -33,14 +33,19 @@ class App extends Component<any, AppState> {
     engineUrl: undefined
   };
 
+  timerId: any;
+
   setBackground = () => {
     const now = new Date();
     let currentBackground: Background;
+
     if (now.getHours() >= 6 && now.getHours() < 18) {
       currentBackground = this.state.dayBackground;
     } else {
       currentBackground = this.state.nightBackground;
     }
+
+    if (this.state.currentBackground === currentBackground) return;
 
     this.setState({ currentBackground });
     document.getElementsByTagName("body")[0].background = currentBackground.url;
@@ -78,6 +83,12 @@ class App extends Component<any, AppState> {
     }
 
     this.setBackground();
+
+    this.timerId = setInterval(() => this.setBackground(), 10 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
   }
 
   handleTrelloSave = (apiKey?: string, listId?: string) => {
