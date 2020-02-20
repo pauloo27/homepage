@@ -19,12 +19,21 @@
   }
 
   .todo-entry {
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
 
     .todo-entry-holder {
       display: flex;
+
+      .todo-entry-text {
+        word-break: break-all;
+      }
+
       .todo-checkbox {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 5px;
         cursor: pointer;
         height: 20px;
         width: 20px;
@@ -38,6 +47,8 @@
 
   .todo-entry-actions {
     display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
     .todo-entry-action {
       margin-left: 5px;
       cursor: pointer;

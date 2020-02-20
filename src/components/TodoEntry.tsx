@@ -41,7 +41,11 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
               icon={this.state.done ? faCheckCircle : faCircle}
             />
           </div>
-          <div className={this.state.done ? "checked" : ""}>
+          <div
+            className={
+              this.state.done ? "todo-entry-text checked" : "todo-entry-text"
+            }
+          >
             {this.props.text}
           </div>
         </div>

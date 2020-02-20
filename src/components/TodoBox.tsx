@@ -87,7 +87,7 @@ class TodoBox extends Component<any, TodoBoxState> {
   render() {
     return (
       <div id="todo-box" className="homepage-card">
-        <h4>TODO:</h4>
+        <h4>To Do:</h4>
         <input
           id="todo-new-entry"
           className=""
