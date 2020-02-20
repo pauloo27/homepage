@@ -13,6 +13,9 @@ body {
   height: 100%;
 
   color: $texts;
+
+  -webkit-transition: background-image 3s ease-in-out;
+  transition: background-image 3s ease-in-out;
 }
 
 html {
