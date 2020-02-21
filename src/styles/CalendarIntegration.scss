@@ -15,14 +15,27 @@
     border-radius: 10px;
   }
 
-  .react-calendar__tile--active {
+  .react-calendar__tile--active,
+  .react-calendar__tile--hasActive {
     background-color: $waiting !important;
     border-radius: 10px;
   }
 
   .react-calendar__navigation__arrow,
-  .react-calendar__navigation__label {
+  .react-calendar__century-view__decades__decade,
+  .react-calendar__navigation__label,
+  .react-calendar__year-view__months__month,
+  .react-calendar__decade-view__years__year,
+  .react-calendar__decade-view {
     color: #f1f1f1 !important;
+  }
+
+  .react-calendar__navigation__arrow:focus,
+  .react-calendar__navigation__label:focus,
+  .react-calendar__year-view__months__month:focus,
+  .react-calendar__navigation button[disabled] {
+    background-color: rgba($backgrounds, 0.8) !important;
+    border-radius: 10px;
   }
 
   .react-calendar__month-view__days__day {
