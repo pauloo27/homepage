@@ -6,12 +6,14 @@ class ProjectInfo extends Component {
   render() {
     return (
       <div className="footer-info">
-        <div
-          className="homepage-card-settings-holder"
-          data-toggle="modal"
-          data-target="#homepage-settings-modal"
-        >
-          <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
+        <div data-toggle="tooltip" title="Open general settings">
+          <div
+            className="homepage-card-settings-holder"
+            data-toggle="modal"
+            data-target="#homepage-settings-modal"
+          >
+            <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
+          </div>
         </div>
         Homepage made by{" "}
         <a

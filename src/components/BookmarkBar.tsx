@@ -118,6 +118,8 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
             id="bookmark-edit-toggle"
             className="homepage-card-settings-holder"
             onClick={this.handleEditToggle}
+            data-toggle="tooltip"
+            title="Toggle bookmark edit mode"
           >
             <FontAwesomeIcon
               icon={this.state.editable ? faCheck : faPen}
@@ -125,11 +127,20 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
             />
           </div>
           <div
+            data-toggle="tooltip"
+            title="Add new bookmark"
             className="homepage-card-settings-holder"
-            data-toggle="modal"
-            data-target="#bookmark-add-modal"
           >
-            <FontAwesomeIcon icon={faPlus} className="homepage-card-settings" />
+            <div
+              className="homepage-card-settings-holder"
+              data-toggle="modal"
+              data-target="#bookmark-add-modal"
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="homepage-card-settings"
+              />
+            </div>
           </div>
         </div>
         <BookmarkEditor

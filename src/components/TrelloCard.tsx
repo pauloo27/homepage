@@ -27,6 +27,9 @@ class TrelloCard extends Component<TrelloCardProps> {
               target="blank"
               href={this.props.card.shortUrl}
               className="trello-card-action-anchor"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Open card on Trello"
             >
               <div className="trello-card-action">
                 <FontAwesomeIcon icon={faShareSquare} />

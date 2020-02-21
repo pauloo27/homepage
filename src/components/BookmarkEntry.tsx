@@ -35,7 +35,11 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
     }
 
     return (
-      <div className="bookmark-entry">
+      <div
+        className="bookmark-entry"
+        data-toggle="tooltip"
+        title={this.props.name}
+      >
         <a href={this.props.url}>
           <img src={icon} alt={`${this.props.name} icon`} />
         </a>

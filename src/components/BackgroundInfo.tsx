@@ -19,12 +19,14 @@ class BackgroundInfo extends Component<BackgroundInfoProps> {
         >
           {this.props.backgroundAuthor}
         </a>
-        <div
-          className="homepage-card-settings-holder"
-          data-toggle="modal"
-          data-target="#background-settings-modal"
-        >
-          <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
+        <div data-toggle="tooltip" title="Open background settings">
+          <div
+            className="homepage-card-settings-holder"
+            data-toggle="modal"
+            data-target="#background-settings-modal"
+          >
+            <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
+          </div>
         </div>
       </div>
     );

@@ -9,6 +9,7 @@ import SearchEngineSettings from "./components/SearchEngineSettings";
 import BackgroundSettings from "./components/BackgroundSettings";
 import ProjectInfo from "./components/ProjectInfo";
 import BackgroundInfo from "./components/BackgroundInfo";
+import $ from "jquery";
 
 interface Background {
   url: string;
@@ -34,6 +35,12 @@ class App extends Component<any, AppState> {
   };
 
   timerId: any;
+
+  setupTooltip = () => {
+    $(function() {
+      ($('[data-toggle="tooltip"]') as any).tooltip();
+    });
+  };
 
   setBackground = () => {
     const now = new Date();
@@ -91,8 +98,8 @@ class App extends Component<any, AppState> {
     clearInterval(this.timerId);
   }
 
-  handleTrelloSave = (apiKey?: string, listId?: string) => {
-    localStorage.setItem("trello-config", JSON.stringify({ apiKey, listId }));
+  handleTrelloReady = () => {
+    this.setupTooltip();
   };
 
   handleSearchEngineSave = (config: any) => {
@@ -115,7 +122,7 @@ class App extends Component<any, AppState> {
         <TrelloIntegration
           apiKey={""}
           listId={""}
-          onSettingsChange={this.handleTrelloSave}
+          onReady={this.handleTrelloReady}
         />
       );
     } else {
@@ -124,7 +131,7 @@ class App extends Component<any, AppState> {
         <TrelloIntegration
           apiKey={config.apiKey}
           listId={config.listId}
-          onSettingsChange={this.handleTrelloSave}
+          onReady={this.handleTrelloReady}
         />
       );
     }
@@ -132,8 +139,11 @@ class App extends Component<any, AppState> {
 
   render() {
     if (this.state.currentBackground.url === "") return null;
+
+    this.setupTooltip();
+
     return (
-      <React.Fragment>
+      <>
         <div id="header-container">
           <SearchBar
             engineType={this.state.engineType}
@@ -159,7 +169,7 @@ class App extends Component<any, AppState> {
           night={this.state.nightBackground}
           onSave={this.handleBackgroundSave}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

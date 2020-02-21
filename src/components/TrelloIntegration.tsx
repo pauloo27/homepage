@@ -20,7 +20,7 @@ const defaultOptions = {
 interface TrelloIntegrationProps {
   apiKey: string;
   listId: string;
-  onSettingsChange: Function;
+  onReady: Function;
 }
 
 interface TrelloIntegrationState {
@@ -41,8 +41,9 @@ class TrelloIntegration extends Component<
       (res: any) => {
         console.log("get cards");
         const cards = res;
-        setTimeout(() => {
+        setTimeout(async () => {
           this.setState({ logged: true, cards });
+          this.props.onReady();
         }, 500);
       },
       (err: any) => {
@@ -62,8 +63,8 @@ class TrelloIntegration extends Component<
       return (
         <div id="trello-cards-container">
           {this.state.cards.map(card => (
-            <FadeIn transitionDuration={600}>
-              <TrelloCard key={card.id} card={card} />
+            <FadeIn transitionDuration={600} key={card.id}>
+              <TrelloCard card={card} />
             </FadeIn>
           ))}
         </div>
@@ -80,23 +81,36 @@ class TrelloIntegration extends Component<
     }
   };
 
+  handleSave = (apiKey?: any, listId?: any) => {
+    localStorage.setItem("trello-config", JSON.stringify({ apiKey, listId }));
+  };
+
   render() {
     return (
       <div id="homepage-trello" className="homepage-card">
         <div className="homepage-card-header">
           <h4>Trello:</h4>
           <div
+            data-toggle="tooltip"
+            title="Setup Trello"
             className="homepage-card-settings-holder"
-            data-toggle="modal"
-            data-target="#trello-settings-modal"
           >
-            <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
+            <div
+              className="homepage-card-settings-holder"
+              data-toggle="modal"
+              data-target="#trello-settings-modal"
+            >
+              <FontAwesomeIcon
+                icon={faCog}
+                className="homepage-card-settings"
+              />
+            </div>
           </div>
         </div>
         <TrelloSettings
           apiKey={this.props.apiKey}
           listId={this.props.listId}
-          onSave={this.props.onSettingsChange}
+          onSave={this.handleSave}
           onReady={this.loadCards}
         />
         {this.showTrelloInfo()}
