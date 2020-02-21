@@ -5,17 +5,8 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TrelloSettings from "./TrelloSettings";
 import FadeIn from "react-fade-in";
-import Lottie from "react-lottie";
+import { Lottie } from "@crello/react-lottie";
 import loader from "../assets/loader.json";
-
-const defaultOptions = {
-  loop: true,
-  autoplay: true,
-  animationData: loader,
-  rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice"
-  }
-};
 
 interface TrelloIntegrationProps {
   apiKey: string;
@@ -44,7 +35,7 @@ class TrelloIntegration extends Component<
         setTimeout(async () => {
           this.setState({ logged: true, cards });
           this.props.onReady();
-        }, 500);
+        }, 1000);
       },
       (err: any) => {
         console.log("ERROR:", err);
@@ -63,7 +54,7 @@ class TrelloIntegration extends Component<
       return (
         <div id="trello-cards-container">
           {this.state.cards.map(card => (
-            <FadeIn transitionDuration={600} key={card.id}>
+            <FadeIn key={card.id}>
               <TrelloCard card={card} />
             </FadeIn>
           ))}
@@ -73,7 +64,11 @@ class TrelloIntegration extends Component<
       return (
         <FadeIn>
           <div className="d-flex flex-column  align-items-center">
-            <Lottie options={defaultOptions} height={120} width={120} />
+            <Lottie
+              height="120px"
+              width="120px"
+              config={{ animationData: loader, loop: true, autoplay: true }}
+            />
             <h5>Fetching Trello...</h5>
           </div>
         </FadeIn>

@@ -6,6 +6,7 @@
   "repository": "https://github.com/Pauloo27/homepage",
   "homepage": "http://pauloo27.github.io/homepage",
   "dependencies": {
+    "@crello/react-lottie": "^0.0.7",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
@@ -16,7 +17,6 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/jquery": "^3.3.32",
     "@types/react-fade-in": "^0.1.0",
-    "@types/react-lottie": "^1.2.3",
     "bootstrap": "^4.4.1",
     "gh-pages": "^2.2.0",
     "jquery": "^3.4.1",
@@ -26,7 +26,6 @@
     "react-calendar": "^2.19.2",
     "react-dom": "^16.12.0",
     "react-fade-in": "^0.1.8",
-    "react-lottie": "^1.2.3",
     "react-scripts": "3.3.1",
     "react-trello-client": "^1.1.6",
     "typescript": "^3.7.5"
