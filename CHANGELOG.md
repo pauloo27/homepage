@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Trello loading animation (f8cf4d3684b9d345eb69bf79df7268319474cae1).
 - Auto focus to the search bar (d1b420086513d2c70def21002ae329694e096bf5).
+- Tooltip to the buttons (fc4c1c40bc8bbd65e49aa80b1926f4bab016dd7f).
 
 ## Changed
 
