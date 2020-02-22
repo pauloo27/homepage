@@ -44,7 +44,23 @@
     margin-top: 2px;
     margin-right: auto;
     background: $info;
-    padding: 2px 5px;
+    padding: 1px 3px;
     border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .trello-card-labels {
+    margin-right: auto;
+
+    .trello-card-label {
+      display: inline-flex;
+      font-weight: bold;
+      min-width: 50px;
+      text-align: center;
+      margin-right: 5px;
+      padding: 1px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
   }
 }
