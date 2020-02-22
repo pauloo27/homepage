@@ -43,6 +43,7 @@ class TrelloCard extends Component<TrelloCardProps> {
       <div className="trello-card-labels">
         {labels.map(label => (
           <div
+            key={label.id}
             className="trello-card-label"
             style={{ backgroundColor: (TrelloLabelColors as any)[label.color] }}
           >
