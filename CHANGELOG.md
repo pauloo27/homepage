@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Auto focus to the search bar.
 - Tooltip to the buttons.
 - Trello Intetration status message (empty list and error).
+- Trello labels to the card viewer.
 
 ## Changed
 
