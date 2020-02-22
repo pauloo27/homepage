@@ -36,7 +36,12 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
     return (
       <div className="todo-entry">
         <div className="todo-entry-holder">
-          <div className="todo-checkbox" onClick={this.handleDone}>
+          <div
+            className="todo-checkbox"
+            data-toggle="tooltip"
+            title="Toggle done state"
+            onClick={this.handleDone}
+          >
             <FontAwesomeIcon
               icon={this.state.done ? faCheckCircle : faCircle}
             />
@@ -50,7 +55,12 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
           </div>
         </div>
         <div className="todo-entry-actions">
-          <div className="todo-entry-action" onClick={this.handleDelete}>
+          <div
+            className="todo-entry-action"
+            data-toggle="tooltip"
+            title="Delete entry"
+            onClick={this.handleDelete}
+          >
             <FontAwesomeIcon icon={faTrash} />
           </div>
         </div>

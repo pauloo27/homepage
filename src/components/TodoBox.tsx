@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TodoEntry from "./TodoEntry";
 import "../styles/TodoBox.scss";
+import $ from "jquery";
 
 interface TodoEntryState {
   text: string;
@@ -8,15 +9,20 @@ interface TodoEntryState {
   id: string;
 }
 
+interface TodoBoxProps {
+  setupTooltip: Function;
+}
+
 interface TodoBoxState {
   entries: Array<TodoEntryState>;
 }
 
-class TodoBox extends Component<any, TodoBoxState> {
+class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
   state = { entries: new Array<TodoEntryState>() };
 
   saveTodoList = () => {
     localStorage.setItem("todo-list", JSON.stringify(this.state.entries));
+    this.props.setupTooltip();
   };
 
   componentDidMount() {
@@ -66,11 +72,16 @@ class TodoBox extends Component<any, TodoBoxState> {
     }
   };
 
-  handleDelete = async (id: string) => {
-    let entries = this.state.entries;
-    entries = entries.filter(value => value.id !== id);
-    await this.setState({ entries });
-    this.saveTodoList();
+  handleDelete = (id: string) => {
+    $(function() {
+      ($('[data-toggle="tooltip"]') as any).tooltip("dispose");
+    });
+    setTimeout(async () => {
+      let entries = this.state.entries;
+      entries = entries.filter(value => value.id !== id);
+      await this.setState({ entries });
+      this.saveTodoList();
+    }, 200);
   };
 
   handleDoneToggle = async (id: string, done: boolean) => {

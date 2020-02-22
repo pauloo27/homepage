@@ -152,7 +152,7 @@ class App extends Component<any, AppState> {
           <BookmarkBar />
         </div>
         <div id="middle-container">
-          <TodoBox />
+          <TodoBox setupTooltip={this.setupTooltip} />
           <CalendarIntegration />
           {this.loadTrelloIntegration()}
         </div>
