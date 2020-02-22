@@ -5,6 +5,23 @@
   overflow-y: auto;
 }
 
+.trello-status {
+  font-size: 120px;
+  padding: 20px;
+}
+
+.trello-status-text {
+  text-align: center;
+}
+
+.trello-status.error {
+  color: $error;
+}
+
+.trello-status.success {
+  color: $success;
+}
+
 .trello-card {
   background-color: rgba($backgrounds, 0.8) !important;
   padding: 10px 10px;

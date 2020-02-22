@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "../styles/TrelloIntegration.scss";
 import TrelloCard from "./TrelloCard";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TrelloSettings from "./TrelloSettings";
 import FadeIn from "react-fade-in";
 import { Lottie } from "@crello/react-lottie";
 import loader from "../assets/loader.json";
+import checked from "../assets/checked.json";
 
 interface TrelloIntegrationProps {
   apiKey: string;
@@ -16,7 +17,7 @@ interface TrelloIntegrationProps {
 
 interface TrelloIntegrationState {
   logged: boolean;
-  cards: Array<any>;
+  cards?: Array<any>;
 }
 
 class TrelloIntegration extends Component<
@@ -39,6 +40,10 @@ class TrelloIntegration extends Component<
       },
       (err: any) => {
         console.log("ERROR:", err);
+        setTimeout(async () => {
+          this.setState({ logged: true, cards: undefined });
+          this.props.onReady();
+        }, 1000);
       }
     );
   };
@@ -51,6 +56,36 @@ class TrelloIntegration extends Component<
       return <h6>Setup Trello config to start using</h6>;
 
     if (this.state.logged) {
+      if (this.state.cards === undefined) {
+        return (
+          <div className="d-flex flex-column  align-items-center">
+            <FadeIn>
+              <FontAwesomeIcon icon={faTimes} className="trello-status error" />
+              <h5 className="trello-status-text">
+                Cannot get Trello
+                <br />
+                Check the config
+              </h5>
+            </FadeIn>
+          </div>
+        );
+      }
+
+      if (this.state.cards.length === 0) {
+        return (
+          <div className="d-flex flex-column  align-items-center">
+            <FadeIn>
+              <Lottie
+                height="120px"
+                width="120px"
+                config={{ animationData: checked, loop: false, autoplay: true }}
+              />
+              <h5 className="trello-status-text">It's empty!</h5>
+            </FadeIn>
+          </div>
+        );
+      }
+
       return (
         <div id="trello-cards-container">
           {this.state.cards.map(card => (
@@ -69,7 +104,7 @@ class TrelloIntegration extends Component<
               width="120px"
               config={{ animationData: loader, loop: true, autoplay: true }}
             />
-            <h5>Fetching Trello...</h5>
+            <h5 className="trello-status-text">Fetching Trello...</h5>
           </div>
         </FadeIn>
       );
