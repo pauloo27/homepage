@@ -58,11 +58,11 @@ class TrelloIntegration extends Component<
     if (this.state.logged) {
       if (this.state.cards === undefined) {
         return (
-          <div className="d-flex flex-column  align-items-center">
-            <FadeIn>
+          <div className="d-flex flex-column align-items-center">
+            <FadeIn className="trello-status-container">
               <FontAwesomeIcon icon={faTimes} className="trello-status error" />
               <h5 className="trello-status-text">
-                Cannot get Trello
+                Cannot get Trello.
                 <br />
                 Check the config
               </h5>
@@ -74,7 +74,7 @@ class TrelloIntegration extends Component<
       if (this.state.cards.length === 0) {
         return (
           <div className="d-flex flex-column  align-items-center">
-            <FadeIn>
+            <FadeIn className="trello-status-container">
               <Lottie
                 height="120px"
                 width="120px"
