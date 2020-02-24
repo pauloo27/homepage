@@ -73,12 +73,12 @@ class App extends Component<any, AppState> {
     if (value === null) {
       await this.setState({
         dayBackground: {
-          url: "https://images.unsplash.com/photo-1518012961-5efdfd47ba75",
+          url: "https://i.imgur.com/2yZEWjj.jpg",
           author: "Alex Knight",
           authorUrl: "https://unsplash.com/@agkdesign"
         },
         nightBackground: {
-          url: "https://images.unsplash.com/Ys-DBJeX0nE.JPG",
+          url: "https://i.imgur.com/ilSeY3w.jpg",
           author: "Alex Knight",
           authorUrl: "https://unsplash.com/@agkdesign"
         }
