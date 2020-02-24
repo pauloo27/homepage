@@ -80,7 +80,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
   };
 
   listEvents = () => {
-    if(this.state.loginState === -1) return null;
+    if (this.state.loginState === -1) return null;
     if (this.state.loginState === 0) {
       return (
         <FadeIn>
@@ -129,8 +129,8 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       });
 
       content.push(
-        <FadeIn>
-          <div className="gcalendar-events" key={when}>
+        <FadeIn key={when}>
+          <div className="gcalendar-events">
             <h6>{when}</h6>
             {events.map(event => {
               const color = this.colors[event.colorId];
