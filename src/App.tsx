@@ -4,7 +4,7 @@ import BookmarkBar from "./components/BookmarkBar";
 import "./styles/App.scss";
 import TodoBox from "./components/TodoBox";
 import TrelloIntegration from "./components/TrelloIntegration";
-import CalendarIntegration from "./components/CalendarIntegration";
+import GCalendarIntegration from "./components/GCalendarIntegration";
 import SearchEngineSettings from "./components/SearchEngineSettings";
 import BackgroundSettings from "./components/BackgroundSettings";
 import ProjectInfo from "./components/ProjectInfo";
@@ -153,7 +153,7 @@ class App extends Component<any, AppState> {
         </div>
         <div id="middle-container">
           <TodoBox setupTooltip={this.setupTooltip} />
-          <CalendarIntegration />
+          <GCalendarIntegration />
           {this.loadTrelloIntegration()}
         </div>
         <div id="footer-container">

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShareSquare } from "@fortawesome/free-regular-svg-icons";
-import { withLeadingZeroes } from "../utils/Formater";
+import { formatDate } from "../utils/Formater";
 
 const TrelloLabelColors = {
   green: "#61bd4f",
@@ -23,10 +23,7 @@ interface TrelloCardProps {
 class TrelloCard extends Component<TrelloCardProps> {
   parseDate = (dateString: string) => {
     const date = new Date(Date.parse(dateString));
-    return `${date.getFullYear()}/${withLeadingZeroes(
-      date.getMonth() + 1,
-      2
-    )}/${withLeadingZeroes(date.getDate(), 2)}`;
+    return formatDate(date);
   };
 
   getDueDate = (card: any) => {

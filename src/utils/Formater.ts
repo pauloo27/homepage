@@ -6,3 +6,10 @@ export function withLeadingZeroes(number: number, size: number): string {
   }
   return str;
 }
+
+export function formatDate(date: Date) {
+  return `${date.getFullYear()}-${withLeadingZeroes(
+    date.getMonth() + 1,
+    2
+  )}-${withLeadingZeroes(date.getDate(), 2)}`;
+}
