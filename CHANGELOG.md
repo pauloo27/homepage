@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## Added
+### Added
 
 - Trello loading animation.
 - Auto focus to the search bar.
@@ -16,13 +16,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Trello labels to the card viewer.
 - Google Calendar integration.
 
-## Changed
+### Changed
 
 - The bookmark from opening in a new tab to opening in the current tab.
 
-## Removed
+### Removed
 
 - Calendar from "react-calendar".
+
+### Fixed
+
+- Default background images compression.
 
 ## [1.0.0] - 2020-02-20
 
