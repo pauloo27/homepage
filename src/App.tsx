@@ -10,6 +10,8 @@ import BackgroundSettings from "./components/BackgroundSettings";
 import ProjectInfo from "./components/ProjectInfo";
 import BackgroundInfo from "./components/BackgroundInfo";
 import $ from "jquery";
+import { faInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface Background {
   url: string;
@@ -162,6 +164,31 @@ class App extends Component<any, AppState> {
             backgroundAuthor={this.state.currentBackground.author}
             backgroundAuthorUrl={this.state.currentBackground.authorUrl}
           />
+        </div>
+        <div id="footer-dropdown">
+          <div className="dropdown">
+            <button
+              className="footer-dropdown-button"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <FontAwesomeIcon icon={faInfo} />
+            </button>
+            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <div className="dropdown-item footer-dropdown-item">
+                <ProjectInfo />
+              </div>
+              <div className="dropdown-item footer-dropdown-item">
+                <BackgroundInfo
+                  backgroundAuthor={this.state.currentBackground.author}
+                  backgroundAuthorUrl={this.state.currentBackground.authorUrl}
+                />{" "}
+              </div>
+            </div>
+          </div>
         </div>
         <SearchEngineSettings onSave={this.handleSearchEngineSave} />
         <BackgroundSettings
