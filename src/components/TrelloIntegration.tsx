@@ -17,8 +17,6 @@ import checked from "../assets/checked.json";
 interface TrelloIntegrationProps {
   apiKey: string;
   onReady: Function;
-  lastBoard: string;
-  lastList: string;
 }
 
 interface TrelloIntegrationState {
@@ -30,6 +28,7 @@ interface TrelloIntegrationState {
   selectedList: any;
   selectedBoard: any;
   /* 
+  -1 = refreshing
   0 = loading
   1 = done
   */
@@ -51,6 +50,16 @@ class TrelloIntegration extends Component<
     lists: new Array<any>()
   };
 
+  saveHistory = () => {
+    localStorage.setItem(
+      "trello-history",
+      JSON.stringify({
+        selectedList: this.state.selectedList.id,
+        selectedBoard: this.state.selectedBoard.id
+      })
+    );
+  };
+
   loadBoards = async (trello: any) => {
     trello.get(
       "members/me/boards",
@@ -68,8 +77,19 @@ class TrelloIntegration extends Component<
   loadLists = (trello: any) => {
     let boardId = this.state.selectedBoard.id;
     if (boardId === undefined) {
-      boardId = this.state.boards[0].id;
-      this.setState({ selectedBoard: this.state.boards[0] });
+      const history = localStorage.getItem("trello-history");
+      if (this.state.status === 0 && history !== null) {
+        const json = JSON.parse(history);
+        boardId = json.selectedBoard;
+        this.setState({
+          selectedBoard: this.state.boards.find(
+            board => board.id === json.selectedBoard
+          )
+        });
+      } else {
+        boardId = this.state.boards[0].id;
+        this.setState({ selectedBoard: this.state.boards[0] });
+      }
     }
     trello.get(
       `boards/${boardId}/lists`,
@@ -87,8 +107,19 @@ class TrelloIntegration extends Component<
   loadCards = (trello: any) => {
     let listId = this.state.selectedList.id;
     if (listId === undefined) {
-      listId = this.state.lists[0].id;
-      this.setState({ selectedList: this.state.lists[0] });
+      const history = localStorage.getItem("trello-history");
+      if (this.state.status === 0 && history !== null) {
+        const json = JSON.parse(history);
+        listId = json.selectedList;
+        this.setState({
+          selectedList: this.state.lists.find(
+            list => list.id === json.selectedList
+          )
+        });
+      } else {
+        listId = this.state.lists[0].id;
+        this.setState({ selectedList: this.state.lists[0] });
+      }
     }
     trello.get(
       `lists/${listId}/cards`,
@@ -118,23 +149,26 @@ class TrelloIntegration extends Component<
       status: 0
     });
     this.loadCards(this.state.trello);
+    this.saveHistory();
   };
 
   handleListSelect = async (id: string) => {
     await this.setState({
       selectedList: this.state.lists.find(list => list.id === id),
-      status: 0
+      status: -1
     });
     this.loadCards(this.state.trello);
+    this.saveHistory();
   };
 
   handleBoardSelect = async (id: string) => {
     await this.setState({
       selectedBoard: this.state.boards.find(board => board.id === id),
       selectedList: {} as any,
-      status: 0
+      status: -1
     });
     this.loadBoards(this.state.trello);
+    this.saveHistory();
   };
 
   getNavigator = () => {

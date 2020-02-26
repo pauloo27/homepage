@@ -123,8 +123,6 @@ class App extends Component<any, AppState> {
       return (
         <TrelloIntegration
           apiKey={""}
-          lastBoard={""}
-          lastList={""}
           onReady={this.handleTrelloReady}
         />
       );
@@ -133,8 +131,6 @@ class App extends Component<any, AppState> {
       return (
         <TrelloIntegration
           apiKey={config.apiKey}
-          lastBoard={config.boardId}
-          lastList={config.listId}
           onReady={this.handleTrelloReady}
         />
       );
