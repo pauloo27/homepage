@@ -43,3 +43,37 @@
     border-radius: 10px;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  #header-container,
+  #middle-container,
+  #footer-container {
+    flex-direction: column;
+  }
+
+  .homepage-card {
+    width: 95% !important;
+    min-width: 95% !important;
+  }
+
+  #middle-container {
+    .homepage-card {
+      min-height: 300px;
+      height: auto;
+    }
+    overflow: auto;
+  }
+
+  #footer-container {
+
+    font-size: 10px;
+    margin-right: 10px;
+    .footer-info {
+      margin-top: 5px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      align-items: center;
+    }
+  }
+}
