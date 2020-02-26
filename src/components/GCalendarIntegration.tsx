@@ -68,7 +68,8 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
   };
 
   getStatus = () => {
-    if (this.state.loginState === -1) return <h4>Setup Google Calendar</h4>;
+    if (this.state.loginState === -1)
+      return <h4>Configure Google Calendar to see future events</h4>;
     return null;
   };
 

@@ -53,7 +53,7 @@ class TrelloIntegration extends Component<
       this.props.apiKey.trim().length === 0 ||
       this.props.listId.trim().length === 0
     )
-      return <h6>Setup Trello config to start using</h6>;
+      return <h4>Configure Trello to sync your cards</h4>;
 
     if (this.state.logged) {
       if (this.state.cards === undefined) {
