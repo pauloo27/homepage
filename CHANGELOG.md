@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - The bookmark from opening in a new tab to opening in the current tab.
+- The loading animation.
 
 ### Removed
 
