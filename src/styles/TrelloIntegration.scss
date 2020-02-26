@@ -22,6 +22,47 @@
   color: $success;
 }
 
+.trello-navigator {
+  .trello-dropdown-button {
+    h3,
+    h6 {
+      margin-bottom: 0;
+    }
+    background: $components;
+    border: none;
+    border-radius: 10px;
+    color: $texts;
+    outline: none;
+  }
+
+  .dropdown-menu.show {
+    background: $backgrounds;
+    .dropdown-item {
+      color: $texts !important;
+    }
+    .dropdown-item:hover {
+      background: $components;
+    }
+  }
+}
+
+.trello-board-navigator {
+  display: flex;
+  justify-content: center;
+}
+
+.trello-list-navigator {
+  .icon {
+    cursor: pointer;
+    font-size: 28px;
+    width: 20px;
+  }
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .trello-card {
   background-color: rgba($backgrounds, 0.8) !important;
   padding: 10px 10px;

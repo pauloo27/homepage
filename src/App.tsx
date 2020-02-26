@@ -123,7 +123,8 @@ class App extends Component<any, AppState> {
       return (
         <TrelloIntegration
           apiKey={""}
-          listId={""}
+          lastBoard={""}
+          lastList={""}
           onReady={this.handleTrelloReady}
         />
       );
@@ -132,7 +133,8 @@ class App extends Component<any, AppState> {
       return (
         <TrelloIntegration
           apiKey={config.apiKey}
-          listId={config.listId}
+          lastBoard={config.boardId}
+          lastList={config.listId}
           onReady={this.handleTrelloReady}
         />
       );
@@ -177,7 +179,10 @@ class App extends Component<any, AppState> {
             >
               <FontAwesomeIcon icon={faInfo} />
             </button>
-            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <div
+              className="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton"
+            >
               <div className="dropdown-item footer-dropdown-item">
                 <ProjectInfo />
               </div>

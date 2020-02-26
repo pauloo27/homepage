@@ -6,19 +6,13 @@ import TrelloClient, { Trello } from "react-trello-client";
 
 interface TrelloSettingsProps {
   apiKey: string;
-  listId: string;
   onSave: Function;
   onReady: Function;
 }
 
 interface TrelloSettingsState {
   apiKey: string;
-  listId: string;
   loadedApiKey: string;
-  boards: Array<any>;
-  lists: Array<any>;
-  selectedBoard: string;
-  boardsLoaded: boolean;
   /*
   -2 = No Key
   -1 = Key ok, no Token
@@ -35,13 +29,8 @@ class TrelloSettings extends Component<
 > {
   state = {
     apiKey: "",
-    listId: "",
     loadedApiKey: "",
-    loginState: 0,
-    boards: new Array<any>(),
-    lists: new Array<any>(),
-    selectedBoard: "",
-    boardsLoaded: false
+    loginState: 0
   };
 
   handleSave = () => {
@@ -58,7 +47,7 @@ class TrelloSettings extends Component<
     }
 
     this.setState({ loadedApiKey: this.state.apiKey, loginState });
-    this.props.onSave(this.state.apiKey, this.state.listId);
+    this.props.onSave(this.state.apiKey);
   };
 
   handleKeyChange = (e: React.ChangeEvent<HTMLElement>) => {
@@ -81,51 +70,12 @@ class TrelloSettings extends Component<
     await this.setState({
       loginState,
       apiKey: this.props.apiKey,
-      listId: this.props.listId,
       loadedApiKey: this.props.apiKey
     });
   };
 
   handleLogin = () => {
-    if (!this.state.boardsLoaded) {
-      this.loadBoards();
-    }
     this.props.onReady(Trello);
-  };
-
-  loadBoards = async () => {
-    Trello.get(
-      "members/me/boards",
-      (res: any) => {
-        console.log("get boards");
-        this.setState({ boardsLoaded: true, boards: res });
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-  };
-
-  loadLists = async () => {
-    Trello.get(
-      `boards/${this.state.selectedBoard}/lists`,
-      (res: any) => {
-        console.log("get lists");
-        this.setState({ lists: res });
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
-  };
-
-  handleBoardChange = async (e: React.ChangeEvent<any>) => {
-    await this.setState({ selectedBoard: e.target.value });
-    this.loadLists();
-  };
-
-  handleListChange = async (e: React.ChangeEvent<any>) => {
-    this.setState({ listId: e.target.value });
   };
 
   getTrelloClient = () => {
@@ -193,8 +143,8 @@ class TrelloSettings extends Component<
                   href="https://trello.com/app-key"
                 >
                   https://trello.com/app-key
-                </a>.{" "}
-                Then add the homepage URL to the Allowed Origins.
+                </a>
+                . Then add the homepage URL to the Allowed Origins.
               </label>
               <input
                 defaultValue={this.state.apiKey}
@@ -206,48 +156,6 @@ class TrelloSettings extends Component<
                 className={this.state.loginState !== -1 ? "hidden" : ""}
               >
                 {this.getTrelloClient()}
-              </div>
-              <div
-                id="board-selector-holder"
-                className={
-                  this.state.loginState === 1 || this.state.loginState === -1
-                    ? ""
-                    : "hidden"
-                }
-              >
-                <label>Board:</label>
-                <select
-                  id="title"
-                  name="title"
-                  defaultValue=""
-                  onChange={this.handleBoardChange}
-                >
-                  <option value="">--</option>
-                  {this.state.boards.map((board: any) => (
-                    <option key={board.id} value={board.id}>
-                      {board.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div
-                id="list-selector-holder"
-                className={this.state.selectedBoard !== "" ? "" : "hidden"}
-              >
-                <label>List:</label>
-                <select
-                  id="title"
-                  name="title"
-                  defaultValue=""
-                  onChange={this.handleListChange}
-                >
-                  <option value="">--</option>
-                  {this.state.lists.map((list: any) => (
-                    <option key={list.id} value={list.id}>
-                      {list.name}
-                    </option>
-                  ))}
-                </select>
               </div>
             </div>
             <div className="modal-footer">
