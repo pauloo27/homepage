@@ -80,12 +80,17 @@ class TrelloIntegration extends Component<
       const history = localStorage.getItem("trello-history");
       if (this.state.status === 0 && history !== null) {
         const json = JSON.parse(history);
-        boardId = json.selectedBoard;
-        this.setState({
-          selectedBoard: this.state.boards.find(
-            board => board.id === json.selectedBoard
-          )
-        });
+        if (json.selectedBoard === undefined) {
+          boardId = this.state.boards[0].id;
+          this.setState({ selectedBoard: this.state.boards[0] });
+        } else {
+          boardId = json.selectedBoard;
+          this.setState({
+            selectedBoard: this.state.boards.find(
+              board => board.id === json.selectedBoard
+            )
+          });
+        }
       } else {
         boardId = this.state.boards[0].id;
         this.setState({ selectedBoard: this.state.boards[0] });
@@ -110,12 +115,17 @@ class TrelloIntegration extends Component<
       const history = localStorage.getItem("trello-history");
       if (this.state.status === 0 && history !== null) {
         const json = JSON.parse(history);
-        listId = json.selectedList;
-        this.setState({
-          selectedList: this.state.lists.find(
-            list => list.id === json.selectedList
-          )
-        });
+        if (json.selectedList === undefined) {
+          listId = this.state.lists[0].id;
+          this.setState({ selectedList: this.state.lists[0] });
+        } else {
+          listId = json.selectedList;
+          this.setState({
+            selectedList: this.state.lists.find(
+              list => list.id === json.selectedList
+            )
+          });
+        }
       } else {
         listId = this.state.lists[0].id;
         this.setState({ selectedList: this.state.lists[0] });
