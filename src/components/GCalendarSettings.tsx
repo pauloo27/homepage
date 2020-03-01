@@ -154,6 +154,16 @@ class GCalendarSettings extends Component<
               </button>
             </div>
             <div className="modal-body">
+              <label>
+                Get your credentials from{" "}
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://developers.google.com/calendar/quickstart/js"
+                >
+                  Google Developers Page
+                </a>.
+              </label>
               <input
                 defaultValue={this.state.clientId}
                 placeholder="Client ID"
