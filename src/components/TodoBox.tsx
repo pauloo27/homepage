@@ -102,7 +102,7 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
 
   getEntries = () => {
     if (!this.state.loaded) return null;
-    if (this.state.entries.length === 0) {
+    if (this.state.entries.length === 0)
       return (
         <div className="d-flex flex-column  align-items-center">
           <FadeIn className="trello-status-container">
@@ -119,7 +119,7 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
           </FadeIn>
         </div>
       );
-    }
+
     return this.state.entries.map(entry => (
       <TodoEntry
         onDelete={this.handleDelete}
