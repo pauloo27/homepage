@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import TodoEntry from "./TodoEntry";
 import "../styles/TodoBox.scss";
 import $ from "jquery";
+import FadeIn from "react-fade-in";
+import { Lottie } from "@crello/react-lottie";
+import checked from "../assets/checked.json";
 
 interface TodoEntryState {
   text: string;
@@ -15,10 +18,11 @@ interface TodoBoxProps {
 
 interface TodoBoxState {
   entries: Array<TodoEntryState>;
+  loaded: boolean;
 }
 
 class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
-  state = { entries: new Array<TodoEntryState>() };
+  state = { entries: new Array<TodoEntryState>(), loaded: false };
 
   saveTodoList = () => {
     localStorage.setItem("todo-list", JSON.stringify(this.state.entries));
@@ -29,8 +33,9 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
     const todo = localStorage.getItem("todo-list");
     if (todo !== null) {
       const entries = JSON.parse(todo);
-      this.setState({ entries });
+      this.setState({ entries, loaded: true });
     } else {
+      this.setState({ loaded: true });
       this.saveTodoList();
     }
   }
@@ -95,6 +100,38 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
     this.saveTodoList();
   };
 
+  getEntries = () => {
+    if (!this.state.loaded) return null;
+    if (this.state.entries.length === 0) {
+      return (
+        <div className="d-flex flex-column  align-items-center">
+          <FadeIn className="trello-status-container">
+            <Lottie
+              height="120px"
+              width="120px"
+              config={{
+                animationData: checked,
+                loop: false,
+                autoplay: true
+              }}
+            />
+            <h5 className="trello-status-text">It's empty!</h5>
+          </FadeIn>
+        </div>
+      );
+    }
+    return this.state.entries.map(entry => (
+      <TodoEntry
+        onDelete={this.handleDelete}
+        onDoneToggle={this.handleDoneToggle}
+        text={entry.text}
+        done={entry.done}
+        id={entry.id}
+        key={entry.id}
+      />
+    ));
+  };
+
   render() {
     return (
       <div id="todo-box" className="homepage-card">
@@ -107,18 +144,7 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
           autoComplete="off"
           onKeyUp={this.handleInputKey}
         />
-        <div>
-          {this.state.entries.map(entry => (
-            <TodoEntry
-              onDelete={this.handleDelete}
-              onDoneToggle={this.handleDoneToggle}
-              text={entry.text}
-              done={entry.done}
-              id={entry.id}
-              key={entry.id}
-            />
-          ))}
-        </div>
+        <div>{this.getEntries()}</div>
       </div>
     );
   }
