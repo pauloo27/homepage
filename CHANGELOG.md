@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Trello labels to the card viewer.
 - Google Calendar integration.
 - Simple mobile view.
+- Empty list message to the "To Do list".
 
 ### Changed
 
