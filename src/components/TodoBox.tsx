@@ -78,7 +78,7 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
   };
 
   handleDelete = (id: string) => {
-    $(function() {
+    $(function () {
       ($('[data-toggle="tooltip"]') as any).tooltip("dispose");
     });
     setTimeout(async () => {
@@ -99,6 +99,17 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
     await this.setState({ entries });
     this.saveTodoList();
   };
+
+  handleEdit = async (id: string, newText: string) => {
+    let entries = this.state.entries;
+    entries = entries.map(value => {
+      if (value.id === id) value.text = newText;
+
+      return value;
+    });
+    await this.setState({ entries });
+    this.saveTodoList();
+  }
 
   getEntries = () => {
     if (!this.state.loaded) return null;
@@ -124,6 +135,7 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
       <TodoEntry
         onDelete={this.handleDelete}
         onDoneToggle={this.handleDoneToggle}
+        onEdit={this.handleEdit}
         text={entry.text}
         done={entry.done}
         id={entry.id}
