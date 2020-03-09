@@ -12,7 +12,7 @@
 - Search bar
 - Bookmarks
 - TODO list
-- Calendar and Clock
+- Google Calendar Integration
 - Trello Integration
 - Day and Night wallpaper
 
