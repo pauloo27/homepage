@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Google Calendar integration.
 - Simple mobile view.
 - Empty list message to the "To Do list".
+- Edit mode to To Do Entry.
+- Color "fade out" effect to "checked" To Do entries.
 
 ### Changed
 
