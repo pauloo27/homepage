@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## Added
+
+- Event end time to the Google Calendar event list.
+
 ## [2.0.0] - 2020-03-09
 
 ### Added
