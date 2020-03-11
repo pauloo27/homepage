@@ -53,7 +53,9 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
             event.colorId = calendar.colorId;
             let displayTime = "All day";
             if (event.start.date === undefined) {
-              displayTime = event.start.dateTime.split("T")[1].substring(0, 5);
+              const eventStart = event.start.dateTime.split("T")[1].substring(0, 5)
+              const eventEnd = event.end.dateTime.split("T")[1].substring(0, 5);
+              displayTime = `${eventStart} - ${eventEnd}`;
             }
             event.displayTime = displayTime;
             return event;
