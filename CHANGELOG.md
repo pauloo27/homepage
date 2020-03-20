@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Added
 
 - Event end time to the Google Calendar event list.
+- Auto remove of white spaces from the credentials when saved.
+
+## Changed
+
+- The min-width to use the mobile view.
 
 ## [2.0.0] - 2020-03-09
 
