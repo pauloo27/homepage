@@ -5,6 +5,9 @@
   "author": "Pauloo27",
   "repository": "https://github.com/Pauloo27/homepage",
   "homepage": "http://pauloo27.github.io/homepage",
+  "resolutions": {
+    "@babel/preset-env": "^7.8.7"
+  },
   "dependencies": {
     "@crello/react-lottie": "^0.0.7",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
