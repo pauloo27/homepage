@@ -116,8 +116,8 @@ class GCalendarSettings extends Component<
     localStorage.setItem(
       "gcalendar-config",
       JSON.stringify({
-        clientId: this.state.clientId,
-        apiKey: this.state.apiKey
+        clientId: this.state.clientId.trim(),
+        apiKey: this.state.apiKey.trim()
       })
     );
   };

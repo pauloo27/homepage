@@ -326,7 +326,10 @@ class TrelloIntegration extends Component<
   };
 
   handleSave = (apiKey?: any) => {
-    localStorage.setItem("trello-config", JSON.stringify({ apiKey }));
+    localStorage.setItem(
+      "trello-config",
+      JSON.stringify({ apiKey: apiKey.trim() })
+    );
   };
 
   handleReady = (trello: any) => {
