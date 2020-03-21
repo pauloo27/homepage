@@ -65,13 +65,17 @@ class GCalendarSettings extends Component<
         scope: "https://www.googleapis.com/auth/calendar.readonly"
       })
       .catch(() => {
+        console.log("Cannot init the Calendar client.");
         if (gapi.auth2.getAuthInstance() === null) {
+          console.log("Calendar client's auth instance not found");
           this.updateSigninStatus(false);
           return;
         }
       })
       .then(() => {
+        console.log("Calendar client loaded");
         if (gapi.auth2.getAuthInstance() === null) {
+          console.log("Calendar client's auth instance not found");
           this.updateSigninStatus(false);
           return;
         }
@@ -85,6 +89,7 @@ class GCalendarSettings extends Component<
   };
 
   updateSigninStatus = (isSignedIn: boolean) => {
+    console.log("The login status was chagned to", isSignedIn);
     this.setState({ isSignedIn });
     this.props.onLoginStatusChange(isSignedIn);
   };
@@ -162,7 +167,8 @@ class GCalendarSettings extends Component<
                   href="https://developers.google.com/calendar/quickstart/js"
                 >
                   Google Developers Page
-                </a>.
+                </a>
+                .
               </label>
               <input
                 defaultValue={this.state.clientId}
