@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import * as gapiconfig from "../config/gapi.json";
+const gapiconfig = { apiKey: "", clientId: "" };
 
 export interface GCalendarSettingsProps {
   onLoginStatusChange: Function;
@@ -22,6 +22,16 @@ class GCalendarSettings extends Component<
   };
 
   async componentDidMount() {
+    try {
+      const config = require("../config/gapi.json");
+      if (config !== undefined) {
+        gapiconfig.clientId = config.clientId;
+        gapiconfig.apiKey = config.apiKey;
+      }
+    } catch (e) {
+      console.log("Cannot find credentials file at src/config/gapi.json");
+    }
+
     const script = document.createElement("script");
     script.src = "https://apis.google.com/js/api.js";
 
@@ -76,7 +86,8 @@ class GCalendarSettings extends Component<
   };
 
   getActionButton = (gapi: any) => {
-    if(gapiconfig.clientId === "" || gapiconfig.apiKey === "") return "No credentials provided (see ./config/gapi.json)"
+    if (gapiconfig.clientId === "" || gapiconfig.apiKey === "")
+      return "No credentials provided (see ./config/gapi.json)";
     if (!this.state.isClientReady) return null;
     if (this.state.isSignedIn) {
       return (
