@@ -16,7 +16,13 @@ jobs:
       uses: CultureHQ/actions-yarn@master
       with:
         args: install
-    
+
+    - name: Set credentials
+      run: ./.github/scripts/set-credentials.sh
+        env:
+          GAPI_APIKEY: ${{ secrets.GAPI_APIKEY }}
+          GAPI_CLIENTID: ${{ secrets.GAPI_CLIENTID }}
+
     - name: Build
       uses: CultureHQ/actions-yarn@master
       with:
