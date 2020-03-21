@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import * as gapiconfig from "../config/gapi.json";
 
 export interface GCalendarSettingsProps {
   onLoginStatusChange: Function;
@@ -9,8 +10,6 @@ export interface GCalendarSettingsProps {
 export interface GCalendarSettingsState {
   isSignedIn?: boolean;
   isClientReady: boolean;
-  clientId: string;
-  apiKey: string;
 }
 
 class GCalendarSettings extends Component<
@@ -19,20 +18,10 @@ class GCalendarSettings extends Component<
 > {
   state = {
     isSignedIn: undefined,
-    clientId: "",
-    apiKey: "",
     isClientReady: false
   };
 
   async componentDidMount() {
-    const value = localStorage.getItem("gcalendar-config");
-    if (value === null) {
-      this.handleSave();
-    } else {
-      const obj = JSON.parse(value!);
-      this.setState({ apiKey: obj.apiKey, clientId: obj.clientId });
-    }
-
     const script = document.createElement("script");
     script.src = "https://apis.google.com/js/api.js";
 
@@ -44,21 +33,13 @@ class GCalendarSettings extends Component<
     document.body.appendChild(script);
   }
 
-  handleClientIdChange = (e: React.ChangeEvent<HTMLElement>) => {
-    this.setState({ clientId: (e.target as any).value });
-  };
-
-  handleApiKeyChange = (e: React.ChangeEvent<HTMLElement>) => {
-    this.setState({ apiKey: (e.target as any).value });
-  };
-
   initClient = () => {
     const gapi = (window as any).gapi;
 
     gapi.client
       .init({
-        apiKey: this.state.apiKey,
-        clientId: this.state.clientId,
+        apiKey: gapiconfig.apiKey,
+        clientId: gapiconfig.clientId,
         discoveryDocs: [
           "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
         ],
@@ -95,6 +76,7 @@ class GCalendarSettings extends Component<
   };
 
   getActionButton = (gapi: any) => {
+    if(gapiconfig.clientId === "" || gapiconfig.apiKey === "") return "No credentials provided (see ./config/gapi.json)"
     if (!this.state.isClientReady) return null;
     if (this.state.isSignedIn) {
       return (
@@ -115,16 +97,6 @@ class GCalendarSettings extends Component<
         </button>
       );
     }
-  };
-
-  handleSave = () => {
-    localStorage.setItem(
-      "gcalendar-config",
-      JSON.stringify({
-        clientId: this.state.clientId.trim(),
-        apiKey: this.state.apiKey.trim()
-      })
-    );
   };
 
   render() {
@@ -158,30 +130,7 @@ class GCalendarSettings extends Component<
                 </span>{" "}
               </button>
             </div>
-            <div className="modal-body">
-              <label>
-                Get your credentials from{" "}
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://developers.google.com/calendar/quickstart/js"
-                >
-                  Google Developers Page
-                </a>
-                .
-              </label>
-              <input
-                defaultValue={this.state.clientId}
-                placeholder="Client ID"
-                onChange={this.handleClientIdChange}
-              />
-              <input
-                defaultValue={this.state.apiKey}
-                placeholder="API key"
-                onChange={this.handleApiKeyChange}
-              />
-              {this.getActionButton(gapi)}
-            </div>
+            <div className="modal-body">{this.getActionButton(gapi)}</div>
             <div className="modal-footer">
               <button
                 type="button"
@@ -191,11 +140,7 @@ class GCalendarSettings extends Component<
               >
                 Close
               </button>
-              <button
-                onClick={this.handleSave}
-                type="button"
-                className="btn btn-primary"
-              >
+              <button type="button" className="btn btn-primary">
                 Save changes
               </button>
             </div>
