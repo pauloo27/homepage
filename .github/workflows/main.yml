@@ -1,36 +1,36 @@
 name: Build and Deploy
 on:
   push:
-    branches:    
+    branches:
       - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
-      with:
-        persist-credentials: false
-    
-    - name: Install
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: install
+      - name: Checkout
+        uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        with:
+          persist-credentials: false
 
-    - name: Set credentials
-      run: ./.github/scripts/set-credentials.sh
+      - name: Install
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: install
+
+      - name: Set credentials
+        run: ./.github/scripts/set-credentials.sh
         env:
           GAPI_APIKEY: ${{ secrets.GAPI_APIKEY }}
           GAPI_CLIENTID: ${{ secrets.GAPI_CLIENTID }}
 
-    - name: Build
-      uses: CultureHQ/actions-yarn@master
-      with:
-        args: build
-    
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: build # The folder the action should deploy.
+      - name: Build
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: build # The folder the action should deploy.
