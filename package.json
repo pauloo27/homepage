@@ -5,9 +5,6 @@
   "author": "Pauloo27",
   "repository": "https://github.com/Pauloo27/homepage",
   "homepage": "http://pauloo27.github.io/homepage",
-  "resolutions": {
-    "@babel/preset-env": "^7.8.7"
-  },
   "dependencies": {
     "@crello/react-lottie": "^0.0.7",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
@@ -28,7 +25,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-fade-in": "^0.1.8",
-    "react-scripts": "3.4.0",
+    "react-scripts": "3.4.1",
     "react-trello-client": "^1.1.6",
     "typescript": "^3.7.5"
   },
