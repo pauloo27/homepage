@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echo "{\"apiKey\": \"$GAPI_APIKEY\", \"clientId\": \"$GAPI_CLIENTID\"}" > src/config/gapi.json
+echo "{\"apiKey\": \"$GAPI_APIKEY\", \"clientId\": \"$GAPI_CLIENTID\"}" > ./src/config/gapi.json
