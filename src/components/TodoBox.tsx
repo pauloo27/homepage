@@ -152,7 +152,7 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
           id="todo-new-entry"
           className=""
           type="text"
-          placeholder="Add new things to your TODO"
+          placeholder="Add new things to your To Do"
           autoComplete="off"
           onKeyUp={this.handleInputKey}
         />

@@ -11,10 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Event end time to the Google Calendar event list.
 - Auto remove of white spaces from the credentials when saved.
+- Config file to store Google API Credentials.
 
 ## Changed
 
 - The min-width to use the mobile view.
+
+## Removed
+
+- Per user Google API Credentials.
 
 ## [2.0.0] - 2020-03-09
 

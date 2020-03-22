@@ -11,7 +11,7 @@
 
 - Search bar
 - Bookmarks
-- TODO list
+- To Do list
 - Google Calendar Integration
 - Trello Integration
 - Day and Night wallpaper
