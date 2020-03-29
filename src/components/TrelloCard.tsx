@@ -4,15 +4,15 @@ import { faShareSquare } from "@fortawesome/free-regular-svg-icons";
 import { formatDate } from "../utils/Formater";
 
 const TrelloLabelColors = {
-  green: "#61bd4f",
-  yellow: "#f2d600",
-  orange: "#ff9f1a",
-  red: "#eb5a46",
-  purple: "#c377e0",
-  blue: "#0079bf",
-  sky: "#00c2e0",
-  lime: "#51e898",
-  pink: "#ff78cb",
+  green: "#59C059",
+  yellow: "#C0C059",
+  orange: "#C08C59",
+  red: "#C05959",
+  purple: "#8C59C0",
+  blue: "#597BC0",
+  sky: "#59C0C0",
+  lime: "#8CC059",
+  pink: "#C0598C",
   black: "#344563"
 };
 
@@ -42,7 +42,7 @@ class TrelloCard extends Component<TrelloCardProps> {
           <div
             key={label.id}
             className="trello-card-label"
-            style={{ backgroundColor: (TrelloLabelColors as any)[label.color] }}
+            style={{ color: "white", backgroundColor: (TrelloLabelColors as any)[label.color] }}
           >
             {label.name}
           </div>
