@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## Changed
+### Added
+- Trello checklists status to the card preview.
+
+### Changed
 
 - Trello label background colors.
 
