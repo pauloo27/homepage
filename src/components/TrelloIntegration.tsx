@@ -138,6 +138,7 @@ class TrelloIntegration extends Component<
         const cardsPromise = res.map(async (card: any) => {
           if (card.idChecklists.length === 0) return card;
 
+          console.log("get checklists");
           const checklistPromise = card.idChecklists.map(
             async (checklist: any) => {
               return new Promise(resolve => {
