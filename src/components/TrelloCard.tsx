@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareSquare } from "@fortawesome/free-regular-svg-icons";
+import { faShareSquare, faCheckSquare } from "@fortawesome/free-regular-svg-icons";
 import { formatDate } from "../utils/Formater";
 
 const TrelloLabelColors = {
@@ -32,6 +32,32 @@ class TrelloCard extends Component<TrelloCardProps> {
     return <div className="trello-card-due">{this.parseDate(card.due)}</div>;
   };
 
+  getChecklists = (card: any) => {
+    if (card.checklists === undefined) return null;
+
+    return (
+      <div className="trello-card-checklists">
+        {card.checklists.map((list: any) => {
+          const items = list.checkItems;
+          const completedItems = items.filter(
+            (item: any) => item.state === "complete"
+          );
+          return (
+            <div
+              key={list.id}
+              className={`trello-card-checklist ${
+                items.length === completedItems.length ? "completed" : ""
+              }`}
+            >
+              <FontAwesomeIcon className="icon" icon={faCheckSquare} />
+              {`${completedItems.length}/${items.length}`}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   getLabels = (card: any) => {
     const labels = card.labels as Array<any>;
     if (labels.length === 0) return null;
@@ -42,7 +68,10 @@ class TrelloCard extends Component<TrelloCardProps> {
           <div
             key={label.id}
             className="trello-card-label"
-            style={{ color: "white", backgroundColor: (TrelloLabelColors as any)[label.color] }}
+            style={{
+              color: "white",
+              backgroundColor: (TrelloLabelColors as any)[label.color]
+            }}
           >
             {label.name}
           </div>
@@ -62,7 +91,7 @@ class TrelloCard extends Component<TrelloCardProps> {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href={this.props.card.shortUrl}
+              href={card.shortUrl}
               className="trello-card-action-anchor"
               data-toggle="tooltip"
               data-placement="left"
@@ -75,6 +104,7 @@ class TrelloCard extends Component<TrelloCardProps> {
           </div>
         </div>
         {this.getDueDate(card)}
+        {this.getChecklists(card)}
       </div>
     );
   }

@@ -133,9 +133,32 @@ class TrelloIntegration extends Component<
     }
     trello.get(
       `lists/${listId}/cards`,
-      (res: any) => {
+      async (res: any) => {
         console.log("get cards");
-        const cards = res;
+        const cardsPromise = res.map(async (card: any) => {
+          if (card.idChecklists.length === 0) return card;
+
+          const checklistPromise = card.idChecklists.map(
+            async (checklist: any) => {
+              return new Promise(resolve => {
+                trello.get(
+                  `checklists/${checklist}`,
+                  (checklistRes: any) => {
+                    return resolve(checklistRes);
+                  },
+                  (err: any) => {
+                    resolve(undefined);
+                  }
+                );
+              });
+            }
+          );
+
+          const checklists = await Promise.all(checklistPromise);
+          card.checklists = checklists;
+          return card;
+        });
+        const cards = await Promise.all(cardsPromise);
         this.setState({ cards, status: 1 });
         this.props.onReady();
       },
