@@ -9,20 +9,20 @@
 
 ## Features
 
-- Search bar
-- Bookmarks
-- To Do list
-- Google Calendar Integration
-- Trello Integration
-- Day and Night wallpaper
+- Search bar.
+- Bookmarks.
+- To Do list.
+- Google Calendar Integration.
+- Trello Integration.
+- Day and Night wallpaper.
 
 ## How to use
 
 You can run it locally or use [the one hosted at GitHub Pages](https://pauloo27.github.io/homepage).
 
-## Changelog
+## CHANGELOG
 
-See the [Changelog file](./CHANGELOG.md)
+See the [CHANGELOG file](./CHANGELOG.md)
 
 ## License
 
