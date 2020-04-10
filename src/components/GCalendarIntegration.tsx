@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/CalendarIntegration.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import FadeIn from 'react-fade-in';
@@ -7,6 +6,7 @@ import { Lottie } from '@crello/react-lottie';
 import GCalendarSettings from './GCalendarSettings';
 import Clock from './Clock';
 import loader from '../assets/loader.json';
+import '../styles/CalendarIntegration.scss';
 
 interface GCalendarIntegrationState {
   /*
@@ -18,6 +18,8 @@ interface GCalendarIntegrationState {
   events: Array<any>;
   selectedDate: Date;
 }
+
+const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
   state = { loginState: 0, events: new Array<any>(), selectedDate: new Date() };
@@ -113,6 +115,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       eventsByDay.set(when, events);
     });
 
+    // sort days
     const sorted = Array.from(eventsByDay.entries()).sort();
 
     const content = new Array<any>();
@@ -120,8 +123,10 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     sorted.forEach((entry: Array<any>) => {
       const when = entry[0] as string;
+      const weekDay = weekDays[new Date(when).getUTCDay()];
       let events = entry[1] as Array<any>;
 
+      // sort events
       events = events.sort((a, b) => {
         if (a.displayTime === 'All day') return -1;
         if (b.displayTime === 'All day') return 1;
@@ -134,7 +139,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       content.push(
         <FadeIn key={when}>
           <div className="gcalendar-events">
-            <h6>{when}</h6>
+            <h6>{`${when} - ${weekDay}`}</h6>
             {events.map((event) => {
               const color = this.colors[event.colorId];
               return (
