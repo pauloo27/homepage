@@ -65,7 +65,12 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
           onDoubleClick={this.toggleEditMode}
         >
           <form onSubmit={this.finishEdit}>
-            <input autoFocus onChange={(e) => this.setState({ newText: e.target.value })} onFocus={(e) => e.target.select()} defaultValue={this.props.text} />
+            <input
+              autoFocus
+              onChange={(e) => this.setState({ newText: e.target.value })}
+              onFocus={(e) => e.target.select()}
+              defaultValue={this.props.text}
+            />
           </form>
         </div>
       );

@@ -18,6 +18,17 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
     'night-authorUrl': '',
   };
 
+  componentDidMount() {
+    this.setState({
+      'day-url': this.props.day.url,
+      'day-author': this.props.day.author,
+      'day-authorUrl': this.props.day.authorUrl,
+      'night-url': this.props.night.url,
+      'night-author': this.props.night.author,
+      'night-authorUrl': this.props.night.authorUrl,
+    });
+  }
+
   handleChange = (e: React.ChangeEvent<HTMLElement>) => {
     const { name } = e.target as any;
     const { value } = e.target as any;
@@ -39,17 +50,6 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
       },
     );
   };
-
-  componentDidMount() {
-    this.setState({
-      'day-url': this.props.day.url,
-      'day-author': this.props.day.author,
-      'day-authorUrl': this.props.day.authorUrl,
-      'night-url': this.props.night.url,
-      'night-author': this.props.night.author,
-      'night-authorUrl': this.props.night.authorUrl,
-    });
-  }
 
   render() {
     return (

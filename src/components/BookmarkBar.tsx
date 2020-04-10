@@ -13,10 +13,6 @@ interface BookmarkBarState {
 class BookmarkBar extends Component<any, BookmarkBarState> {
   state = { editable: false, entries: new Array<any>() };
 
-  saveBookmarks = () => {
-    localStorage.setItem('bookmarks', JSON.stringify(this.state.entries));
-  };
-
   componentDidMount() {
     const bookmarks = localStorage.getItem('bookmarks');
     if (bookmarks !== null) {
@@ -26,6 +22,10 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
       this.saveBookmarks();
     }
   }
+
+  saveBookmarks = () => {
+    localStorage.setItem('bookmarks', JSON.stringify(this.state.entries));
+  };
 
   handleEditToggle = () => {
     this.setState({ editable: !this.state.editable });

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import TodoEntry from './TodoEntry';
-import '../styles/TodoBox.scss';
 import $ from 'jquery';
 import FadeIn from 'react-fade-in';
 import { Lottie } from '@crello/react-lottie';
 import checked from '../assets/checked.json';
+import TodoEntry from './TodoEntry';
+import '../styles/TodoBox.scss';
 
 interface TodoEntryState {
   text: string;
@@ -24,11 +24,6 @@ interface TodoBoxState {
 class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
   state = { entries: new Array<TodoEntryState>(), loaded: false };
 
-  saveTodoList = () => {
-    localStorage.setItem('todo-list', JSON.stringify(this.state.entries));
-    this.props.setupTooltip();
-  };
-
   componentDidMount() {
     const todo = localStorage.getItem('todo-list');
     if (todo !== null) {
@@ -39,6 +34,11 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
       this.saveTodoList();
     }
   }
+
+  saveTodoList = () => {
+    localStorage.setItem('todo-list', JSON.stringify(this.state.entries));
+    this.props.setupTooltip();
+  };
 
   handleInputKey = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.keyCode === 13) {

@@ -20,14 +20,13 @@ class Clock extends Component<any, ClockState> {
 
   render() {
     const { date } = this.state;
-    const hour = `${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}:${pad(
-      date.getSeconds(),
-      2,
-    )}`;
+    const hours = pad(date.getHours(), 2);
+    const minutes = pad(date.getMinutes(), 2);
+    const seconds = pad(date.getSeconds(), 2);
     return (
       <>
         <h6 id="calendar-today">{formatDate(date)}</h6>
-        <h3 id="calendar-clock">{hour}</h3>
+        <h3 id="calendar-clock">{`${hours}:${minutes}:${seconds}`}</h3>
       </>
     );
   }

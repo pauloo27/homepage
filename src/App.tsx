@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchBar from './components/SearchBar';
 import BookmarkBar from './components/BookmarkBar';
-import './styles/App.scss';
 import TodoBox from './components/TodoBox';
 import TrelloIntegration from './components/TrelloIntegration';
 import GCalendarIntegration from './components/GCalendarIntegration';
@@ -9,9 +11,7 @@ import SearchEngineSettings from './components/SearchEngineSettings';
 import BackgroundSettings from './components/BackgroundSettings';
 import ProjectInfo from './components/ProjectInfo';
 import BackgroundInfo from './components/BackgroundInfo';
-import $ from 'jquery';
-import { faInfo } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './styles/App.scss';
 
 interface Background {
   url: string;
@@ -37,38 +37,6 @@ class App extends Component<any, AppState> {
   };
 
   timerId: any;
-
-  setupTooltip = () => {
-    $(() => {
-      ($('[data-toggle="tooltip"]') as any).tooltip();
-    });
-  };
-
-  setBackground = () => {
-    const now = new Date();
-    let currentBackground: Background;
-
-    if (now.getHours() >= 6 && now.getHours() < 18) {
-      currentBackground = this.state.dayBackground;
-    } else {
-      currentBackground = this.state.nightBackground;
-    }
-
-    if (this.state.currentBackground === currentBackground) return;
-
-    this.setState({ currentBackground });
-    document.getElementsByTagName('body')[0].background = currentBackground.url;
-  };
-
-  saveBackgrounds = () => {
-    localStorage.setItem(
-      'backgrounds',
-      JSON.stringify({
-        dayBackground: this.state.dayBackground,
-        nightBackground: this.state.nightBackground,
-      }),
-    );
-  };
 
   async componentDidMount() {
     const value = localStorage.getItem('backgrounds');
@@ -99,6 +67,38 @@ class App extends Component<any, AppState> {
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
+
+  setBackground = () => {
+    const now = new Date();
+    let currentBackground: Background;
+
+    if (now.getHours() >= 6 && now.getHours() < 18) {
+      currentBackground = this.state.dayBackground;
+    } else {
+      currentBackground = this.state.nightBackground;
+    }
+
+    if (this.state.currentBackground === currentBackground) return;
+
+    this.setState({ currentBackground });
+    document.getElementsByTagName('body')[0].background = currentBackground.url;
+  };
+
+  saveBackgrounds = () => {
+    localStorage.setItem(
+      'backgrounds',
+      JSON.stringify({
+        dayBackground: this.state.dayBackground,
+        nightBackground: this.state.nightBackground,
+      }),
+    );
+  };
+
+  setupTooltip = () => {
+    $(() => {
+      ($('[data-toggle="tooltip"]') as any).tooltip();
+    });
+  };
 
   handleTrelloReady = () => {
     this.setupTooltip();

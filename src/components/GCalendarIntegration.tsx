@@ -35,9 +35,9 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     this.colors = (await gapi.client.calendar.colors.get()).result.calendar;
 
     // resolve the calendars
-    const res = await gapi.client.calendar.calendarList.list();
+    const calendarsRes = await gapi.client.calendar.calendarList.list();
     // resolve the events for each calendar
-    const promises = await (res.result.items as Array<any>).map(
+    const promises = await (calendarsRes.result.items as Array<any>).map(
       async (calendar) => {
         const res = await gapi.client.calendar.events.list({
           calendarId: calendar.id,

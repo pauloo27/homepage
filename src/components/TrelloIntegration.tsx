@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/TrelloIntegration.scss';
 import {
   faCog,
   faTimes,
@@ -13,6 +12,7 @@ import TrelloSettings from './TrelloSettings';
 import TrelloCard from './TrelloCard';
 import loader from '../assets/loader.json';
 import checked from '../assets/checked.json';
+import '../styles/TrelloIntegration.scss';
 
 interface TrelloIntegrationProps {
   apiKey: string;
@@ -144,7 +144,7 @@ class TrelloIntegration extends Component<
               trello.get(
                 `checklists/${checklist}`,
                 (checklistRes: any) => resolve(checklistRes),
-                (err: any) => {
+                () => {
                   resolve(undefined);
                 },
               );

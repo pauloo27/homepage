@@ -18,10 +18,6 @@ class SearchEngineSettings extends Component<
 > {
   state = { engineType: '', engineUrl: '' };
 
-  saveEngine = () => {
-    localStorage.setItem('search-engine', JSON.stringify(this.state));
-  };
-
   async componentDidMount() {
     const config = localStorage.getItem('search-engine');
     if (config === null) {
@@ -36,6 +32,10 @@ class SearchEngineSettings extends Component<
     }
     this.props.onSave(this.state);
   }
+
+  saveEngine = () => {
+    localStorage.setItem('search-engine', JSON.stringify(this.state));
+  };
 
   handleChange = (e: React.ChangeEvent<HTMLElement>) => {
     this.setState({ engineType: (e.target as any).value! });
