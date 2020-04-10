@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import "../styles/CalendarIntegration.scss";
-import Clock from "./Clock";
-import GCalendarSettings from "./GCalendarSettings";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
-import FadeIn from "react-fade-in";
-import { Lottie } from "@crello/react-lottie";
-import loader from "../assets/loader.json";
+import React, { Component } from 'react';
+import '../styles/CalendarIntegration.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
+import FadeIn from 'react-fade-in';
+import { Lottie } from '@crello/react-lottie';
+import GCalendarSettings from './GCalendarSettings';
+import Clock from './Clock';
+import loader from '../assets/loader.json';
 
 interface GCalendarIntegrationState {
   /*
@@ -21,10 +21,11 @@ interface GCalendarIntegrationState {
 
 class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
   state = { loginState: 0, events: new Array<any>(), selectedDate: new Date() };
+
   colors: any = {};
 
   loadEvents = async (start: Date) => {
-    const gapi = (window as any).gapi;
+    const { gapi } = window as any;
 
     const end = new Date(start.getTime() + 30 * 24 * 60 * 60 * 1000);
 
@@ -37,7 +38,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     const res = await gapi.client.calendar.calendarList.list();
     // resolve the events for each calendar
     const promises = await (res.result.items as Array<any>).map(
-      async calendar => {
+      async (calendar) => {
         const res = await gapi.client.calendar.events.list({
           calendarId: calendar.id,
           timeMin: start.toISOString(),
@@ -45,23 +46,23 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
           showDeleted: false,
           singleEvents: true,
           maxResults: 50,
-          orderBy: "startTime"
+          orderBy: 'startTime',
         });
         events.push(
           ...res.result.items.map((event: any) => {
             event.calendar = calendar;
             event.colorId = calendar.colorId;
-            let displayTime = "All day";
+            let displayTime = 'All day';
             if (event.start.date === undefined) {
-              const eventStart = event.start.dateTime.split("T")[1].substring(0, 5)
-              const eventEnd = event.end.dateTime.split("T")[1].substring(0, 5);
+              const eventStart = event.start.dateTime.split('T')[1].substring(0, 5);
+              const eventEnd = event.end.dateTime.split('T')[1].substring(0, 5);
               displayTime = `${eventStart} - ${eventEnd}`;
             }
             event.displayTime = displayTime;
             return event;
-          })
+          }),
         );
-      }
+      },
     );
 
     await Promise.all(promises);
@@ -70,8 +71,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
   };
 
   getStatus = () => {
-    if (this.state.loginState === -1)
-      return <h4>Configure Google Calendar to see future events</h4>;
+    if (this.state.loginState === -1) return <h4>Configure Google Calendar to see future events</h4>;
     return null;
   };
 
@@ -99,11 +99,11 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       );
     }
 
-    let eventsByDay = new Map<string, Array<any>>();
+    const eventsByDay = new Map<string, Array<any>>();
 
-    this.state.events.forEach(event => {
+    this.state.events.forEach((event) => {
       let when = event.start.date;
-      if (when === undefined) when = event.start.dateTime.split("T")[0];
+      if (when === undefined) when = event.start.dateTime.split('T')[0];
 
       let events = new Array<any>();
       if (eventsByDay.has(when)) {
@@ -115,7 +115,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     const sorted = Array.from(eventsByDay.entries()).sort();
 
-    let content = new Array<any>();
+    const content = new Array<any>();
     content.push(<h5 key="header">Future events:</h5>);
 
     sorted.forEach((entry: Array<any>) => {
@@ -123,8 +123,8 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       let events = entry[1] as Array<any>;
 
       events = events.sort((a, b) => {
-        if (a.displayTime === "All day") return -1;
-        if (b.displayTime === "All day") return 1;
+        if (a.displayTime === 'All day') return -1;
+        if (b.displayTime === 'All day') return 1;
 
         if (a.displayTime < b.displayTime) return -1;
         if (a.displayTime > b.displayTime) return 1;
@@ -135,20 +135,22 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
         <FadeIn key={when}>
           <div className="gcalendar-events">
             <h6>{when}</h6>
-            {events.map(event => {
+            {events.map((event) => {
               const color = this.colors[event.colorId];
               return (
                 <div
                   key={event.id}
                   style={{
                     backgroundColor: color.background,
-                    color: color.foreground
+                    color: color.foreground,
                   }}
-                >{`${event.displayTime}: ${event.summary}`}</div>
+                >
+                  {`${event.displayTime}: ${event.summary}`}
+                </div>
               );
             })}
           </div>
-        </FadeIn>
+        </FadeIn>,
       );
     });
 

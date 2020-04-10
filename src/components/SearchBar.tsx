@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "../styles/SearchBar.scss";
+import React, { Component } from 'react';
+import '../styles/SearchBar.scss';
 
 interface SearchBarProps {
   engineType: string;
@@ -10,26 +10,26 @@ class SearchBar extends Component<SearchBarProps> {
   render() {
     if (this.props.engineType.length === 0) return null;
 
-    let name = "";
-    let action = "";
+    let name = '';
+    let action = '';
 
-    if (this.props.engineType === "duckduckgo") {
-      name = "DuckDuckGO";
-      action = "https://duckduckgo.com";
+    if (this.props.engineType === 'duckduckgo') {
+      name = 'DuckDuckGO';
+      action = 'https://duckduckgo.com';
     }
 
-    if (this.props.engineType === "google") {
-      name = "Google";
-      action = "https://google.com/search";
+    if (this.props.engineType === 'google') {
+      name = 'Google';
+      action = 'https://google.com/search';
     }
 
-    if (this.props.engineType === "custom") {
-      name = this.props.engineUrl!.split("//")[1].split("/")[0];
+    if (this.props.engineType === 'custom') {
+      name = this.props.engineUrl!.split('//')[1].split('/')[0];
       action = this.props.engineUrl!;
     }
 
-    let icon = `https://external-content.duckduckgo.com/ip3/${
-      action.split("://")[1].split("/")[0]
+    const icon = `https://external-content.duckduckgo.com/ip3/${
+      action.split('://')[1].split('/')[0]
     }.ico`;
 
     return (

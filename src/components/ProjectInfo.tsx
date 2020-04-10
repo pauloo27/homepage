@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 class ProjectInfo extends Component {
   render() {
@@ -15,14 +15,16 @@ class ProjectInfo extends Component {
             <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
           </div>
         </div>
-        Homepage made by{" "}
+        Homepage made by
+        {' '}
         <a
           href="https://github.com/Pauloo27/homepage"
           target="_blank"
           rel="noopener noreferrer"
         >
           Pauloo27
-        </a>{" "}
+        </a>
+        {' '}
         under GPL-2 license
       </div>
     );

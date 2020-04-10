@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 interface BackgroundInfoProps {
   backgroundAuthor: string;
@@ -11,7 +11,8 @@ class BackgroundInfo extends Component<BackgroundInfoProps> {
   render() {
     return (
       <div id="background-info" className="footer-info">
-        Image by{" "}
+        Image by
+        {' '}
         <a
           href={this.props.backgroundAuthorUrl}
           target="_blank"

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import "../styles/TrelloSettings.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import TrelloClient, { Trello } from "react-trello-client";
+import React, { Component } from 'react';
+import '../styles/TrelloSettings.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import TrelloClient, { Trello } from 'react-trello-client';
 
 interface TrelloSettingsProps {
   apiKey: string;
@@ -28,9 +28,9 @@ class TrelloSettings extends Component<
   TrelloSettingsState
 > {
   state = {
-    apiKey: "",
-    loadedApiKey: "",
-    loginState: 0
+    apiKey: '',
+    loadedApiKey: '',
+    loginState: 0,
   };
 
   handleSave = () => {
@@ -38,12 +38,10 @@ class TrelloSettings extends Component<
 
     if (this.state.apiKey.trim().length === 0) {
       loginState = -2;
+    } else if (localStorage.getItem('trello_token') === null) {
+      loginState = -1;
     } else {
-      if (localStorage.getItem("trello_token") === null) {
-        loginState = -1;
-      } else {
-        loginState = 1;
-      }
+      loginState = 1;
     }
 
     this.setState({ loadedApiKey: this.state.apiKey, loginState });
@@ -59,18 +57,16 @@ class TrelloSettings extends Component<
 
     if (this.props.apiKey.trim().length === 0) {
       loginState = -2;
+    } else if (localStorage.getItem('trello_token') === null) {
+      loginState = -1;
     } else {
-      if (localStorage.getItem("trello_token") === null) {
-        loginState = -1;
-      } else {
-        loginState = 1;
-      }
+      loginState = 1;
     }
 
     await this.setState({
       loginState,
       apiKey: this.props.apiKey,
-      loadedApiKey: this.props.apiKey
+      loadedApiKey: this.props.apiKey,
     });
   };
 
@@ -79,8 +75,7 @@ class TrelloSettings extends Component<
   };
 
   getTrelloClient = () => {
-    if (this.state.loginState === -2 || this.state.loginState === 0)
-      return null;
+    if (this.state.loginState === -2 || this.state.loginState === 0) return null;
     return (
       <TrelloClient
         apiKey={this.state.loadedApiKey} // Get the API key from https://trello.com/app-key/
@@ -90,16 +85,16 @@ class TrelloSettings extends Component<
         intentEndpoint="https://trello.com" // string: "https://trello.com"
         authorizeName="Homepage" // string: "React Trello Client"
         authorizeType="popup" // string: popup | redirect
-        authorizePersist={true}
-        authorizeInteractive={true}
-        authorizeScopeRead={true} // boolean: {true} | {false}
-        authorizeScopeWrite={true} // boolean: {true} | {false}
-        authorizeScopeAccount={true} // boolean: {true} | {false}
+        authorizePersist
+        authorizeInteractive
+        authorizeScopeRead // boolean: {true} | {false}
+        authorizeScopeWrite // boolean: {true} | {false}
+        authorizeScopeAccount // boolean: {true} | {false}
         authorizeExpiration="never" // string: "1hour", "1day", "30days" | "never"
         authorizeOnSuccess={this.handleLogin} // function: {() => console.log('Login successful!')}
-        authorizeOnError={() => console.log("Login error!")} // function: {() => console.log('Login error!')}
-        autoAuthorize={true} // boolean: {true} | {false}
-        authorizeButton={true} // boolean: {true} | {false}
+        authorizeOnError={() => console.log('Login error!')} // function: {() => console.log('Login error!')}
+        autoAuthorize // boolean: {true} | {false}
+        authorizeButton // boolean: {true} | {false}
         buttonStyle="metamorph" // string: "metamorph" | "flat"
         buttonColor="green" // string: "green" | "grayish-blue" | "light"
         buttonText="Login with Trello" // string: "Login with Trello"
@@ -136,7 +131,8 @@ class TrelloSettings extends Component<
             </div>
             <div className="modal-body">
               <label>
-                Login into your Trello Account and get an API key in{" "}
+                Login into your Trello Account and get an API key in
+                {' '}
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -153,7 +149,7 @@ class TrelloSettings extends Component<
               />
               <div
                 id="trello-login-container"
-                className={this.state.loginState !== -1 ? "hidden" : ""}
+                className={this.state.loginState !== -1 ? 'hidden' : ''}
               >
                 {this.getTrelloClient()}
               </div>

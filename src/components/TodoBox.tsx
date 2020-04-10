@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import TodoEntry from "./TodoEntry";
-import "../styles/TodoBox.scss";
-import $ from "jquery";
-import FadeIn from "react-fade-in";
-import { Lottie } from "@crello/react-lottie";
-import checked from "../assets/checked.json";
+import React, { Component } from 'react';
+import TodoEntry from './TodoEntry';
+import '../styles/TodoBox.scss';
+import $ from 'jquery';
+import FadeIn from 'react-fade-in';
+import { Lottie } from '@crello/react-lottie';
+import checked from '../assets/checked.json';
 
 interface TodoEntryState {
   text: string;
@@ -25,12 +25,12 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
   state = { entries: new Array<TodoEntryState>(), loaded: false };
 
   saveTodoList = () => {
-    localStorage.setItem("todo-list", JSON.stringify(this.state.entries));
+    localStorage.setItem('todo-list', JSON.stringify(this.state.entries));
     this.props.setupTooltip();
   };
 
   componentDidMount() {
-    const todo = localStorage.getItem("todo-list");
+    const todo = localStorage.getItem('todo-list');
     if (todo !== null) {
       const entries = JSON.parse(todo);
       this.setState({ entries, loaded: true });
@@ -48,20 +48,19 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
         return;
       }
 
-      let id = "";
+      let id = '';
 
       do {
-        id =
-          Math.random()
+        id = Math.random()
+          .toString(36)
+          .substring(2, 12)
+          + Math.random()
             .toString(36)
-            .substring(2, 12) +
-          Math.random()
+            .substring(2, 12)
+          + Math.random()
             .toString(36)
-            .substring(2, 12) +
-          Math.random()
-            .toString(36)
-            .substring(2, 12) +
-          Math.random()
+            .substring(2, 12)
+          + Math.random()
             .toString(36)
             .substring(2, 12);
       } while (
@@ -69,29 +68,29 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
         this.state.entries.filter(entry => entry.id === id).length !== 0
       );
 
-      const entries = this.state.entries;
+      const { entries } = this.state;
       entries.push({ text: value, done: false, id });
       this.setState({ entries });
       this.saveTodoList();
-      (e.target as any).value = "";
+      (e.target as any).value = '';
     }
   };
 
   handleDelete = (id: string) => {
-    $(function () {
-      ($('[data-toggle="tooltip"]') as any).tooltip("dispose");
+    $(() => {
+      ($('[data-toggle="tooltip"]') as any).tooltip('dispose');
     });
     setTimeout(async () => {
-      let entries = this.state.entries;
-      entries = entries.filter(value => value.id !== id);
+      let { entries } = this.state;
+      entries = entries.filter((value) => value.id !== id);
       await this.setState({ entries });
       this.saveTodoList();
     }, 200);
   };
 
   handleDoneToggle = async (id: string, done: boolean) => {
-    let entries = this.state.entries;
-    entries = entries.map(value => {
+    let { entries } = this.state;
+    entries = entries.map((value) => {
       if (value.id === id) value.done = done;
 
       return value;
@@ -101,8 +100,8 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
   };
 
   handleEdit = async (id: string, newText: string) => {
-    let entries = this.state.entries;
-    entries = entries.map(value => {
+    let { entries } = this.state;
+    entries = entries.map((value) => {
       if (value.id === id) value.text = newText;
 
       return value;
@@ -113,7 +112,7 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
 
   getEntries = () => {
     if (!this.state.loaded) return null;
-    if (this.state.entries.length === 0)
+    if (this.state.entries.length === 0) {
       return (
         <div className="d-flex flex-column  align-items-center">
           <FadeIn className="trello-status-container">
@@ -123,15 +122,16 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
               config={{
                 animationData: checked,
                 loop: false,
-                autoplay: true
+                autoplay: true,
               }}
             />
             <h5 className="trello-status-text">It's empty!</h5>
           </FadeIn>
         </div>
       );
+    }
 
-    return this.state.entries.map(entry => (
+    return this.state.entries.map((entry) => (
       <TodoEntry
         onDelete={this.handleDelete}
         onDoneToggle={this.handleDoneToggle}

@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import SearchBar from "./components/SearchBar";
-import BookmarkBar from "./components/BookmarkBar";
-import "./styles/App.scss";
-import TodoBox from "./components/TodoBox";
-import TrelloIntegration from "./components/TrelloIntegration";
-import GCalendarIntegration from "./components/GCalendarIntegration";
-import SearchEngineSettings from "./components/SearchEngineSettings";
-import BackgroundSettings from "./components/BackgroundSettings";
-import ProjectInfo from "./components/ProjectInfo";
-import BackgroundInfo from "./components/BackgroundInfo";
-import $ from "jquery";
-import { faInfo } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { Component } from 'react';
+import SearchBar from './components/SearchBar';
+import BookmarkBar from './components/BookmarkBar';
+import './styles/App.scss';
+import TodoBox from './components/TodoBox';
+import TrelloIntegration from './components/TrelloIntegration';
+import GCalendarIntegration from './components/GCalendarIntegration';
+import SearchEngineSettings from './components/SearchEngineSettings';
+import BackgroundSettings from './components/BackgroundSettings';
+import ProjectInfo from './components/ProjectInfo';
+import BackgroundInfo from './components/BackgroundInfo';
+import $ from 'jquery';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Background {
   url: string;
@@ -29,17 +29,17 @@ interface AppState {
 
 class App extends Component<any, AppState> {
   state = {
-    dayBackground: { url: "", author: "", authorUrl: "" },
-    nightBackground: { url: "", author: "", authorUrl: "" },
-    currentBackground: { url: "", author: "", authorUrl: "" },
-    engineType: "",
-    engineUrl: undefined
+    dayBackground: { url: '', author: '', authorUrl: '' },
+    nightBackground: { url: '', author: '', authorUrl: '' },
+    currentBackground: { url: '', author: '', authorUrl: '' },
+    engineType: '',
+    engineUrl: undefined,
   };
 
   timerId: any;
 
   setupTooltip = () => {
-    $(function() {
+    $(() => {
       ($('[data-toggle="tooltip"]') as any).tooltip();
     });
   };
@@ -57,33 +57,33 @@ class App extends Component<any, AppState> {
     if (this.state.currentBackground === currentBackground) return;
 
     this.setState({ currentBackground });
-    document.getElementsByTagName("body")[0].background = currentBackground.url;
+    document.getElementsByTagName('body')[0].background = currentBackground.url;
   };
 
   saveBackgrounds = () => {
     localStorage.setItem(
-      "backgrounds",
+      'backgrounds',
       JSON.stringify({
         dayBackground: this.state.dayBackground,
-        nightBackground: this.state.nightBackground
-      })
+        nightBackground: this.state.nightBackground,
+      }),
     );
   };
 
   async componentDidMount() {
-    const value = localStorage.getItem("backgrounds");
+    const value = localStorage.getItem('backgrounds');
     if (value === null) {
       await this.setState({
         dayBackground: {
-          url: "https://i.imgur.com/2yZEWjj.jpg",
-          author: "Alex Knight",
-          authorUrl: "https://unsplash.com/@agkdesign"
+          url: 'https://i.imgur.com/2yZEWjj.jpg',
+          author: 'Alex Knight',
+          authorUrl: 'https://unsplash.com/@agkdesign',
         },
         nightBackground: {
-          url: "https://i.imgur.com/ilSeY3w.jpg",
-          author: "Alex Knight",
-          authorUrl: "https://unsplash.com/@agkdesign"
-        }
+          url: 'https://i.imgur.com/ilSeY3w.jpg',
+          author: 'Alex Knight',
+          authorUrl: 'https://unsplash.com/@agkdesign',
+        },
       });
 
       this.saveBackgrounds();
@@ -110,7 +110,7 @@ class App extends Component<any, AppState> {
 
   handleBackgroundSave = async (
     dayBackground: Background,
-    nightBackground: Background
+    nightBackground: Background,
   ) => {
     await this.setState({ dayBackground, nightBackground });
     await this.saveBackgrounds();
@@ -118,27 +118,26 @@ class App extends Component<any, AppState> {
   };
 
   loadTrelloIntegration = () => {
-    const configEncoded = localStorage.getItem("trello-config");
+    const configEncoded = localStorage.getItem('trello-config');
     if (configEncoded === null) {
       return (
         <TrelloIntegration
-          apiKey={""}
-          onReady={this.handleTrelloReady}
-        />
-      );
-    } else {
-      const config = JSON.parse(configEncoded);
-      return (
-        <TrelloIntegration
-          apiKey={config.apiKey}
+          apiKey=""
           onReady={this.handleTrelloReady}
         />
       );
     }
+    const config = JSON.parse(configEncoded);
+    return (
+      <TrelloIntegration
+        apiKey={config.apiKey}
+        onReady={this.handleTrelloReady}
+      />
+    );
   };
 
   render() {
-    if (this.state.currentBackground.url === "") return null;
+    if (this.state.currentBackground.url === '') return null;
 
     this.setupTooltip();
 
@@ -186,7 +185,8 @@ class App extends Component<any, AppState> {
                 <BackgroundInfo
                   backgroundAuthor={this.state.currentBackground.author}
                   backgroundAuthorUrl={this.state.currentBackground.authorUrl}
-                />{" "}
+                />
+                {' '}
               </div>
             </div>
           </div>

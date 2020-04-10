@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-const gapiconfig = { apiKey: "", clientId: "" };
+import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
+const gapiconfig = { apiKey: '', clientId: '' };
 
 export interface GCalendarSettingsProps {
   onLoginStatusChange: Function;
@@ -18,53 +19,52 @@ class GCalendarSettings extends Component<
 > {
   state = {
     isSignedIn: undefined,
-    isClientReady: false
+    isClientReady: false,
   };
 
   async componentDidMount() {
     try {
-      const config = require("../config/gapi.json");
+      const config = require('../config/gapi.json');
       if (config !== undefined) {
         gapiconfig.clientId = config.clientId;
         gapiconfig.apiKey = config.apiKey;
       }
     } catch (e) {
-      console.log("Cannot find credentials file at src/config/gapi.json");
+      console.log('Cannot find credentials file at src/config/gapi.json');
     }
 
-    const script = document.createElement("script");
-    script.src = "https://apis.google.com/js/api.js";
+    const script = document.createElement('script');
+    script.src = 'https://apis.google.com/js/api.js';
 
     script.onload = () => {
-      const gapi = (window as any).gapi;
-      gapi.load("client:auth2", this.initClient);
+      const { gapi } = window as any;
+      gapi.load('client:auth2', this.initClient);
     };
 
     document.body.appendChild(script);
   }
 
   initClient = () => {
-    const gapi = (window as any).gapi;
+    const { gapi } = window as any;
 
     gapi.client
       .init({
         apiKey: gapiconfig.apiKey,
         clientId: gapiconfig.clientId,
         discoveryDocs: [
-          "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+          'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
         ],
-        scope: "https://www.googleapis.com/auth/calendar.readonly"
+        scope: 'https://www.googleapis.com/auth/calendar.readonly',
       })
       .catch(() => {
-        console.log("Cannot init the Calendar client.");
+        console.log('Cannot init the Calendar client.');
         if (gapi.auth2.getAuthInstance() === null) {
           console.log("Calendar client's auth instance not found");
           this.updateSigninStatus(false);
-          return;
         }
       })
       .then(() => {
-        console.log("Calendar client loaded");
+        console.log('Calendar client loaded');
         if (gapi.auth2.getAuthInstance() === null) {
           console.log("Calendar client's auth instance not found");
           this.updateSigninStatus(false);
@@ -80,14 +80,13 @@ class GCalendarSettings extends Component<
   };
 
   updateSigninStatus = (isSignedIn: boolean) => {
-    console.log("The login status was chagned to", isSignedIn);
+    console.log('The login status was chagned to', isSignedIn);
     this.setState({ isSignedIn });
     this.props.onLoginStatusChange(isSignedIn);
   };
 
   getActionButton = (gapi: any) => {
-    if (gapiconfig.clientId === "" || gapiconfig.apiKey === "")
-      return "No credentials provided (see ./config/gapi.json)";
+    if (gapiconfig.clientId === '' || gapiconfig.apiKey === '') return 'No credentials provided (see ./config/gapi.json)';
     if (!this.state.isClientReady) return null;
     if (this.state.isSignedIn) {
       return (
@@ -98,22 +97,21 @@ class GCalendarSettings extends Component<
           Sign out
         </button>
       );
-    } else {
-      return (
-        <button
-          onClick={() => gapi.auth2.getAuthInstance().signIn()}
-          className="btn btn-primary"
-        >
-          Sign in with Google Account
-        </button>
-      );
     }
+    return (
+      <button
+        onClick={() => gapi.auth2.getAuthInstance().signIn()}
+        className="btn btn-primary"
+      >
+        Sign in with Google Account
+      </button>
+    );
   };
 
   render() {
     if (this.state.isSignedIn === undefined) return null;
 
-    const gapi = (window as any).gapi;
+    const { gapi } = window as any;
 
     return (
       <div
@@ -138,7 +136,8 @@ class GCalendarSettings extends Component<
               >
                 <span aria-hidden="true">
                   <FontAwesomeIcon icon={faTimes} />
-                </span>{" "}
+                </span>
+                {' '}
               </button>
             </div>
             <div className="modal-body">{this.getActionButton(gapi)}</div>

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { formatDate, withLeadingZeroes as pad } from "../utils/Formater";
+import React, { Component } from 'react';
+import { formatDate, withLeadingZeroes as pad } from '../utils/Formater';
 
 interface ClockState {
   date: Date;
@@ -22,7 +22,7 @@ class Clock extends Component<any, ClockState> {
     const { date } = this.state;
     const hour = `${pad(date.getHours(), 2)}:${pad(date.getMinutes(), 2)}:${pad(
       date.getSeconds(),
-      2
+      2,
     )}`;
     return (
       <>

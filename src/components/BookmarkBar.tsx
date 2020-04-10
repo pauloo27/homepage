@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import "../styles/BookmarkBar.scss";
-import BookmarkEntry from "./BookmarkEntry";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
-import BookmarkEditor from "./BookmarkEditor";
+import React, { Component } from 'react';
+import '../styles/BookmarkBar.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faPen, faCheck } from '@fortawesome/free-solid-svg-icons';
+import BookmarkEntry from './BookmarkEntry';
+import BookmarkEditor from './BookmarkEditor';
 
 interface BookmarkBarState {
   editable: boolean;
@@ -14,11 +14,11 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   state = { editable: false, entries: new Array<any>() };
 
   saveBookmarks = () => {
-    localStorage.setItem("bookmarks", JSON.stringify(this.state.entries));
+    localStorage.setItem('bookmarks', JSON.stringify(this.state.entries));
   };
 
   componentDidMount() {
-    const bookmarks = localStorage.getItem("bookmarks");
+    const bookmarks = localStorage.getItem('bookmarks');
     if (bookmarks !== null) {
       const entries = JSON.parse(bookmarks);
       this.setState({ entries });
@@ -32,34 +32,33 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   };
 
   handleBookmarkDelete = async (bookmark: any) => {
-    let entries = this.state.entries;
-    entries = entries.filter(entry => entry.id !== bookmark.id);
+    let { entries } = this.state;
+    entries = entries.filter((entry) => entry.id !== bookmark.id);
     await this.setState({ entries });
     this.saveBookmarks();
   };
 
   handleBookmarkUpdate = async (bookmark: any) => {
-    let entries = this.state.entries;
-    entries = entries.filter(entry => entry.id !== bookmark.id);
+    let { entries } = this.state;
+    entries = entries.filter((entry) => entry.id !== bookmark.id);
     entries.push(bookmark);
     await this.setState({ entries });
     this.saveBookmarks();
   };
 
   handleNewBookmark = (entry: any) => {
-    let id = "";
+    let id = '';
     do {
-      id =
-        Math.random()
+      id = Math.random()
+        .toString(36)
+        .substring(2, 12)
+        + Math.random()
           .toString(36)
-          .substring(2, 12) +
-        Math.random()
+          .substring(2, 12)
+        + Math.random()
           .toString(36)
-          .substring(2, 12) +
-        Math.random()
-          .toString(36)
-          .substring(2, 12) +
-        Math.random()
+          .substring(2, 12)
+        + Math.random()
           .toString(36)
           .substring(2, 12);
     } while (
@@ -68,7 +67,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
     );
     entry.id = id;
 
-    const entries = this.state.entries;
+    const { entries } = this.state;
     entries.push(entry);
     this.setState({ entries });
     this.saveBookmarks();
@@ -76,13 +75,13 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   };
 
   getEntries = () => {
-    let entries = this.state.entries;
+    let { entries } = this.state;
 
     if (entries.length > 14) {
       entries = entries.slice(0, 15);
     }
 
-    const bookmarks = entries.map(bookmark => (
+    const bookmarks = entries.map((bookmark) => (
       <BookmarkEntry
         key={bookmark.id}
         id={bookmark.id}
@@ -95,21 +94,20 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
     ));
     if (entries.length > 14) {
       return (
-        <React.Fragment>
+        <>
           {bookmarks}
           <h4>...</h4>
-        </React.Fragment>
+        </>
       );
-    } else {
-      return bookmarks;
     }
+    return bookmarks;
   };
 
   render() {
     return (
       <div id="bookmark-bar" className="homepage-card">
         <div
-          className={`bookmark-list ${this.state.editable ? "editable" : ""}`}
+          className={`bookmark-list ${this.state.editable ? 'editable' : ''}`}
         >
           {this.getEntries()}
         </div>

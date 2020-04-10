@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
-import { faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
+import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faCircle } from '@fortawesome/free-regular-svg-icons';
+import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
 
 interface TodoEntryProps {
   id: string;
@@ -19,7 +19,7 @@ interface TodoEntryState {
 }
 
 class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
-  state = { done: false, edit: false, newText: "" };
+  state = { done: false, edit: false, newText: '' };
 
   componentDidMount() {
     this.setState({ done: this.props.done });
@@ -51,7 +51,7 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
   finishEdit = () => {
     this.toggleEditMode();
     let text = this.state.newText;
-    if (text.trim() === "") text = this.props.text;
+    if (text.trim() === '') text = this.props.text;
     this.props.onEdit(this.props.id, text);
   }
 
@@ -60,7 +60,7 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
       return (
         <div
           className={
-            this.state.edit ? "todo-entry-text edit" : "todo-entry-text"
+            this.state.edit ? 'todo-entry-text edit' : 'todo-entry-text'
           }
           onDoubleClick={this.toggleEditMode}
         >
@@ -69,23 +69,22 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
           </form>
         </div>
       );
-    } else {
-      return (
-        <div
-          className={
-            this.state.done ? "todo-entry-text checked" : "todo-entry-text"
-          }
-          onDoubleClick={this.toggleEditMode}
-        >
-          {this.props.text}
-        </div>
-      )
     }
+    return (
+      <div
+        className={
+            this.state.done ? 'todo-entry-text checked' : 'todo-entry-text'
+          }
+        onDoubleClick={this.toggleEditMode}
+      >
+        {this.props.text}
+      </div>
+    );
   }
 
   getIcon = () => {
     if (this.state.edit) return faPen;
-    return this.state.done ? faCheckCircle : faCircle
+    return this.state.done ? faCheckCircle : faCircle;
   }
 
   render() {
@@ -100,7 +99,7 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
           >
             <FontAwesomeIcon
               className={
-                this.state.done && !this.state.edit ? "icon-checked" : ""
+                this.state.done && !this.state.edit ? 'icon-checked' : ''
               }
               icon={this.getIcon()}
             />

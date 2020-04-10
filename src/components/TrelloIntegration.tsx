@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import "../styles/TrelloIntegration.scss";
-import TrelloCard from "./TrelloCard";
+import React, { Component } from 'react';
+import '../styles/TrelloIntegration.scss';
 import {
   faCog,
   faTimes,
   faAngleLeft,
-  faAngleRight
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TrelloSettings from "./TrelloSettings";
-import FadeIn from "react-fade-in";
-import { Lottie } from "@crello/react-lottie";
-import loader from "../assets/loader.json";
-import checked from "../assets/checked.json";
+  faAngleRight,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FadeIn from 'react-fade-in';
+import { Lottie } from '@crello/react-lottie';
+import TrelloSettings from './TrelloSettings';
+import TrelloCard from './TrelloCard';
+import loader from '../assets/loader.json';
+import checked from '../assets/checked.json';
 
 interface TrelloIntegrationProps {
   apiKey: string;
@@ -27,7 +27,7 @@ interface TrelloIntegrationState {
   lists: Array<any>;
   selectedList: any;
   selectedBoard: any;
-  /* 
+  /*
   -1 = refreshing
   0 = loading
   1 = done
@@ -47,37 +47,37 @@ class TrelloIntegration extends Component<
     selectedBoard: {} as any,
     cards: new Array<any>(),
     boards: new Array<any>(),
-    lists: new Array<any>()
+    lists: new Array<any>(),
   };
 
   saveHistory = () => {
     localStorage.setItem(
-      "trello-history",
+      'trello-history',
       JSON.stringify({
         selectedList: this.state.selectedList.id,
-        selectedBoard: this.state.selectedBoard.id
-      })
+        selectedBoard: this.state.selectedBoard.id,
+      }),
     );
   };
 
   loadBoards = async (trello: any) => {
     trello.get(
-      "members/me/boards",
+      'members/me/boards',
       async (res: any) => {
-        console.log("get boards");
+        console.log('get boards');
         await this.setState({ boards: res });
         this.loadLists(trello);
       },
       (err: any) => {
         console.log(err);
-      }
+      },
     );
   };
 
   loadLists = (trello: any) => {
     let boardId = this.state.selectedBoard.id;
     if (boardId === undefined) {
-      const history = localStorage.getItem("trello-history");
+      const history = localStorage.getItem('trello-history');
       if (this.state.status === 0 && history !== null) {
         const json = JSON.parse(history);
         if (json.selectedBoard === undefined) {
@@ -87,8 +87,8 @@ class TrelloIntegration extends Component<
           boardId = json.selectedBoard;
           this.setState({
             selectedBoard: this.state.boards.find(
-              board => board.id === json.selectedBoard
-            )
+              (board) => board.id === json.selectedBoard,
+            ),
           });
         }
       } else {
@@ -99,20 +99,20 @@ class TrelloIntegration extends Component<
     trello.get(
       `boards/${boardId}/lists`,
       async (res: any) => {
-        console.log("get lists");
+        console.log('get lists');
         await this.setState({ lists: res });
         this.loadCards(trello);
       },
       (err: any) => {
         console.log(err);
-      }
+      },
     );
   };
 
   loadCards = (trello: any) => {
     let listId = this.state.selectedList.id;
     if (listId === undefined) {
-      const history = localStorage.getItem("trello-history");
+      const history = localStorage.getItem('trello-history');
       if (this.state.status === 0 && history !== null) {
         const json = JSON.parse(history);
         if (json.selectedList === undefined) {
@@ -122,8 +122,8 @@ class TrelloIntegration extends Component<
           listId = json.selectedList;
           this.setState({
             selectedList: this.state.lists.find(
-              list => list.id === json.selectedList
-            )
+              (list) => list.id === json.selectedList,
+            ),
           });
         }
       } else {
@@ -134,25 +134,21 @@ class TrelloIntegration extends Component<
     trello.get(
       `lists/${listId}/cards`,
       async (res: any) => {
-        console.log("get cards");
+        console.log('get cards');
         const cardsPromise = res.map(async (card: any) => {
           if (card.idChecklists.length === 0) return card;
 
-          console.log("get checklists");
+          console.log('get checklists');
           const checklistPromise = card.idChecklists.map(
-            async (checklist: any) => {
-              return new Promise(resolve => {
-                trello.get(
-                  `checklists/${checklist}`,
-                  (checklistRes: any) => {
-                    return resolve(checklistRes);
-                  },
-                  (err: any) => {
-                    resolve(undefined);
-                  }
-                );
-              });
-            }
+            async (checklist: any) => new Promise((resolve) => {
+              trello.get(
+                `checklists/${checklist}`,
+                (checklistRes: any) => resolve(checklistRes),
+                (err: any) => {
+                  resolve(undefined);
+                },
+              );
+            }),
           );
 
           const checklists = await Promise.all(checklistPromise);
@@ -164,23 +160,23 @@ class TrelloIntegration extends Component<
         this.props.onReady();
       },
       (err: any) => {
-        console.log("ERROR:", err);
+        console.log('ERROR:', err);
         this.setState({ cards: undefined, status: 1 });
         this.props.onReady();
-      }
+      },
     );
   };
 
   handleListChange = async (changeBy: number) => {
     const index = this.state.lists.indexOf(this.state.selectedList);
-    let maxIndex = this.state.lists.length - 1;
+    const maxIndex = this.state.lists.length - 1;
     let newIndex = index + changeBy;
     if (newIndex <= -1) newIndex = maxIndex;
     if (newIndex > maxIndex) newIndex = 0;
 
     await this.setState({
       selectedList: this.state.lists[newIndex],
-      status: 0
+      status: 0,
     });
     this.loadCards(this.state.trello);
     this.saveHistory();
@@ -188,8 +184,8 @@ class TrelloIntegration extends Component<
 
   handleListSelect = async (id: string) => {
     await this.setState({
-      selectedList: this.state.lists.find(list => list.id === id),
-      status: -1
+      selectedList: this.state.lists.find((list) => list.id === id),
+      status: -1,
     });
     this.loadCards(this.state.trello);
     this.saveHistory();
@@ -197,91 +193,84 @@ class TrelloIntegration extends Component<
 
   handleBoardSelect = async (id: string) => {
     await this.setState({
-      selectedBoard: this.state.boards.find(board => board.id === id),
+      selectedBoard: this.state.boards.find((board) => board.id === id),
       selectedList: {} as any,
-      status: -1
+      status: -1,
     });
     this.loadBoards(this.state.trello);
     this.saveHistory();
   };
 
-  getNavigator = () => {
-    return (
-      <>
-        <div className="trello-board-navigator trello-navigator">
-          <div className="dropdown">
-            <button
-              className="trello-dropdown-button"
-              type="button"
-              id="trello-boards-dropdown"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <h6 className="text-center">{this.state.selectedBoard.name}</h6>
-            </button>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="trello-boards-dropdown"
-            >
-              {this.state.boards.map(board => {
-                return (
-                  <div
-                    onClick={() => this.handleBoardSelect(board.id)}
-                    key={board.id}
-                    className="dropdown-item"
-                  >
-                    {board.name}
-                  </div>
-                );
-              })}
-            </div>
+  getNavigator = () => (
+    <>
+      <div className="trello-board-navigator trello-navigator">
+        <div className="dropdown">
+          <button
+            className="trello-dropdown-button"
+            type="button"
+            id="trello-boards-dropdown"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <h6 className="text-center">{this.state.selectedBoard.name}</h6>
+          </button>
+          <div
+            className="dropdown-menu"
+            aria-labelledby="trello-boards-dropdown"
+          >
+            {this.state.boards.map((board) => (
+              <div
+                onClick={() => this.handleBoardSelect(board.id)}
+                key={board.id}
+                className="dropdown-item"
+              >
+                {board.name}
+              </div>
+            ))}
           </div>
         </div>
-        <div className="trello-list-navigator trello-navigator">
-          <div onClick={() => this.handleListChange(-1)} className="icon">
-            <FontAwesomeIcon icon={faAngleLeft} />
+      </div>
+      <div className="trello-list-navigator trello-navigator">
+        <div onClick={() => this.handleListChange(-1)} className="icon">
+          <FontAwesomeIcon icon={faAngleLeft} />
+        </div>
+        <div className="dropdown">
+          <button
+            className="trello-dropdown-button"
+            type="button"
+            id="trello-lists-dropdown"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <h3 className="text-center">{this.state.selectedList.name}</h3>
+          </button>
+          <div
+            className="dropdown-menu"
+            aria-labelledby="trello-lists-dropdown"
+          >
+            {this.state.lists.map((list) => (
+              <div
+                onClick={() => this.handleListSelect(list.id)}
+                key={list.id}
+                className="dropdown-item"
+              >
+                {list.name}
+              </div>
+            ))}
           </div>
-          <div className="dropdown">
-            <button
-              className="trello-dropdown-button"
-              type="button"
-              id="trello-lists-dropdown"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <h3 className="text-center">{this.state.selectedList.name}</h3>
-            </button>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="trello-lists-dropdown"
-            >
-              {this.state.lists.map(list => {
-                return (
-                  <div
-                    onClick={() => this.handleListSelect(list.id)}
-                    key={list.id}
-                    className="dropdown-item"
-                  >
-                    {list.name}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+        </div>
 
-          <div onClick={() => this.handleListChange(+1)} className="icon">
-            <FontAwesomeIcon icon={faAngleRight} />
-          </div>
+        <div onClick={() => this.handleListChange(+1)} className="icon">
+          <FontAwesomeIcon icon={faAngleRight} />
         </div>
-      </>
-    );
-  };
+      </div>
+    </>
+  );
 
   showTrelloInfo = () => {
-    if (this.props.apiKey.trim().length === 0)
-      return <h4>Configure Trello to sync your cards</h4>;
+    if (this.props.apiKey.trim().length === 0) return <h4>Configure Trello to sync your cards</h4>;
 
     if (this.state.logged && this.state.status === 1) {
       if (this.state.cards === undefined) {
@@ -311,7 +300,7 @@ class TrelloIntegration extends Component<
                   config={{
                     animationData: checked,
                     loop: false,
-                    autoplay: true
+                    autoplay: true,
                   }}
                 />
                 <h5 className="trello-status-text">It's empty!</h5>
@@ -325,7 +314,7 @@ class TrelloIntegration extends Component<
         <>
           {this.getNavigator()}
           <div id="trello-cards-container">
-            {this.state.cards.map(card => (
+            {this.state.cards.map((card) => (
               <FadeIn key={card.id}>
                 <TrelloCard card={card} />
               </FadeIn>
@@ -333,26 +322,25 @@ class TrelloIntegration extends Component<
           </div>
         </>
       );
-    } else {
-      return (
-        <FadeIn>
-          <div className="d-flex flex-column  align-items-center">
-            <Lottie
-              height="120px"
-              width="120px"
-              config={{ animationData: loader, loop: true, autoplay: true }}
-            />
-            <h5 className="trello-status-text">Fetching Trello...</h5>
-          </div>
-        </FadeIn>
-      );
     }
+    return (
+      <FadeIn>
+        <div className="d-flex flex-column  align-items-center">
+          <Lottie
+            height="120px"
+            width="120px"
+            config={{ animationData: loader, loop: true, autoplay: true }}
+          />
+          <h5 className="trello-status-text">Fetching Trello...</h5>
+        </div>
+      </FadeIn>
+    );
   };
 
   handleSave = (apiKey: string) => {
     localStorage.setItem(
-      "trello-config",
-      JSON.stringify({ apiKey: apiKey.trim() })
+      'trello-config',
+      JSON.stringify({ apiKey: apiKey.trim() }),
     );
   };
 
