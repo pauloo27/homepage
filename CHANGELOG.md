@@ -10,10 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Trello checklists status to the card preview.
+- ESLint.
 
 ### Changed
 
 - Trello label background colors.
+- Code format to fix some ESLint warnings.
 
 ## [2.0.1] - 2020-03-22
 
