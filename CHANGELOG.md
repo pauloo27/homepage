@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Trello checklists status to the card preview.
 - ESLint.
+- Day of week to the calendar events list.
 
 ### Changed
 
