@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Toggle background button.
+
+### Changed
+- Background transition speed.
+
 ## [2.1.0] - 2020-04-10
 
 ### Added
