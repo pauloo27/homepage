@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Background transition speed.
 
+### Fixed
+- Bookmark bar height when it's empty.
+
 ## [2.1.0] - 2020-04-10
 
 ### Added
