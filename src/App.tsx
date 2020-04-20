@@ -23,6 +23,7 @@ interface AppState {
   dayBackground: Background;
   nightBackground: Background;
   currentBackground: Background;
+  backgroundToggled: boolean;
   engineType: string;
   engineUrl?: string;
 }
@@ -32,6 +33,7 @@ class App extends Component<any, AppState> {
     dayBackground: { url: '', author: '', authorUrl: '' },
     nightBackground: { url: '', author: '', authorUrl: '' },
     currentBackground: { url: '', author: '', authorUrl: '' },
+    backgroundToggled: false,
     engineType: '',
     engineUrl: undefined,
   };
@@ -59,29 +61,48 @@ class App extends Component<any, AppState> {
       await this.setState(JSON.parse(value));
     }
 
-    this.setBackground();
+    this.checkBackground();
 
-    this.timerId = setInterval(() => this.setBackground(), 10 * 1000);
+    this.timerId = setInterval(() => this.checkBackground(), 10 * 1000);
   }
 
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
 
-  setBackground = () => {
-    const now = new Date();
-    let currentBackground: Background;
+  setBackground = (background: Background) => {
+    if (this.state.currentBackground === background) return;
 
-    if (now.getHours() >= 6 && now.getHours() < 18) {
-      currentBackground = this.state.dayBackground;
+    this.setState({ currentBackground: background });
+    document.getElementsByTagName('body')[0].background = background.url;
+  }
+
+  toggleBackground = () => {
+    let newBackground: Background;
+
+    if (this.state.currentBackground === this.state.dayBackground) {
+      newBackground = this.state.nightBackground;
     } else {
-      currentBackground = this.state.nightBackground;
+      newBackground = this.state.dayBackground;
     }
 
-    if (this.state.currentBackground === currentBackground) return;
+    this.setState({ backgroundToggled: true });
+    this.setBackground(newBackground);
+  }
 
-    this.setState({ currentBackground });
-    document.getElementsByTagName('body')[0].background = currentBackground.url;
+  checkBackground = () => {
+    if (this.state.backgroundToggled) return;
+
+    const now = new Date();
+    let newBackground: Background;
+
+    if (now.getHours() >= 6 && now.getHours() < 18) {
+      newBackground = this.state.dayBackground;
+    } else {
+      newBackground = this.state.nightBackground;
+    }
+
+    this.setBackground(newBackground);
   };
 
   saveBackgrounds = () => {
@@ -114,7 +135,8 @@ class App extends Component<any, AppState> {
   ) => {
     await this.setState({ dayBackground, nightBackground });
     await this.saveBackgrounds();
-    this.setBackground();
+    this.setState({ backgroundToggled: false });
+    this.checkBackground();
   };
 
   loadTrelloIntegration = () => {
@@ -143,6 +165,8 @@ class App extends Component<any, AppState> {
 
     return (
       <>
+        <link rel="preload" href={this.state.dayBackground.url} as="image" />
+        <link rel="preload" href={this.state.nightBackground.url} as="image" />
         <div id="header-container">
           <SearchBar
             engineType={this.state.engineType}
@@ -158,6 +182,7 @@ class App extends Component<any, AppState> {
         <div id="footer-container">
           <ProjectInfo />
           <BackgroundInfo
+            toggleBackground={this.toggleBackground}
             backgroundAuthor={this.state.currentBackground.author}
             backgroundAuthorUrl={this.state.currentBackground.authorUrl}
           />
@@ -183,6 +208,7 @@ class App extends Component<any, AppState> {
               </div>
               <div className="dropdown-item footer-dropdown-item">
                 <BackgroundInfo
+                  toggleBackground={this.toggleBackground}
                   backgroundAuthor={this.state.currentBackground.author}
                   backgroundAuthorUrl={this.state.currentBackground.authorUrl}
                 />

@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faAdjust } from '@fortawesome/free-solid-svg-icons';
 
 interface BackgroundInfoProps {
   backgroundAuthor: string;
   backgroundAuthorUrl: string;
+  toggleBackground: Function;
 }
 
 class BackgroundInfo extends Component<BackgroundInfoProps> {
   render() {
     return (
       <div id="background-info" className="footer-info">
+        <div
+          data-toggle="tooltip"
+          title="Toggle background"
+          onClick={() => this.props.toggleBackground()}
+          className="homepage-toggle-background"
+        >
+          <div>
+            <FontAwesomeIcon icon={faAdjust} />
+          </div>
+        </div>
         Image by
         {' '}
         <a
