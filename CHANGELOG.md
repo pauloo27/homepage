@@ -9,9 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Toggle background button.
+- Handle to escape key in ToDo entry edit mode.
 
 ### Changed
 - Background transition speed.
+- ToDo entry edit mode icon from a pen to a floppy disk.
 
 ### Fixed
 - Bookmark bar height when it's empty.
