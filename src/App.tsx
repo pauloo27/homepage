@@ -4,7 +4,7 @@ import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SearchBar from './components/SearchBar';
 import BookmarkBar from './components/BookmarkBar';
-import TodoBox from './components/TodoBox';
+import ToDoBox from './components/ToDoBox';
 import TrelloIntegration from './components/TrelloIntegration';
 import GCalendarIntegration from './components/GCalendarIntegration';
 import SearchEngineSettings from './components/SearchEngineSettings';
@@ -175,7 +175,7 @@ class App extends Component<any, AppState> {
           <BookmarkBar />
         </div>
         <div id="middle-container">
-          <TodoBox setupTooltip={this.setupTooltip} />
+          <ToDoBox setupTooltip={this.setupTooltip} />
           <GCalendarIntegration />
           {this.loadTrelloIntegration()}
         </div>

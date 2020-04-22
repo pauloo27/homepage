@@ -3,26 +3,26 @@ import $ from 'jquery';
 import FadeIn from 'react-fade-in';
 import { Lottie } from '@crello/react-lottie';
 import checked from '../assets/checked.json';
-import TodoEntry from './TodoEntry';
-import '../styles/TodoBox.scss';
+import ToDoEntry from './ToDoEntry';
+import '../styles/ToDoBox.scss';
 
-interface TodoEntryState {
+interface ToDoEntryState {
   text: string;
   done: boolean;
   id: string;
 }
 
-interface TodoBoxProps {
+interface ToDoBoxProps {
   setupTooltip: Function;
 }
 
-interface TodoBoxState {
-  entries: Array<TodoEntryState>;
+interface ToDoBoxState {
+  entries: Array<ToDoEntryState>;
   loaded: boolean;
 }
 
-class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
-  state = { entries: new Array<TodoEntryState>(), loaded: false };
+class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
+  state = { entries: new Array<ToDoEntryState>(), loaded: false };
 
   componentDidMount() {
     const todo = localStorage.getItem('todo-list');
@@ -132,7 +132,7 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
     }
 
     return this.state.entries.map((entry) => (
-      <TodoEntry
+      <ToDoEntry
         onDelete={this.handleDelete}
         onDoneToggle={this.handleDoneToggle}
         onEdit={this.handleEdit}
@@ -162,4 +162,4 @@ class TodoBox extends Component<TodoBoxProps, TodoBoxState> {
   }
 }
 
-export default TodoBox;
+export default ToDoBox;

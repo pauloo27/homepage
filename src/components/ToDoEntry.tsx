@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faCircle } from '@fortawesome/free-regular-svg-icons';
-import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircle, faSave } from '@fortawesome/free-regular-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-interface TodoEntryProps {
+interface ToDoEntryProps {
   id: string;
   text: string;
   done: boolean;
@@ -12,13 +12,13 @@ interface TodoEntryProps {
   onEdit: Function;
 }
 
-interface TodoEntryState {
+interface ToDoEntryState {
   done: boolean;
   edit: boolean;
   newText: string;
 }
 
-class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
+class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
   state = { done: false, edit: false, newText: '' };
 
   componentDidMount() {
@@ -48,6 +48,10 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
     this.finishEdit();
   }
 
+  handleFormEscape = (e: React.KeyboardEvent) => {
+    if (e.keyCode === 27) this.toggleEditMode();
+  }
+
   finishEdit = () => {
     this.toggleEditMode();
     let text = this.state.newText;
@@ -64,7 +68,7 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
           }
           onDoubleClick={this.toggleEditMode}
         >
-          <form onSubmit={this.finishEdit}>
+          <form onSubmit={this.handleEditSave} onKeyUp={this.handleFormEscape}>
             <input
               autoFocus
               onChange={(e) => this.setState({ newText: e.target.value })}
@@ -88,7 +92,7 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
   }
 
   getIcon = () => {
-    if (this.state.edit) return faPen;
+    if (this.state.edit) return faSave;
     return this.state.done ? faCheckCircle : faCircle;
   }
 
@@ -126,4 +130,4 @@ class TodoEntry extends Component<TodoEntryProps, TodoEntryState> {
   }
 }
 
-export default TodoEntry;
+export default ToDoEntry;
