@@ -88,7 +88,7 @@ class SearchEngineSettings extends Component<
             </div>
             <div className="modal-body">
               <div>
-                <o>Search engine</p>
+                <p>Search engine</p>
                 <select
                   id="search-engine"
                   onChange={this.handleChange}
