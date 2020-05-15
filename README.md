@@ -20,6 +20,37 @@
 
 You can run it locally or use [the one hosted at GitHub Pages](https://pauloo27.github.io/homepage).
 
+## How to run it locally
+
+First, make sure you have NodeJS and Yarn installed, then clone the repository.
+
+To install all the dependencies, in the repository folder run:
+
+> yarn install
+
+After that, start the application with hot reload with:
+
+> yarn start
+
+To get a better performance, create a production build with
+
+> yarn build
+
+(the folder `build/` will be created, just add it to a web server).
+
+### Configure Google Calendar Integration
+
+To use the Google Calendar integration locally you need to configure the credentials.
+
+To do so, create a new project and enable the Calendar API in the [Google Developers Console](https://console.developers.google.com/)
+and get an API KEY and the CLIENT ID ([like this](https://developers.google.com/calendar/quickstart/js)).
+
+With the CLIENT ID and the API KEY, create a file `src/config/gapi.json` with the following content:
+
+```json
+{"apiKey": "YOUR API KEY", "clientId": "YOUR CLIENT ID"}
+```
+
 ## CHANGELOG
 
 See the [CHANGELOG file](./CHANGELOG.md)
