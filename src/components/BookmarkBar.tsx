@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
 import BookmarkEntry from "./BookmarkEntry";
 import BookmarkEditor from "./BookmarkEditor";
+import { getProvider } from "../utils/ProviderManager";
 
 interface BookmarkBarState {
   editable: boolean;
@@ -14,7 +15,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   state = { editable: false, entries: new Array<any>() };
 
   componentDidMount() {
-    const bookmarks = localStorage.getItem("bookmarks");
+    const bookmarks = getProvider().getValue("bookmarks");
     if (bookmarks !== null) {
       const entries = JSON.parse(bookmarks);
       this.setState({ entries });
@@ -24,7 +25,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   }
 
   saveBookmarks = () => {
-    localStorage.setItem("bookmarks", JSON.stringify(this.state.entries));
+    getProvider().setValue("bookmarks", JSON.stringify(this.state.entries));
   };
 
   handleEditToggle = () => {
