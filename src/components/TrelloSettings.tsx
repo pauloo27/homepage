@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import '../styles/TrelloSettings.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import TrelloClient, { Trello } from 'react-trello-client';
+import React, { Component } from "react";
+import "../styles/TrelloSettings.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import TrelloClient, { Trello } from "react-trello-client";
 
 interface TrelloSettingsProps {
   apiKey: string;
@@ -28,8 +28,8 @@ class TrelloSettings extends Component<
   TrelloSettingsState
 > {
   state = {
-    apiKey: '',
-    loadedApiKey: '',
+    apiKey: "",
+    loadedApiKey: "",
     loginState: 0,
   };
 
@@ -38,13 +38,16 @@ class TrelloSettings extends Component<
 
     if (this.state.apiKey.trim().length === 0) {
       loginState = -2;
-    } else if (localStorage.getItem('trello_token') === null) {
+    } else if (localStorage.getItem("trello_token") === null) {
       loginState = -1;
     } else {
       loginState = 1;
     }
 
-    this.setState({ loadedApiKey: this.state.apiKey, loginState });
+    this.setState((prevState) => ({
+      loadedApiKey: prevState.apiKey,
+      loginState,
+    }));
     this.props.onSave(this.state.apiKey);
   };
 
@@ -57,7 +60,7 @@ class TrelloSettings extends Component<
 
     if (this.props.apiKey.trim().length === 0) {
       loginState = -2;
-    } else if (localStorage.getItem('trello_token') === null) {
+    } else if (localStorage.getItem("trello_token") === null) {
       loginState = -1;
     } else {
       loginState = 1;
@@ -75,7 +78,8 @@ class TrelloSettings extends Component<
   };
 
   getTrelloClient = () => {
-    if (this.state.loginState === -2 || this.state.loginState === 0) return null;
+    if (this.state.loginState === -2 || this.state.loginState === 0)
+      return null;
     return (
       <TrelloClient
         apiKey={this.state.loadedApiKey} // Get the API key from https://trello.com/app-key/
@@ -92,7 +96,7 @@ class TrelloSettings extends Component<
         authorizeScopeAccount // boolean: {true} | {false}
         authorizeExpiration="never" // string: "1hour", "1day", "30days" | "never"
         authorizeOnSuccess={this.handleLogin} // function: {() => console.log('Login successful!')}
-        authorizeOnError={() => console.log('Login error!')} // function: {() => console.log('Login error!')}
+        authorizeOnError={() => console.log("Login error!")} // function: {() => console.log('Login error!')}
         autoAuthorize // boolean: {true} | {false}
         authorizeButton // boolean: {true} | {false}
         buttonStyle="metamorph" // string: "metamorph" | "flat"
@@ -130,9 +134,8 @@ class TrelloSettings extends Component<
               </button>
             </div>
             <div className="modal-body">
-              <label>
-                Login into your Trello Account and get an API key in
-                {' '}
+              <p>
+                Login into your Trello Account and get an API key in{" "}
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -141,7 +144,7 @@ class TrelloSettings extends Component<
                   https://trello.com/app-key
                 </a>
                 . Then add the homepage URL to the Allowed Origins.
-              </label>
+              </p>
               <input
                 defaultValue={this.state.apiKey}
                 onChange={this.handleKeyChange}
@@ -149,7 +152,7 @@ class TrelloSettings extends Component<
               />
               <div
                 id="trello-login-container"
-                className={this.state.loginState !== -1 ? 'hidden' : ''}
+                className={this.state.loginState !== -1 ? "hidden" : ""}
               >
                 {this.getTrelloClient()}
               </div>

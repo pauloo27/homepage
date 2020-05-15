@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
-import BookmarkEditor from './BookmarkEditor';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import BookmarkEditor from "./BookmarkEditor";
 
 interface BookmarkEntryProps {
   id: string;
@@ -13,8 +13,6 @@ interface BookmarkEntryProps {
 }
 
 class BookmarkEntry extends Component<BookmarkEntryProps> {
-  handleEdit = () => {};
-
   handleSave = (entry: any) => {
     entry.id = this.props.id;
     this.props.onUpdate(entry);
@@ -28,9 +26,9 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
   render() {
     let { icon } = this.props;
 
-    if (icon === '') {
+    if (icon === "") {
       icon = `https://external-content.duckduckgo.com/ip3/${
-        this.props.url.split('://')[1].split('/')[0]
+        this.props.url.split("://")[1].split("/")[0]
       }.ico`;
     }
 

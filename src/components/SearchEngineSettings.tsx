@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import '../styles/SearchEngineSettings.scss';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import "../styles/SearchEngineSettings.scss";
 
 interface SearchEngineSettingsProps {
   onSave: Function;
@@ -16,12 +16,12 @@ class SearchEngineSettings extends Component<
   SearchEngineSettingsProps,
   SearchEngineSettingsState
 > {
-  state = { engineType: '', engineUrl: '' };
+  state = { engineType: "", engineUrl: "" };
 
   async componentDidMount() {
-    const config = localStorage.getItem('search-engine');
+    const config = localStorage.getItem("search-engine");
     if (config === null) {
-      await this.setState({ engineType: 'duckduckgo' });
+      await this.setState({ engineType: "duckduckgo" });
       this.saveEngine();
     } else {
       const json = JSON.parse(config);
@@ -34,7 +34,7 @@ class SearchEngineSettings extends Component<
   }
 
   saveEngine = () => {
-    localStorage.setItem('search-engine', JSON.stringify(this.state));
+    localStorage.setItem("search-engine", JSON.stringify(this.state));
   };
 
   handleChange = (e: React.ChangeEvent<HTMLElement>) => {
@@ -47,10 +47,12 @@ class SearchEngineSettings extends Component<
 
   handleSave = async () => {
     if (
-      !this.state.engineUrl.startsWith('https://')
-      && !this.state.engineUrl.startsWith('http://')
+      !this.state.engineUrl.startsWith("https://") &&
+      !this.state.engineUrl.startsWith("http://")
     ) {
-      await this.setState({ engineUrl: `https://${this.state.engineUrl}` });
+      await this.setState((prevState) => ({
+        engineUrl: `https://${prevState.engineUrl}`,
+      }));
     }
     await this.saveEngine();
     this.props.onSave(this.state);
@@ -86,7 +88,7 @@ class SearchEngineSettings extends Component<
             </div>
             <div className="modal-body">
               <div>
-                <label>Search engine</label>
+                <o>Search engine</p>
                 <select
                   id="search-engine"
                   onChange={this.handleChange}
@@ -101,7 +103,7 @@ class SearchEngineSettings extends Component<
                   defaultValue={this.state.engineUrl}
                   onChange={this.handleUrlChange}
                   className={`${
-                    this.state.engineType === 'custom' ? '' : 'hidden'
+                    this.state.engineType === "custom" ? "" : "hidden"
                   }`}
                 />
               </div>

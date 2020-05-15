@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface BackgroundSettingsProps {
   onSave: Function;
@@ -10,22 +10,22 @@ interface BackgroundSettingsProps {
 
 class BackgroundSettings extends Component<BackgroundSettingsProps> {
   state = {
-    'day-url': '',
-    'day-author': '',
-    'day-authorUrl': '',
-    'night-url': '',
-    'night-author': '',
-    'night-authorUrl': '',
+    "day-url": "",
+    "day-author": "",
+    "day-authorUrl": "",
+    "night-url": "",
+    "night-author": "",
+    "night-authorUrl": "",
   };
 
   componentDidMount() {
     this.setState({
-      'day-url': this.props.day.url,
-      'day-author': this.props.day.author,
-      'day-authorUrl': this.props.day.authorUrl,
-      'night-url': this.props.night.url,
-      'night-author': this.props.night.author,
-      'night-authorUrl': this.props.night.authorUrl,
+      "day-url": this.props.day.url,
+      "day-author": this.props.day.author,
+      "day-authorUrl": this.props.day.authorUrl,
+      "night-url": this.props.night.url,
+      "night-author": this.props.night.author,
+      "night-authorUrl": this.props.night.authorUrl,
     });
   }
 
@@ -39,15 +39,15 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
   handleSave = () => {
     this.props.onSave(
       {
-        url: this.state['day-url'],
-        author: this.state['day-author'],
-        authorUrl: this.state['day-authorUrl'],
+        url: this.state["day-url"],
+        author: this.state["day-author"],
+        authorUrl: this.state["day-authorUrl"],
       },
       {
-        url: this.state['night-url'],
-        author: this.state['night-author'],
-        authorUrl: this.state['night-authorUrl'],
-      },
+        url: this.state["night-url"],
+        author: this.state["night-author"],
+        authorUrl: this.state["night-authorUrl"],
+      }
     );
   };
 
@@ -79,43 +79,44 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
               </button>
             </div>
             <div className="modal-body">
-              <label>Day background</label>
+              <p>Day background</p>
               <input
+                id="day-url"
                 name="day-url"
                 placeholder="Image URL"
                 onChange={this.handleChange}
-                defaultValue={this.state['day-url']}
+                defaultValue={this.state["day-url"]}
               />
               <input
                 name="day-author"
                 placeholder="Author name"
                 onChange={this.handleChange}
-                defaultValue={this.state['day-author']}
+                defaultValue={this.state["day-author"]}
               />
               <input
                 name="day-authorUrl"
                 placeholder="Author page URL"
                 onChange={this.handleChange}
-                defaultValue={this.state['day-authorUrl']}
+                defaultValue={this.state["day-authorUrl"]}
               />
-              <label>Night background</label>
+              <p>Night background</p>
               <input
                 name="night-url"
                 placeholder="Image URL"
                 onChange={this.handleChange}
-                defaultValue={this.state['night-url']}
+                defaultValue={this.state["night-url"]}
               />
               <input
                 name="night-author"
                 placeholder="Author name"
                 onChange={this.handleChange}
-                defaultValue={this.state['night-author']}
+                defaultValue={this.state["night-author"]}
               />
               <input
                 name="night-authorUrl"
                 placeholder="Author page URL"
                 onChange={this.handleChange}
-                defaultValue={this.state['night-authorUrl']}
+                defaultValue={this.state["night-authorUrl"]}
               />
             </div>
             <div className="modal-footer">

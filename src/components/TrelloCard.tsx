@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShareSquare, faCheckSquare } from '@fortawesome/free-regular-svg-icons';
-import { formatDate } from '../utils/Formater';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faShareSquare,
+  faCheckSquare,
+} from "@fortawesome/free-regular-svg-icons";
+import { formatDate } from "../utils/Formater";
 
 const TrelloLabelColors = {
-  green: '#59C059',
-  yellow: '#C0C059',
-  orange: '#C08C59',
-  red: '#C05959',
-  purple: '#8C59C0',
-  blue: '#597BC0',
-  sky: '#59C0C0',
-  lime: '#8CC059',
-  pink: '#C0598C',
-  black: '#344563',
+  green: "#59C059",
+  yellow: "#C0C059",
+  orange: "#C08C59",
+  red: "#C05959",
+  purple: "#8C59C0",
+  blue: "#597BC0",
+  sky: "#59C0C0",
+  lime: "#8CC059",
+  pink: "#C0598C",
+  black: "#344563",
 };
 
 interface TrelloCardProps {
@@ -40,13 +43,13 @@ class TrelloCard extends Component<TrelloCardProps> {
         {card.checklists.map((list: any) => {
           const items = list.checkItems;
           const completedItems = items.filter(
-            (item: any) => item.state === 'complete',
+            (item: any) => item.state === "complete"
           );
           return (
             <div
               key={list.id}
               className={`trello-card-checklist ${
-                items.length === completedItems.length ? 'completed' : ''
+                items.length === completedItems.length ? "completed" : ""
               }`}
             >
               <FontAwesomeIcon className="icon" icon={faCheckSquare} />
@@ -69,7 +72,7 @@ class TrelloCard extends Component<TrelloCardProps> {
             key={label.id}
             className="trello-card-label"
             style={{
-              color: 'white',
+              color: "white",
               backgroundColor: (TrelloLabelColors as any)[label.color],
             }}
           >

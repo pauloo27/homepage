@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const gapiconfig = { apiKey: '', clientId: '' };
+const gapiconfig = { apiKey: "", clientId: "" };
 
 export interface GCalendarSettingsProps {
   onLoginStatusChange: Function;
@@ -24,21 +24,21 @@ class GCalendarSettings extends Component<
 
   async componentDidMount() {
     try {
-      const config = require('../config/gapi.json');
+      const config = require("../config/gapi.json");
       if (config !== undefined) {
         gapiconfig.clientId = config.clientId;
         gapiconfig.apiKey = config.apiKey;
       }
     } catch (e) {
-      console.log('Cannot find credentials file at src/config/gapi.json');
+      console.log("Cannot find credentials file at src/config/gapi.json");
     }
 
-    const script = document.createElement('script');
-    script.src = 'https://apis.google.com/js/api.js';
+    const script = document.createElement("script");
+    script.src = "https://apis.google.com/js/api.js";
 
     script.onload = () => {
       const { gapi } = window as any;
-      gapi.load('client:auth2', this.initClient);
+      gapi.load("client:auth2", this.initClient);
     };
 
     document.body.appendChild(script);
@@ -52,19 +52,19 @@ class GCalendarSettings extends Component<
         apiKey: gapiconfig.apiKey,
         clientId: gapiconfig.clientId,
         discoveryDocs: [
-          'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
+          "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
         ],
-        scope: 'https://www.googleapis.com/auth/calendar.readonly',
+        scope: "https://www.googleapis.com/auth/calendar.readonly",
       })
       .catch(() => {
-        console.log('Cannot init the Calendar client.');
+        console.log("Cannot init the Calendar client.");
         if (gapi.auth2.getAuthInstance() === null) {
           console.log("Calendar client's auth instance not found");
           this.updateSigninStatus(false);
         }
       })
       .then(() => {
-        console.log('Calendar client loaded');
+        console.log("Calendar client loaded");
         if (gapi.auth2.getAuthInstance() === null) {
           console.log("Calendar client's auth instance not found");
           this.updateSigninStatus(false);
@@ -80,17 +80,19 @@ class GCalendarSettings extends Component<
   };
 
   updateSigninStatus = (isSignedIn: boolean) => {
-    console.log('The login status was chagned to', isSignedIn);
+    console.log("The login status was chagned to", isSignedIn);
     this.setState({ isSignedIn });
     this.props.onLoginStatusChange(isSignedIn);
   };
 
   getActionButton = (gapi: any) => {
-    if (gapiconfig.clientId === '' || gapiconfig.apiKey === '') return 'No credentials provided (see ./config/gapi.json)';
+    if (gapiconfig.clientId === "" || gapiconfig.apiKey === "")
+      return "No credentials provided (see ./config/gapi.json)";
     if (!this.state.isClientReady) return null;
     if (this.state.isSignedIn) {
       return (
         <button
+          type="button"
           onClick={() => gapi.auth2.getAuthInstance().signOut()}
           className="btn btn-secondary"
         >
@@ -100,6 +102,7 @@ class GCalendarSettings extends Component<
     }
     return (
       <button
+        type="button"
         onClick={() => gapi.auth2.getAuthInstance().signIn()}
         className="btn btn-primary"
       >
@@ -136,8 +139,7 @@ class GCalendarSettings extends Component<
               >
                 <span aria-hidden="true">
                   <FontAwesomeIcon icon={faTimes} />
-                </span>
-                {' '}
+                </span>{" "}
               </button>
             </div>
             <div className="modal-body">{this.getActionButton(gapi)}</div>

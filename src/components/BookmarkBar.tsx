@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import '../styles/BookmarkBar.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPen, faCheck } from '@fortawesome/free-solid-svg-icons';
-import BookmarkEntry from './BookmarkEntry';
-import BookmarkEditor from './BookmarkEditor';
+import React, { Component } from "react";
+import "../styles/BookmarkBar.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
+import BookmarkEntry from "./BookmarkEntry";
+import BookmarkEditor from "./BookmarkEditor";
 
 interface BookmarkBarState {
   editable: boolean;
@@ -14,7 +14,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   state = { editable: false, entries: new Array<any>() };
 
   componentDidMount() {
-    const bookmarks = localStorage.getItem('bookmarks');
+    const bookmarks = localStorage.getItem("bookmarks");
     if (bookmarks !== null) {
       const entries = JSON.parse(bookmarks);
       this.setState({ entries });
@@ -24,11 +24,11 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   }
 
   saveBookmarks = () => {
-    localStorage.setItem('bookmarks', JSON.stringify(this.state.entries));
+    localStorage.setItem("bookmarks", JSON.stringify(this.state.entries));
   };
 
   handleEditToggle = () => {
-    this.setState({ editable: !this.state.editable });
+    this.setState(prevState => ({ editable: !prevState.editable }));
   };
 
   handleBookmarkDelete = async (bookmark: any) => {
@@ -47,23 +47,16 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   };
 
   handleNewBookmark = (entry: any) => {
-    let id = '';
+    let id = "";
     do {
-      id = Math.random()
-        .toString(36)
-        .substring(2, 12)
-        + Math.random()
-          .toString(36)
-          .substring(2, 12)
-        + Math.random()
-          .toString(36)
-          .substring(2, 12)
-        + Math.random()
-          .toString(36)
-          .substring(2, 12);
+      id =
+        Math.random().toString(36).substring(2, 12) +
+        Math.random().toString(36).substring(2, 12) +
+        Math.random().toString(36).substring(2, 12) +
+        Math.random().toString(36).substring(2, 12);
     } while (
       // eslint-disable-next-line
-      this.state.entries.filter(entry => entry.id === id).length !== 0
+      this.state.entries.filter((entry) => entry.id === id).length !== 0
     );
     entry.id = id;
 
@@ -107,7 +100,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
     return (
       <div id="bookmark-bar" className="homepage-card">
         <div
-          className={`bookmark-list ${this.state.editable ? 'editable' : ''}`}
+          className={`bookmark-list ${this.state.editable ? "editable" : ""}`}
         >
           {this.getEntries()}
         </div>

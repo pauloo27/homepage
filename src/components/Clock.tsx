@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { formatDate, withLeadingZeroes as pad } from '../utils/Formater';
+import React, { Component } from "react";
+import { formatDate, withLeadingZeroes as pad } from "../utils/Formater";
 
 interface ClockState {
   date: Date;

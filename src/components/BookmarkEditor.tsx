@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface BookmarkEditorProps {
   id: string;
@@ -48,14 +48,14 @@ class BookmarkEditor extends Component<
 
   handleSave = () => {
     if (
-      this.state.name.trim().length === 0
-      || this.state.url.trim().length === 0
+      this.state.name.trim().length === 0 ||
+      this.state.url.trim().length === 0
     ) {
       return;
     }
 
     let { url } = this.state;
-    if (!url.startsWith('http')) {
+    if (!url.startsWith("http")) {
       url = `https://${url}`;
     }
 

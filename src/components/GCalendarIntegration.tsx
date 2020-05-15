@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
-import FadeIn from 'react-fade-in';
-import { Lottie } from '@crello/react-lottie';
-import GCalendarSettings from './GCalendarSettings';
-import Clock from './Clock';
-import loader from '../assets/loader.json';
-import '../styles/CalendarIntegration.scss';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
+import FadeIn from "react-fade-in";
+import { Lottie } from "@crello/react-lottie";
+import GCalendarSettings from "./GCalendarSettings";
+import Clock from "./Clock";
+import loader from "../assets/loader.json";
+import "../styles/CalendarIntegration.scss";
 
 interface GCalendarIntegrationState {
   /*
@@ -16,13 +16,20 @@ interface GCalendarIntegrationState {
   */
   loginState: number;
   events: Array<any>;
-  selectedDate: Date;
 }
 
-const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const weekDays = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
-  state = { loginState: 0, events: new Array<any>(), selectedDate: new Date() };
+  state = { loginState: 0, events: new Array<any>() };
 
   colors: any = {};
 
@@ -48,23 +55,25 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
           showDeleted: false,
           singleEvents: true,
           maxResults: 50,
-          orderBy: 'startTime',
+          orderBy: "startTime",
         });
         events.push(
           ...res.result.items.map((event: any) => {
             event.calendar = calendar;
             event.colorId = calendar.colorId;
-            let displayTime = 'All day';
+            let displayTime = "All day";
             if (event.start.date === undefined) {
-              const eventStart = event.start.dateTime.split('T')[1].substring(0, 5);
-              const eventEnd = event.end.dateTime.split('T')[1].substring(0, 5);
+              const eventStart = event.start.dateTime
+                .split("T")[1]
+                .substring(0, 5);
+              const eventEnd = event.end.dateTime.split("T")[1].substring(0, 5);
               displayTime = `${eventStart} - ${eventEnd}`;
             }
             event.displayTime = displayTime;
             return event;
-          }),
+          })
         );
-      },
+      }
     );
 
     await Promise.all(promises);
@@ -73,7 +82,8 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
   };
 
   getStatus = () => {
-    if (this.state.loginState === -1) return <h4>Configure Google Calendar to see future events</h4>;
+    if (this.state.loginState === -1)
+      return <h4>Configure Google Calendar to see future events</h4>;
     return null;
   };
 
@@ -105,7 +115,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     this.state.events.forEach((event) => {
       let when = event.start.date;
-      if (when === undefined) when = event.start.dateTime.split('T')[0];
+      if (when === undefined) when = event.start.dateTime.split("T")[0];
 
       let events = new Array<any>();
       if (eventsByDay.has(when)) {
@@ -128,8 +138,8 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
       // sort events
       events = events.sort((a, b) => {
-        if (a.displayTime === 'All day') return -1;
-        if (b.displayTime === 'All day') return 1;
+        if (a.displayTime === "All day") return -1;
+        if (b.displayTime === "All day") return 1;
 
         if (a.displayTime < b.displayTime) return -1;
         if (a.displayTime > b.displayTime) return 1;
@@ -155,7 +165,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
               );
             })}
           </div>
-        </FadeIn>,
+        </FadeIn>
       );
     });
 

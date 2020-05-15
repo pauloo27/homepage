@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faAdjust } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCog, faAdjust } from "@fortawesome/free-solid-svg-icons";
 
 interface BackgroundInfoProps {
   backgroundAuthor: string;
@@ -22,8 +22,7 @@ class BackgroundInfo extends Component<BackgroundInfoProps> {
             <FontAwesomeIcon icon={faAdjust} />
           </div>
         </div>
-        Image by
-        {' '}
+        Image by{" "}
         <a
           href={this.props.backgroundAuthorUrl}
           target="_blank"

@@ -4,7 +4,7 @@ export function withLeadingZeroes(number: number, size: number): string {
   return str;
 }
 
-export function formatDate(date: Date) {
+export function formatDate(date: Date): string {
   const year = date.getFullYear();
   const month = withLeadingZeroes(date.getMonth() + 1, 2);
   const day = withLeadingZeroes(date.getDate(), 2);

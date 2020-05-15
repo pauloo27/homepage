@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import $ from 'jquery';
-import FadeIn from 'react-fade-in';
-import { Lottie } from '@crello/react-lottie';
-import checked from '../assets/checked.json';
-import ToDoEntry from './ToDoEntry';
-import '../styles/ToDoBox.scss';
+import React, { Component } from "react";
+import $ from "jquery";
+import FadeIn from "react-fade-in";
+import { Lottie } from "@crello/react-lottie";
+import checked from "../assets/checked.json";
+import ToDoEntry from "./ToDoEntry";
+import "../styles/ToDoBox.scss";
 
 interface ToDoEntryState {
   text: string;
@@ -25,7 +25,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
   state = { entries: new Array<ToDoEntryState>(), loaded: false };
 
   componentDidMount() {
-    const todo = localStorage.getItem('todo-list');
+    const todo = localStorage.getItem("todo-list");
     if (todo !== null) {
       const entries = JSON.parse(todo);
       this.setState({ entries, loaded: true });
@@ -36,7 +36,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
   }
 
   saveTodoList = () => {
-    localStorage.setItem('todo-list', JSON.stringify(this.state.entries));
+    localStorage.setItem("todo-list", JSON.stringify(this.state.entries));
     this.props.setupTooltip();
   };
 
@@ -48,37 +48,30 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
         return;
       }
 
-      let id = '';
+      let id = "";
 
       do {
-        id = Math.random()
-          .toString(36)
-          .substring(2, 12)
-          + Math.random()
-            .toString(36)
-            .substring(2, 12)
-          + Math.random()
-            .toString(36)
-            .substring(2, 12)
-          + Math.random()
-            .toString(36)
-            .substring(2, 12);
+        id =
+          Math.random().toString(36).substring(2, 12) +
+          Math.random().toString(36).substring(2, 12) +
+          Math.random().toString(36).substring(2, 12) +
+          Math.random().toString(36).substring(2, 12);
       } while (
         // eslint-disable-next-line
-        this.state.entries.filter(entry => entry.id === id).length !== 0
+        this.state.entries.filter((entry) => entry.id === id).length !== 0
       );
 
       const { entries } = this.state;
       entries.push({ text: value, done: false, id });
       this.setState({ entries });
       this.saveTodoList();
-      (e.target as any).value = '';
+      (e.target as any).value = "";
     }
   };
 
   handleDelete = (id: string) => {
     $(() => {
-      ($('[data-toggle="tooltip"]') as any).tooltip('dispose');
+      ($('[data-toggle="tooltip"]') as any).tooltip("dispose");
     });
     setTimeout(async () => {
       let { entries } = this.state;
@@ -108,7 +101,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
     });
     await this.setState({ entries });
     this.saveTodoList();
-  }
+  };
 
   getEntries = () => {
     if (!this.state.loaded) return null;
@@ -125,7 +118,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
                 autoplay: true,
               }}
             />
-            <h5 className="trello-status-text">It's empty!</h5>
+            <h5 className="trello-status-text">It&apos;s empty!</h5>
           </FadeIn>
         </div>
       );

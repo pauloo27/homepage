@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faCircle, faSave } from '@fortawesome/free-regular-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckCircle,
+  faCircle,
+  faSave,
+} from "@fortawesome/free-regular-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface ToDoEntryProps {
   id: string;
@@ -19,7 +23,7 @@ interface ToDoEntryState {
 }
 
 class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
-  state = { done: false, edit: false, newText: '' };
+  state = { done: false, edit: false, newText: "" };
 
   componentDidMount() {
     this.setState({ done: this.props.done });
@@ -30,7 +34,7 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
       this.finishEdit();
       return;
     }
-    await this.setState({ done: !this.state.done });
+    await this.setState((prevState) => ({ done: !prevState.done }));
 
     this.props.onDoneToggle(this.props.id, this.state.done);
   };
@@ -40,31 +44,31 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
   };
 
   toggleEditMode = () => {
-    this.setState({ edit: !this.state.edit });
-  }
+    this.setState(prevState => ({ edit: !prevState.edit }));
+  };
 
   handleEditSave = (e: React.FormEvent) => {
     e.preventDefault();
     this.finishEdit();
-  }
+  };
 
   handleFormEscape = (e: React.KeyboardEvent) => {
     if (e.keyCode === 27) this.toggleEditMode();
-  }
+  };
 
   finishEdit = () => {
     this.toggleEditMode();
     let text = this.state.newText;
-    if (text.trim() === '') text = this.props.text;
+    if (text.trim() === "") text = this.props.text;
     this.props.onEdit(this.props.id, text);
-  }
+  };
 
   getTextComponent = () => {
     if (this.state.edit) {
       return (
         <div
           className={
-            this.state.edit ? 'todo-entry-text edit' : 'todo-entry-text'
+            this.state.edit ? "todo-entry-text edit" : "todo-entry-text"
           }
           onDoubleClick={this.toggleEditMode}
         >
@@ -82,19 +86,19 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
     return (
       <div
         className={
-            this.state.done ? 'todo-entry-text checked' : 'todo-entry-text'
-          }
+          this.state.done ? "todo-entry-text checked" : "todo-entry-text"
+        }
         onDoubleClick={this.toggleEditMode}
       >
         {this.props.text}
       </div>
     );
-  }
+  };
 
   getIcon = () => {
     if (this.state.edit) return faSave;
     return this.state.done ? faCheckCircle : faCircle;
-  }
+  };
 
   render() {
     return (
@@ -108,7 +112,7 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
           >
             <FontAwesomeIcon
               className={
-                this.state.done && !this.state.edit ? 'icon-checked' : ''
+                this.state.done && !this.state.edit ? "icon-checked" : ""
               }
               icon={this.getIcon()}
             />
