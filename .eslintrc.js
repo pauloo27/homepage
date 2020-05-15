@@ -32,6 +32,7 @@ module.exports = {
   rules: {
     "react/prefer-stateless-function": "off",
     "jsx-a11y/no-static-element-interactions": "off",
+    "class-methods-use-this": "off",
     "import/extensions": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "react/state-in-constructor": "off",
