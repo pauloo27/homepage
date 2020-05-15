@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import $ from "jquery";
 import FadeIn from "react-fade-in";
 import { Lottie } from "@crello/react-lottie";
+import { getProvider } from "../utils/ProviderManager";
 import checked from "../assets/checked.json";
 import ToDoEntry from "./ToDoEntry";
 import "../styles/ToDoBox.scss";
@@ -25,7 +26,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
   state = { entries: new Array<ToDoEntryState>(), loaded: false };
 
   componentDidMount() {
-    const todo = localStorage.getItem("todo-list");
+    const todo = getProvider().getValue("todo-list");
     if (todo !== null) {
       const entries = JSON.parse(todo);
       this.setState({ entries, loaded: true });
@@ -36,7 +37,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
   }
 
   saveTodoList = () => {
-    localStorage.setItem("todo-list", JSON.stringify(this.state.entries));
+    getProvider().setValue("todo-list", JSON.stringify(this.state.entries));
     this.props.setupTooltip();
   };
 
@@ -84,9 +85,10 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
   handleDoneToggle = async (id: string, done: boolean) => {
     let { entries } = this.state;
     entries = entries.map((value) => {
-      if (value.id === id) value.done = done;
+      const newValue = value;
+      if (value.id === id) newValue.done = done;
 
-      return value;
+      return newValue;
     });
     await this.setState({ entries });
     this.saveTodoList();
@@ -95,9 +97,10 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
   handleEdit = async (id: string, newText: string) => {
     let { entries } = this.state;
     entries = entries.map((value) => {
-      if (value.id === id) value.text = newText;
+      const newValue = value;
+      if (value.id === id) newValue.text = newText;
 
-      return value;
+      return newValue;
     });
     await this.setState({ entries });
     this.saveTodoList();
