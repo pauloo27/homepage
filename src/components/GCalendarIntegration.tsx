@@ -5,6 +5,7 @@ import FadeIn from "react-fade-in";
 import { Lottie } from "@crello/react-lottie";
 import GCalendarSettings from "./GCalendarSettings";
 import Clock from "./Clock";
+import Weather from "./Weather";
 import loader from "../assets/loader.json";
 import "../styles/CalendarIntegration.scss";
 
@@ -194,6 +195,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
             </div>
           </div>
         </div>
+        <Weather />
         <Clock />
         {this.getStatus()}
         {this.listEvents()}
