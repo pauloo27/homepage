@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Toggle background button.
-- Handle to escape key in ToDo entry edit mode.
+- Background pre loader.
+- Escape key handler in ToDo entry edit mode.
+- Current weather to calendar container.
+- Abstract data provider.
+- Service worker so once loaded it can accessed without internet.
 
 ### Changed
 - Background transition speed.
