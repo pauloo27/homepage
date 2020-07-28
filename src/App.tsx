@@ -45,14 +45,14 @@ class App extends Component<any, AppState> {
     if (value === null) {
       await this.setState({
         dayBackground: {
-          url: "https://i.imgur.com/2yZEWjj.jpg",
-          author: "Alex Knight",
-          authorUrl: "https://unsplash.com/@agkdesign",
+          url: "https://i.imgur.com/vq3OEsR.jpg",
+          author: "sebastianinman",
+          authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
         },
         nightBackground: {
-          url: "https://i.imgur.com/ilSeY3w.jpg",
-          author: "Alex Knight",
-          authorUrl: "https://unsplash.com/@agkdesign",
+          url: "https://i.imgur.com/eSK3Xdd.jpg",
+          author: "sebastianinman",
+          authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
         },
       });
 
