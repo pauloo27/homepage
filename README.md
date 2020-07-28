@@ -13,6 +13,7 @@
 - Bookmarks.
 - To Do list.
 - Google Calendar Integration.
+- Weather.
 - Trello Integration.
 - Day and Night wallpaper.
 
