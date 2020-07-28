@@ -5,7 +5,7 @@
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FPauloo27%2Fhomepage%2Fbadge%3Fref%3Dmaster&style=for-the-badge)](https://actions-badge.atrox.dev/Pauloo27/homepage/goto?ref=master)
 [![GitHub license](https://img.shields.io/github/license/Pauloo27/homepage?style=for-the-badge)](https://github.com/Pauloo27/homepage/blob/master/LICENSE)
 
-![Screenshot](https://i.imgur.com/EVaXuYv.png)
+![Screenshot](https://i.imgur.com/EzHH6o8.png)
 
 ## Features
 
@@ -20,6 +20,18 @@
 ## How to use
 
 You can run it locally or use [the one hosted at GitHub Pages](https://pauloo27.github.io/homepage).
+
+### Recommended wallpapers
+
+By default homepage has 2 wallpapers, the `day wallpaper` that is used from 6 am until 6 pm and a 
+`night wallpaper` that used from 6 pm until 6 am. You can customize and set your own background to it.
+You can find dynamic wallpapers at https://dynamicwallpaper.club.
+
+Here are some good looking ones:
+
+- [Pixelart City](https://imgur.com/a/WmmsFbs) 
+- [Anime City](https://imgur.com/a/Fe6qEcm) 
+- [Forest](https://imgur.com/a/UharzB1) 
 
 ## How to run it locally
 
