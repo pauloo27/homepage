@@ -8,8 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- The gap between the cards from 10px to 4px.
 
-- The gap between the cards from 10px to 4px. 
+### Fixed
+- The width of the cards to 1/3 of the page.
+- The code references to "GeneralSettings" as "SearchEngineSettings".
 
 ## [2.2.0] - 2020-07-20
 
