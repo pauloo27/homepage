@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The gap between the cards from 10px to 4px. 
+
 ## [2.2.0] - 2020-07-20
 
 ### Added
