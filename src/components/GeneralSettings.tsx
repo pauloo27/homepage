@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import "../styles/SearchEngineSettings.scss";
+import "../styles/GeneralSettings.scss";
 
-interface SearchEngineSettingsProps {
+interface GeneralSettingsProps {
   onSave: Function;
 }
 
-interface SearchEngineSettingsState {
+interface GeneralSettingsState {
   engineType: string;
   engineUrl?: string;
 }
 
-class SearchEngineSettings extends Component<
-  SearchEngineSettingsProps,
-  SearchEngineSettingsState
+class GeneralSettings extends Component<
+  GeneralSettingsProps,
+  GeneralSettingsState
 > {
   state = { engineType: "", engineUrl: "" };
 
@@ -131,4 +131,4 @@ class SearchEngineSettings extends Component<
   }
 }
 
-export default SearchEngineSettings;
+export default GeneralSettings;

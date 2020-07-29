@@ -7,7 +7,7 @@ import BookmarkBar from "./components/BookmarkBar";
 import ToDoBox from "./components/ToDoBox";
 import TrelloIntegration from "./components/TrelloIntegration";
 import GCalendarIntegration from "./components/GCalendarIntegration";
-import SearchEngineSettings from "./components/SearchEngineSettings";
+import GeneralSettings from "./components/GeneralSettings";
 import BackgroundSettings from "./components/BackgroundSettings";
 import ProjectInfo from "./components/ProjectInfo";
 import BackgroundInfo from "./components/BackgroundInfo";
@@ -125,7 +125,7 @@ class App extends Component<any, AppState> {
     this.setupTooltip();
   };
 
-  handleSearchEngineSave = (config: any) => {
+  handleGeneralSave = (config: any) => {
     this.setState(config);
   };
 
@@ -212,7 +212,7 @@ class App extends Component<any, AppState> {
             </div>
           </div>
         </div>
-        <SearchEngineSettings onSave={this.handleSearchEngineSave} />
+        <GeneralSettings onSave={this.handleGeneralSave} />
         <BackgroundSettings
           day={this.state.dayBackground}
           night={this.state.nightBackground}
