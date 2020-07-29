@@ -1,8 +1,6 @@
 @import "./Theme.scss";
 
 #todo-box {
-  width: 30%;
-  min-width: 30%;
   overflow-y: auto;
 
   #todo-new-entry {
