@@ -41,8 +41,8 @@ class App extends Component<any, AppState> {
   timerId: any;
 
   async componentDidMount() {
-    const value = localStorage.getItem("backgrounds");
-    if (value === null) {
+    const backgrounds = localStorage.getItem("backgrounds");
+    if (backgrounds === null) {
       await this.setState({
         dayBackground: {
           url: "https://i.imgur.com/vq3OEsR.jpg",
@@ -55,10 +55,9 @@ class App extends Component<any, AppState> {
           authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
         },
       });
-
       this.saveBackgrounds();
     } else {
-      await this.setState(JSON.parse(value));
+      await this.setState(JSON.parse(backgrounds));
     }
 
     this.checkBackground();
