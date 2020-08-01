@@ -6,11 +6,14 @@ const gapiconfig = { apiKey: "", clientId: "" };
 
 export interface GCalendarSettingsProps {
   onLoginStatusChange: Function;
+  showWeather: boolean;
+  onSave: Function;
 }
 
 export interface GCalendarSettingsState {
   isSignedIn?: boolean;
   isClientReady: boolean;
+  showWeather: boolean;
 }
 
 class GCalendarSettings extends Component<
@@ -20,9 +23,11 @@ class GCalendarSettings extends Component<
   state = {
     isSignedIn: undefined,
     isClientReady: false,
+    showWeather: false,
   };
 
   async componentDidMount() {
+    this.setState({showWeather: this.props.showWeather});
     try {
       const config = require("../config/gapi.json");
       if (config !== undefined) {
@@ -111,6 +116,15 @@ class GCalendarSettings extends Component<
     );
   };
 
+  handleSave = () => {
+    localStorage.setItem("show-weather", JSON.stringify({showWeather: this.state.showWeather}));
+    this.props.onSave({showWeather: this.state.showWeather});
+  }
+
+  handleShowWeather = (e: React.ChangeEvent<any>) => {
+    this.setState({showWeather: e.target.checked});
+  }
+
   render() {
     if (this.state.isSignedIn === undefined) return null;
 
@@ -142,7 +156,14 @@ class GCalendarSettings extends Component<
                 </span>{" "}
               </button>
             </div>
-            <div className="modal-body">{this.getActionButton(gapi)}</div>
+            <div className="modal-body">
+              {this.getActionButton(gapi)}
+              <hr />
+              <div className="checkbox-input">
+                <input type="checkbox" defaultChecked={this.props.showWeather} onChange={this.handleShowWeather}/>
+                <label>Show weather</label>
+              </div>
+            </div>
             <div className="modal-footer">
               <button
                 type="button"
@@ -152,7 +173,7 @@ class GCalendarSettings extends Component<
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-primary" onClick={this.handleSave}>
                 Save changes
               </button>
             </div>

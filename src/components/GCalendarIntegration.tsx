@@ -17,6 +17,7 @@ interface GCalendarIntegrationState {
   */
   loginState: number;
   events: Array<any>;
+  showWeather: boolean;
 }
 
 const weekDays = [
@@ -30,9 +31,16 @@ const weekDays = [
 ];
 
 class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
-  state = { loginState: 0, events: new Array<any>() };
+  state = { loginState: 0, events: new Array<any>(), showWeather: false };
 
   colors: any = {};
+
+  componentDidMount() {
+    const showWeather = localStorage.getItem("show-weather");
+    if (showWeather !== null) {
+      this.setState(JSON.parse(showWeather));
+    }
+  }
 
   loadEvents = async (start: Date) => {
     const { gapi } = window as any;
@@ -173,6 +181,10 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     return content;
   };
 
+  handleSave = (config: any) => {
+    this.setState(config);
+  }
+
   render() {
     return (
       <div id="calendar-container" className="homepage-card">
@@ -195,11 +207,15 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
             </div>
           </div>
         </div>
-        <Weather />
+        {this.state.showWeather ? <Weather /> : null}
         <Clock />
         {this.getStatus()}
         {this.listEvents()}
-        <GCalendarSettings onLoginStatusChange={this.handleLoginStatusChange} />
+        <GCalendarSettings 
+          showWeather={this.state.showWeather} 
+          onSave={this.handleSave}
+          onLoginStatusChange={this.handleLoginStatusChange} 
+        />
       </div>
     );
   }
