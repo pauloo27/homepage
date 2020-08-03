@@ -71,11 +71,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
   getEntries = () => {
     let { entries } = this.state;
 
-    if (entries.length > 14) {
-      entries = entries.slice(0, 15);
-    }
-
-    const bookmarks = entries.map((bookmark) => (
+    return entries.map((bookmark) => (
       <BookmarkEntry
         key={bookmark.id}
         id={bookmark.id}
@@ -86,15 +82,6 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
         onDelete={this.handleBookmarkDelete}
       />
     ));
-    if (entries.length > 14) {
-      return (
-        <>
-          {bookmarks}
-          <h4>...</h4>
-        </>
-      );
-    }
-    return bookmarks;
   };
 
   render() {

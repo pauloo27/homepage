@@ -14,6 +14,7 @@
   .bookmark-list {
     display: flex;
     flex-direction: row;
+    overflow-x: auto;
 
     .bookmark-entry {
       margin: 0px 5px;
