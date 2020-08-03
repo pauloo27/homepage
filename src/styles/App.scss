@@ -1,5 +1,16 @@
 @import "./Theme.scss";
 
+.homepage-card {
+  justify-content: space-around;
+  background-color: rgba($backgrounds, 0.7);
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 33%;
+}
+
 #header-container,
 #middle-container {
   display: flex;
@@ -46,6 +57,34 @@
 
 #footer-dropdown {
   display: none;
+}
+
+#header-container {
+  .homepage-card {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}
+
+.homepage-card-header {
+  display: flex;
+  justify-content: space-between;
+
+  .homepage-card-settings-holder {
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: auto;
+    .homepage-card-settings {
+      font-size: 24px;
+    }
+  }
+}
+
+.checkbox-input {
+  input {
+    width: auto !important;
+    margin: 5px !important;
+  }
 }
 
 @media only screen and (max-width: $mobileWidth) {
