@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Option to enable/disable the weather in the calendar card.
+- Option to enable/disable the main cards.
 
 ### Changed
 - The gap between the cards from 10px to 4px.
