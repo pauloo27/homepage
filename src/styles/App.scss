@@ -87,6 +87,20 @@
   }
 }
 
+#middle-container.card-count-2 {
+  .homepage-card {
+    width: 50%;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}
+
+#middle-container.card-count-1 {
+  .homepage-card {
+    width: 50%;
+  }
+}
+
 @media only screen and (max-width: $mobileWidth) {
   #header-container,
   #middle-container,

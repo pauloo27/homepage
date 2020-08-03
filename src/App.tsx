@@ -161,6 +161,9 @@ class App extends Component<any, AppState> {
   render() {
     if (this.state.currentBackground.url === "") return null;
 
+    const cardsCount = [this.state.showToDo, this.state.showCalendar, this.state.showTrello]
+      .filter(b => b).length;
+
     this.setupTooltip();
 
     return (
@@ -174,7 +177,7 @@ class App extends Component<any, AppState> {
           />
           <BookmarkBar />
         </div>
-        <div id="middle-container">
+        <div id="middle-container" className={`card-count-${cardsCount}`}>
           {this.state.showToDo ? <ToDoBox setupTooltip={this.setupTooltip} /> : null}
           {this.state.showCalendar ? <GCalendarIntegration /> : null}
           {this.state.showTrello ? this.loadTrelloIntegration() : null}
