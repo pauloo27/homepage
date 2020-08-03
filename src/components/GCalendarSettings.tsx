@@ -160,7 +160,7 @@ class GCalendarSettings extends Component<
               {this.getActionButton(gapi)}
               <hr />
               <div className="checkbox-input">
-                <input type="checkbox" defaultChecked={this.props.showWeather} onChange={this.handleShowWeather}/>
+                <input type="checkbox" defaultChecked={this.props.showWeather} onChange={this.handleShowWeather} />
                 <label>Show weather</label>
               </div>
             </div>

@@ -129,17 +129,17 @@ class GeneralSettings extends Component<
                   }`}
                 />
               </div>
-              <hr/>
+              <hr />
               <div className="checkbox-input">
-                <input defaultChecked={this.state.showToDo} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showToDo")}/>
+                <input defaultChecked={this.state.showToDo} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showToDo")} />
                 <label>Show To Do card</label>
               </div>
               <div className="checkbox-input">
-                <input defaultChecked={this.state.showTrello} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showTrello")}/>
+                <input defaultChecked={this.state.showTrello} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showTrello")} />
                 <label>Show Trello card</label>
               </div>
               <div className="checkbox-input">
-                <input defaultChecked={this.state.showCalendar} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showCalendar")}/>
+                <input defaultChecked={this.state.showCalendar} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showCalendar")} />
                 <label>Show Calendar card</label>
               </div>
             </div>
