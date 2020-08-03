@@ -10,21 +10,30 @@ interface GeneralSettingsProps {
 interface GeneralSettingsState {
   engineType: string;
   engineUrl?: string;
+  showToDo: boolean;
+  showCalendar: boolean;
+  showTrello: boolean;
 }
 
 class GeneralSettings extends Component<
   GeneralSettingsProps,
   GeneralSettingsState
 > {
-  state = { engineType: "", engineUrl: "" };
+  state = { engineType: "", engineUrl: "", showToDo: true, showCalendar: true, showTrello: true };
 
   async componentDidMount() {
-    const config = localStorage.getItem("search-engine");
-    if (config === null) {
+    const layoutConfig = localStorage.getItem("layout");
+    if (layoutConfig !== null) {
+      const { showToDo, showCalendar, showTrello} = JSON.parse(layoutConfig);
+      this.setState({showToDo, showCalendar, showTrello});
+    }
+
+    const searchEngineConfig = localStorage.getItem("search-engine");
+    if (searchEngineConfig === null) {
       await this.setState({ engineType: "duckduckgo" });
       this.saveEngine();
     } else {
-      const json = JSON.parse(config);
+      const json = JSON.parse(searchEngineConfig);
       await this.setState({
         engineType: json.engineType,
         engineUrl: json.engineUrl,
@@ -37,12 +46,24 @@ class GeneralSettings extends Component<
     localStorage.setItem("search-engine", JSON.stringify(this.state));
   };
 
+  saveLayout = () => {
+    localStorage.setItem("layout", JSON.stringify(
+      {showToDo: this.state.showToDo, showCalendar: this.state.showCalendar, showTrello: this.state.showTrello}
+    ));
+  }
+
   handleChange = (e: React.ChangeEvent<HTMLElement>) => {
     this.setState({ engineType: (e.target as any).value! });
   };
 
   handleUrlChange = (e: React.ChangeEvent<HTMLElement>) => {
     this.setState({ engineUrl: (e.target as any).value! });
+  };
+
+  handleCheckboxChange = (e: React.ChangeEvent<any>, keyName: string) => {
+    const newState = {} as any;
+    newState[keyName] = e.target.checked;
+    this.setState(newState);
   };
 
   handleSave = async () => {
@@ -54,7 +75,8 @@ class GeneralSettings extends Component<
         engineUrl: `https://${prevState.engineUrl}`,
       }));
     }
-    await this.saveEngine();
+    this.saveEngine();
+    this.saveLayout();
     this.props.onSave(this.state);
   };
 
@@ -88,7 +110,7 @@ class GeneralSettings extends Component<
             </div>
             <div className="modal-body">
               <div>
-                <p>Search engine</p>
+                <label>Search engine</label>
                 <select
                   id="search-engine"
                   onChange={this.handleChange}
@@ -106,6 +128,19 @@ class GeneralSettings extends Component<
                     this.state.engineType === "custom" ? "" : "hidden"
                   }`}
                 />
+              </div>
+              <hr/>
+              <div className="checkbox-input">
+                <input defaultChecked={this.state.showToDo} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showToDo")}/>
+                <label>Show To Do card</label>
+              </div>
+              <div className="checkbox-input">
+                <input defaultChecked={this.state.showTrello} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showTrello")}/>
+                <label>Show Trello card</label>
+              </div>
+              <div className="checkbox-input">
+                <input defaultChecked={this.state.showCalendar} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showCalendar")}/>
+                <label>Show Calendar card</label>
               </div>
             </div>
             <div className="modal-footer">

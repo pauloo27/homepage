@@ -26,6 +26,9 @@ interface AppState {
   backgroundToggled: boolean;
   engineType: string;
   engineUrl?: string;
+  showToDo: boolean;
+  showCalendar: boolean;
+  showTrello: boolean;
 }
 
 class App extends Component<any, AppState> {
@@ -36,6 +39,9 @@ class App extends Component<any, AppState> {
     backgroundToggled: false,
     engineType: "",
     engineUrl: undefined,
+    showToDo: true,
+    showTrello: true,
+    showCalendar: true,
   };
 
   timerId: any;
@@ -169,9 +175,9 @@ class App extends Component<any, AppState> {
           <BookmarkBar />
         </div>
         <div id="middle-container">
-          <ToDoBox setupTooltip={this.setupTooltip} />
-          <GCalendarIntegration />
-          {this.loadTrelloIntegration()}
+          {this.state.showToDo ? <ToDoBox setupTooltip={this.setupTooltip} /> : null}
+          {this.state.showCalendar ? <GCalendarIntegration /> : null}
+          {this.state.showTrello ? this.loadTrelloIntegration() : null}
         </div>
         <div id="footer-container">
           <ProjectInfo />

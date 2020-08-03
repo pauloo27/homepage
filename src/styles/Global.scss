@@ -23,10 +23,13 @@ html {
 }
 
 .homepage-card {
+  justify-content: space-around;
   background-color: rgba($backgrounds, 0.7);
   padding: 10px 20px;
   border-radius: 10px;
   margin: 2px;
+  margin-left: auto;
+  margin-right: auto;
   width: 33%;
 }
 
@@ -45,6 +48,13 @@ html {
 ::-webkit-scrollbar-thumb {
   background: $backgrounds;
   border-radius: 10px;
+}
+
+#header-container {
+  .homepage-card {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
 }
 
 .homepage-card-header {
