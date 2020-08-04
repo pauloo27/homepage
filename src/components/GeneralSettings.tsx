@@ -13,19 +13,20 @@ interface GeneralSettingsState {
   showToDo: boolean;
   showCalendar: boolean;
   showTrello: boolean;
+  expandBookmarks: boolean;
 }
 
 class GeneralSettings extends Component<
   GeneralSettingsProps,
   GeneralSettingsState
 > {
-  state = { engineType: "", engineUrl: "", showToDo: true, showCalendar: true, showTrello: true };
+  state = { engineType: "", engineUrl: "", showToDo: true, showCalendar: true, showTrello: true, expandBookmarks: false};
 
   async componentDidMount() {
     const layoutConfig = localStorage.getItem("layout");
     if (layoutConfig !== null) {
-      const { showToDo, showCalendar, showTrello} = JSON.parse(layoutConfig);
-      this.setState({showToDo, showCalendar, showTrello});
+      const { showToDo, showCalendar, showTrello, expandBookmarks} = JSON.parse(layoutConfig);
+      this.setState({showToDo, showCalendar, showTrello, expandBookmarks});
     }
 
     const searchEngineConfig = localStorage.getItem("search-engine");
@@ -48,7 +49,7 @@ class GeneralSettings extends Component<
 
   saveLayout = () => {
     localStorage.setItem("layout", JSON.stringify(
-      {showToDo: this.state.showToDo, showCalendar: this.state.showCalendar, showTrello: this.state.showTrello}
+      {showToDo: this.state.showToDo, showCalendar: this.state.showCalendar, showTrello: this.state.showTrello, expandBookmarks: this.state.expandBookmarks}
     ));
   }
 
@@ -82,6 +83,11 @@ class GeneralSettings extends Component<
 
   render() {
     if (this.state.engineType.length === 0) return null;
+    
+    const cardsCount = [this.state.showToDo, this.state.showCalendar, this.state.showTrello]
+      .filter(b => b)
+      .length;
+
     return (
       <div
         className="modal fade"
@@ -141,6 +147,10 @@ class GeneralSettings extends Component<
               <div className="checkbox-input">
                 <input defaultChecked={this.state.showCalendar} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showCalendar")} />
                 <label>Show Calendar card</label>
+              </div>
+              <div className="checkbox-input">
+                <input defaultChecked={this.state.expandBookmarks} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "expandBookmarks")} disabled={cardsCount === 3}/>
+                <label>Expand bookmarks (requires 2 cards or less)</label>
               </div>
             </div>
             <div className="modal-footer">

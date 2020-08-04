@@ -29,6 +29,7 @@ interface AppState {
   showToDo: boolean;
   showCalendar: boolean;
   showTrello: boolean;
+  expandBookmarks: boolean;
 }
 
 class App extends Component<any, AppState> {
@@ -42,6 +43,7 @@ class App extends Component<any, AppState> {
     showToDo: true,
     showTrello: true,
     showCalendar: true,
+    expandBookmarks: false,
   };
 
   timerId: any;
@@ -161,8 +163,14 @@ class App extends Component<any, AppState> {
   render() {
     if (this.state.currentBackground.url === "") return null;
 
-    const cardsCount = [this.state.showToDo, this.state.showCalendar, this.state.showTrello]
+    let cardsCount = [this.state.showToDo, this.state.showCalendar, this.state.showTrello]
       .filter(b => b).length;
+
+    const bookmarksExpanded = cardsCount !== 3 && this.state.expandBookmarks;
+
+    if (bookmarksExpanded) {
+      cardsCount++;
+    }
 
     this.setupTooltip();
 
@@ -174,13 +182,15 @@ class App extends Component<any, AppState> {
           <SearchBar
             engineType={this.state.engineType}
             engineUrl={this.state.engineUrl}
+            expand={bookmarksExpanded}
           />
-          <BookmarkBar />
+          {bookmarksExpanded ? null : <BookmarkBar expand={false} /> }
         </div>
         <div id="middle-container" className={`card-count-${cardsCount}`}>
           {this.state.showToDo ? <ToDoBox setupTooltip={this.setupTooltip} /> : null}
           {this.state.showCalendar ? <GCalendarIntegration /> : null}
           {this.state.showTrello ? this.loadTrelloIntegration() : null}
+          {bookmarksExpanded ? <BookmarkBar expand={true} /> : null}
         </div>
         <div id="footer-container">
           <ProjectInfo />

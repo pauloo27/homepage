@@ -4,6 +4,7 @@ import "../styles/SearchBar.scss";
 interface SearchBarProps {
   engineType: string;
   engineUrl?: string;
+  expand: boolean;
 }
 
 class SearchBar extends Component<SearchBarProps> {
@@ -33,7 +34,7 @@ class SearchBar extends Component<SearchBarProps> {
     }.ico`;
 
     return (
-      <form action={action} id="search-bar-container" className="homepage-card">
+      <form action={action} id="search-bar-container" className={`homepage-card ${this.props.expand ? "expanded" : ""}`}>
         <input
           autoFocus
           name="q"

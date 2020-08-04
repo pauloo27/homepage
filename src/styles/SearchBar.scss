@@ -34,6 +34,10 @@
   }
 }
 
+#search-bar-container.expanded {
+  width: 100%;
+}
+
 @media only screen and (max-width: $mobileWidth) {
   #search-bar-container {
     width: 95%;

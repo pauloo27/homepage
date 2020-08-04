@@ -6,12 +6,16 @@ import BookmarkEntry from "./BookmarkEntry";
 import BookmarkEditor from "./BookmarkEditor";
 import { getProvider } from "../utils/ProviderManager";
 
+interface BookmarkBarProps {
+  expand: boolean
+}
+
 interface BookmarkBarState {
   editable: boolean;
   entries: Array<any>;
 }
 
-class BookmarkBar extends Component<any, BookmarkBarState> {
+class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
   state = { editable: false, entries: new Array<any>() };
 
   componentDidMount() {
@@ -86,12 +90,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
 
   render() {
     return (
-      <div id="bookmark-bar" className="homepage-card">
-        <div
-          className={`bookmark-list ${this.state.editable ? "editable" : ""}`}
-        >
-          {this.getEntries()}
-        </div>
+      <div id="bookmark-bar" className={`homepage-card ${this.props.expand ? "expand" : ""}`}>
         <div className="homepage-card-header">
           <div
             id="bookmark-edit-toggle"
@@ -105,6 +104,7 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
               className="homepage-card-settings"
             />
           </div>
+          {this.props.expand ? <h4>Bookmarks:</h4> : null}
           <div
             data-toggle="tooltip"
             title="Add new bookmark"
@@ -121,6 +121,11 @@ class BookmarkBar extends Component<any, BookmarkBarState> {
               />
             </div>
           </div>
+        </div>
+        <div
+          className={`bookmark-list ${this.state.editable ? "editable" : ""}`}
+        >
+          {this.getEntries()}
         </div>
         <BookmarkEditor
           id="bookmark-add-modal"

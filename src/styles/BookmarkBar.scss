@@ -2,6 +2,7 @@
 
 #bookmark-bar {
   display: flex;
+  flex-direction: row-reverse;
   vertical-align: middle;
   flex-grow: 1;
   justify-content: space-between;
@@ -48,6 +49,23 @@
   .bookmark-list.editable {
     .bookmark-edit {
       visibility: visible;
+    }
+  }
+}
+
+#bookmark-bar.expand {
+  flex-grow: 0;
+  flex-direction: column;
+
+  .bookmark-list {
+    display: inline;
+    flex-grow: 1;
+    align-items: start;
+    overflow-x: unset;
+
+    .bookmark-entry {
+      display: inline-flex;
+      margin: 1px !important;
     }
   }
 }
