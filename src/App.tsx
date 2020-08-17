@@ -11,6 +11,7 @@ import GeneralSettings from "./components/GeneralSettings";
 import BackgroundSettings from "./components/BackgroundSettings";
 import ProjectInfo from "./components/ProjectInfo";
 import BackgroundInfo from "./components/BackgroundInfo";
+import WelcomeModal from "./components/WelcomeModal";
 import "./styles/App.scss";
 
 interface Background {
@@ -48,12 +49,12 @@ class App extends Component<any, AppState> {
 
   timerId: any;
 
-  async componentDidMount() {
+  loadBackgrounds = async () => {
     const backgrounds = localStorage.getItem("backgrounds");
     if (backgrounds === null) {
       await this.setState({
         dayBackground: {
-          url: "https://i.imgur.com/vq3OEsR.jpg",
+          url: "https://i.imgur.com/CdaQWae.jpg",
           author: "sebastianinman",
           authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
         },
@@ -67,6 +68,10 @@ class App extends Component<any, AppState> {
     } else {
       await this.setState(JSON.parse(backgrounds));
     }
+  }
+
+  async componentDidMount() {
+    await this.loadBackgrounds();
 
     this.checkBackground();
 
@@ -160,6 +165,10 @@ class App extends Component<any, AppState> {
     );
   };
 
+  handleBackgroundChange = () => {
+    this.loadBackgrounds().then(this.checkBackground);
+  };
+
   render() {
     if (this.state.currentBackground.url === "") return null;
 
@@ -178,6 +187,7 @@ class App extends Component<any, AppState> {
       <>
         <link rel="preload" href={this.state.dayBackground.url} as="image" />
         <link rel="preload" href={this.state.nightBackground.url} as="image" />
+        {true ? <WelcomeModal updateBackgrounds={this.handleBackgroundChange} /> : null}
         <div id="header-container">
           <SearchBar
             engineType={this.state.engineType}

@@ -1,0 +1,20 @@
+@import "./Theme.scss";
+
+#theme-selector {
+  #theme-selector-options {
+    display: flex;
+    .theme-option {
+      cursor: pointer;
+      margin: 2px;
+      display: flex;
+      flex-direction: column;
+      width: 33%;
+      img {
+        height: 100px;
+      }
+    }
+    .theme-option.theme-option-selected {
+      border: 3px solid $success;
+    }
+  }
+}
