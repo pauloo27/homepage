@@ -10,7 +10,7 @@ class ProjectInfo extends Component {
           <div
             className="homepage-card-settings-holder"
             data-toggle="modal"
-            data-target="#homepage-settings-modal"
+            data-target="#general-settings-modal"
           >
             <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
           </div>

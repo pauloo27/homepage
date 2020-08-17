@@ -91,16 +91,16 @@ class GeneralSettings extends Component<
     return (
       <div
         className="modal fade"
-        id="homepage-settings-modal"
+        id="general-settings-modal"
         tabIndex={-1}
         role="dialog"
-        aria-labelledby="homepage-settings-modal-label"
+        aria-labelledby="general-settings-modal-label"
         aria-hidden="true"
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="homepage-settings-modal-label">
+              <h5 className="modal-title" id="general-settings-modal-label">
                 General settings
               </h5>
               <button
