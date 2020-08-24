@@ -23,7 +23,7 @@ class GCalendarSettings extends Component<
   state = {
     isSignedIn: undefined,
     isClientReady: false,
-    showWeather: false,
+    showWeather: true,
   };
 
   async componentDidMount() {

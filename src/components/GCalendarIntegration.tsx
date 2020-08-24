@@ -31,7 +31,7 @@ const weekDays = [
 ];
 
 class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
-  state = { loginState: 0, events: new Array<any>(), showWeather: false };
+  state = { loginState: 0, events: new Array<any>(), showWeather: true };
 
   colors: any = {};
 
