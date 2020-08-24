@@ -23,6 +23,9 @@ jobs:
           GAPI_APIKEY: ${{ secrets.GAPI_APIKEY }}
           GAPI_CLIENTID: ${{ secrets.GAPI_CLIENTID }}
 
+      - name: Clean
+        run: rm -rf build
+
       - name: Build
         uses: CultureHQ/actions-yarn@master
         with:
