@@ -12,6 +12,7 @@ import BackgroundSettings from "./components/BackgroundSettings";
 import ProjectInfo from "./components/ProjectInfo";
 import BackgroundInfo from "./components/BackgroundInfo";
 import WelcomeModal from "./components/WelcomeModal";
+import UpdateModal from "./components/UpdateModal";
 import "./styles/App.scss";
 
 interface Background {
@@ -32,6 +33,8 @@ interface AppState {
   showTrello: boolean;
   expandBookmarks: boolean;
   firstStartup: boolean;
+  currentVersion: string;
+  lastVersion: string;
 }
 
 class App extends Component<any, AppState> {
@@ -47,6 +50,8 @@ class App extends Component<any, AppState> {
     showCalendar: true,
     expandBookmarks: false,
     firstStartup: false,
+    currentVersion: "",
+    lastVersion: "",
   };
 
   timerId: any;
@@ -74,7 +79,7 @@ class App extends Component<any, AppState> {
 
   checkVersion() {
     const packageInfo = require("../package.json");
-    const version = localStorage.getItem("version");
+    let version = localStorage.getItem("version");
     if (version !== null)  {
       if (version !== packageInfo.version) {
         console.log("Updated to version", version);
@@ -83,6 +88,8 @@ class App extends Component<any, AppState> {
       this.setState({firstStartup: true});
     }
     localStorage.setItem("version", packageInfo.version);
+    if (version === null) version = packageInfo.version;
+    this.setState({currentVersion: packageInfo.version, lastVersion: version!});
   }
 
   async componentDidMount() {
@@ -205,6 +212,9 @@ class App extends Component<any, AppState> {
         <link rel="preload" href={this.state.dayBackground.url} as="image" />
         <link rel="preload" href={this.state.nightBackground.url} as="image" />
         {this.state.firstStartup ? <WelcomeModal updateBackgrounds={this.handleBackgroundChange} /> : null}
+        {this.state.currentVersion !== this.state.lastVersion ? 
+          <UpdateModal currentVersion={this.state.currentVersion} lastVersion={this.state.lastVersion}/> 
+        : null}
         <div id="header-container">
           <SearchBar
             engineType={this.state.engineType}
