@@ -10,14 +10,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Option to enable/disable the weather in the calendar card.
 - Option to enable/disable the main cards.
+- Option to expand the bookmarks bar.
+- Welcome modal displayed at the first time the homepage is used.
 
 ### Changed
 - The gap between the cards from 10px to 4px.
+- Modals close button color to red.
+- Modals save button text to "Save" instead of "Save changes".
 
 ### Fixed
 - The width of the cards to 1/3 of the page.
 - The code references to "GeneralSettings" as "SearchEngineSettings".
 - Bookmark bar with more than 15 entries.
+
+### Removed
+- Modals "Close" button.
 
 ## [2.2.0] - 2020-07-20
 
