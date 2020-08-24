@@ -159,19 +159,11 @@ class TrelloSettings extends Component<
             </div>
             <div className="modal-footer">
               <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-                onClick={() => window.location.reload()}
-              >
-                Close
-              </button>
-              <button
                 onClick={this.handleSave}
                 type="button"
                 className="btn btn-primary"
               >
-                Save changes
+                Save
               </button>
             </div>
           </div>

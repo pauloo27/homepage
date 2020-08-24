@@ -51,7 +51,6 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
           name={this.props.name}
           url={this.props.url}
           icon={this.props.icon}
-          closeButtonText="Delete"
           onSave={this.handleSave}
           onClose={this.handleDelete}
         />

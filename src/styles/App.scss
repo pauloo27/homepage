@@ -1,5 +1,9 @@
 @import "./Theme.scss";
 
+.close {
+  color: $error !important;
+}
+
 .homepage-card {
   justify-content: space-around;
   background-color: rgba($backgrounds, 0.7);

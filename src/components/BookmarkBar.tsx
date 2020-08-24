@@ -132,7 +132,6 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
           name=""
           url=""
           icon=""
-          closeButtonText="Close"
           onSave={this.handleNewBookmark}
           onClose={() => {}}
         />

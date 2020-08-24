@@ -8,7 +8,6 @@ interface BookmarkEditorProps {
   name: string;
   url: string;
   icon: string;
-  closeButtonText: string;
   onClose: Function;
 }
 
@@ -115,20 +114,22 @@ class BookmarkEditor extends Component<
               </div>
             </div>
             <div className="modal-footer">
+              {this.props.url === "" ? null :
               <button
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
                 onClick={this.handleDelete}
               >
-                {this.props.closeButtonText}
+                Delete
               </button>
+              }
               <button
                 type="button"
                 className="btn btn-primary"
                 onClick={this.handleSave}
               >
-                Save changes
+                {this.props.url === "" ? "Create" : "Save"}
               </button>
             </div>
           </div>
