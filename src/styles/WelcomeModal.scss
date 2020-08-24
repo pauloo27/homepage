@@ -1,5 +1,9 @@
 @import "./Theme.scss";
 
+#license-notice {
+  color: $texts;
+}
+
 #theme-selector {
   #theme-selector-options {
     display: flex;
