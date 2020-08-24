@@ -31,6 +31,7 @@ interface AppState {
   showCalendar: boolean;
   showTrello: boolean;
   expandBookmarks: boolean;
+  firstStartup: boolean;
 }
 
 class App extends Component<any, AppState> {
@@ -45,6 +46,7 @@ class App extends Component<any, AppState> {
     showTrello: true,
     showCalendar: true,
     expandBookmarks: false,
+    firstStartup: false,
   };
 
   timerId: any;
@@ -70,10 +72,25 @@ class App extends Component<any, AppState> {
     }
   }
 
+  checkVersion() {
+    const packageInfo = require("../package.json");
+    const version = localStorage.getItem("version");
+    if (version !== null)  {
+      if (version !== packageInfo.version) {
+        console.log("Updated to version", version);
+      }
+    } else {
+      this.setState({firstStartup: true});
+    }
+    localStorage.setItem("version", packageInfo.version);
+  }
+
   async componentDidMount() {
     await this.loadBackgrounds();
 
     this.checkBackground();
+
+    this.checkVersion();
 
     this.timerId = setInterval(() => this.checkBackground(), 10 * 1000);
   }
@@ -187,7 +204,7 @@ class App extends Component<any, AppState> {
       <>
         <link rel="preload" href={this.state.dayBackground.url} as="image" />
         <link rel="preload" href={this.state.nightBackground.url} as="image" />
-        {true ? <WelcomeModal updateBackgrounds={this.handleBackgroundChange} /> : null}
+        {this.state.firstStartup ? <WelcomeModal updateBackgrounds={this.handleBackgroundChange} /> : null}
         <div id="header-container">
           <SearchBar
             engineType={this.state.engineType}
