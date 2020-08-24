@@ -7,7 +7,7 @@ import BookmarkEditor from "./BookmarkEditor";
 import { getProvider } from "../utils/ProviderManager";
 
 interface BookmarkBarProps {
-  expand: boolean
+  expand: boolean;
 }
 
 interface BookmarkBarState {
@@ -73,7 +73,7 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
   };
 
   getEntries = () => {
-    let { entries } = this.state;
+    const { entries } = this.state;
 
     return entries.map((bookmark) => (
       <BookmarkEntry

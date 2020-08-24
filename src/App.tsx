@@ -213,7 +213,7 @@ class App extends Component<any, AppState> {
         <link rel="preload" href={this.state.nightBackground.url} as="image" />
         {this.state.firstStartup ? <WelcomeModal updateBackgrounds={this.handleBackgroundChange} /> : null}
         {this.state.currentVersion !== this.state.lastVersion ? 
-          <UpdateModal currentVersion={this.state.currentVersion} lastVersion={this.state.lastVersion}/> 
+          <UpdateModal currentVersion={this.state.currentVersion} lastVersion={this.state.lastVersion} /> 
         : null}
         <div id="header-container">
           <SearchBar
@@ -227,7 +227,7 @@ class App extends Component<any, AppState> {
           {this.state.showToDo ? <ToDoBox setupTooltip={this.setupTooltip} /> : null}
           {this.state.showCalendar ? <GCalendarIntegration /> : null}
           {this.state.showTrello ? this.loadTrelloIntegration() : null}
-          {bookmarksExpanded ? <BookmarkBar expand={true} /> : null}
+          {bookmarksExpanded ? <BookmarkBar expand /> : null}
         </div>
         <div id="footer-container">
           <ProjectInfo />

@@ -149,7 +149,7 @@ class GeneralSettings extends Component<
                 <label>Show Calendar card</label>
               </div>
               <div className="checkbox-input">
-                <input defaultChecked={this.state.expandBookmarks} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "expandBookmarks")} disabled={cardsCount === 3}/>
+                <input defaultChecked={this.state.expandBookmarks} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "expandBookmarks")} disabled={cardsCount === 3} />
                 <label>Expand bookmarks (requires 2 cards or less)</label>
               </div>
             </div>

@@ -28,13 +28,13 @@ export default function UpdateModal(props: UpdateModalProps) {
   }, [setChangelog, props.currentVersion]);
 
   return (
-   <div
-        className="modal fade"
-        id="update-modal"
-        tabIndex={-1}
-        role="dialog"
-        aria-labelledby="update-modal-label"
-        aria-hidden="true"
+    <div
+      className="modal fade"
+      id="update-modal"
+      tabIndex={-1}
+      role="dialog"
+      aria-labelledby="update-modal-label"
+      aria-hidden="true"
     >
       <div className="modal-dialog" role="document">
         <div className="modal-content">

@@ -114,16 +114,16 @@ class BookmarkEditor extends Component<
               </div>
             </div>
             <div className="modal-footer">
-              {this.props.url === "" ? null :
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-                onClick={this.handleDelete}
-              >
-                Delete
-              </button>
-              }
+              {this.props.url === "" ? null : (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                  onClick={this.handleDelete}
+                >
+                  Delete
+                </button>
+            )}
               <button
                 type="button"
                 className="btn btn-primary"

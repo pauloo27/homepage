@@ -90,13 +90,13 @@ export default function WelcomeModal(props: WelcomeModalProps) {
 
   return (
     <div
-        className="modal fade"
-        id="welcome-modal"
-        tabIndex={-1}
-        role="dialog"
-        aria-labelledby="welcome-modal-label"
-        aria-hidden="true"
-      >
+      className="modal fade"
+      id="welcome-modal"
+      tabIndex={-1}
+      role="dialog"
+      aria-labelledby="welcome-modal-label"
+      aria-hidden="true"
+    >
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
@@ -120,31 +120,40 @@ export default function WelcomeModal(props: WelcomeModalProps) {
               That's your first time using this homepage! Now this page is cached in your browser 
               so you can use it without internet (with limitations)!
             </p>
-            <hr/>
+            <hr />
             <div id="theme-selector">
               <label>
                 Select your favorite background theme:
               </label>
               <div id="theme-selector-options">
-                  <ThemeOption 
-                  id={0} selected={theme} setId={handleThemeChange} theme={themes[0]}
+                <ThemeOption 
+                  id={0}
+                  selected={theme}
+                  setId={handleThemeChange}
+                  theme={themes[0]}
                 />
                 <ThemeOption 
-                  id={1} selected={theme} setId={handleThemeChange} theme={themes[1]}
+                  id={1}
+                  selected={theme}
+                  setId={handleThemeChange}
+                  theme={themes[1]}
                 />
                 <ThemeOption 
-                  id={2} selected={theme} setId={handleThemeChange} theme={themes[2]}
+                  id={2}
+                  selected={theme}
+                  setId={handleThemeChange}
+                  theme={themes[2]}
                 />
               </div>
             </div>
           </div>
           <div className="modal-footer">
             <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleSave}
-              >
-                Next
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSave}
+            >
+              Next
             </button>
           </div>
         </div>
