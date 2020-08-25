@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Welcome modal displayed at the first time the homepage is used.
 - Text shadow.
 - Background selector from default ones.
+- Changelog fetcher and viewer when the homepage is updated.
 
 ### Changed
 - The gap between the cards from 10px to 4px.
