@@ -12,12 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Option to enable/disable the main cards.
 - Option to expand the bookmarks bar.
 - Welcome modal displayed at the first time the homepage is used.
+- Text shadow.
 
 ### Changed
 - The gap between the cards from 10px to 4px.
 - Modals close button color to red.
 - Modals save button text to "Save" instead of "Save changes".
 - GitHub workflow actions versions to newer ones.
+- Cards opacity.
 
 ### Fixed
 - The width of the cards to 1/3 of the page.
