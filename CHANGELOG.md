@@ -17,11 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The gap between the cards from 10px to 4px.
 - Modals close button color to red.
 - Modals save button text to "Save" instead of "Save changes".
+- GitHub workflow actions versions to newer ones.
 
 ### Fixed
 - The width of the cards to 1/3 of the page.
 - The code references to "GeneralSettings" as "SearchEngineSettings".
 - Bookmark bar with more than 15 entries.
+- Deploy action that before kept old deploy files.
 
 ### Removed
 - Modals "Close" button.
