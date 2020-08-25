@@ -110,6 +110,12 @@ body {
   }
 }
 
+#middle-container.card-count-1 {
+  .homepage-card {
+    width: 50%;
+  }
+}
+
 @media only screen and (max-width: $mobileWidth) {
   #header-container,
   #middle-container,
