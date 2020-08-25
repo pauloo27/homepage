@@ -8,14 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        uses: actions/checkout@v2
         with:
           persist-credentials: false
 
-      - name: Install
-        uses: CultureHQ/actions-yarn@master
+      - uses: actions/setup-node@v1
         with:
-          args: install
+          node-version: '12'
 
       - name: Set credentials
         run: ./.github/scripts/set-credentials.sh
@@ -23,17 +22,16 @@ jobs:
           GAPI_APIKEY: ${{ secrets.GAPI_APIKEY }}
           GAPI_CLIENTID: ${{ secrets.GAPI_CLIENTID }}
 
-      - name: Clean
-        run: rm -rf build
+      - name: Install
+        run: yarn install
 
       - name: Build
-        uses: CultureHQ/actions-yarn@master
-        with:
-          args: build
+        run: yarn build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
+          CLEAN: true
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
+          BRANCH: gh-pages
+          FOLDER: build
