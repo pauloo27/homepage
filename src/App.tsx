@@ -269,6 +269,7 @@ class App extends Component<any, AppState> {
         </div>
         <GeneralSettings onSave={this.handleGeneralSave} />
         <BackgroundSettings
+          updateBackgrounds={this.handleBackgroundChange}
           day={this.state.dayBackground}
           night={this.state.nightBackground}
           onSave={this.handleBackgroundSave}

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import ThemeSelector from './ThemeSelector';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface BackgroundSettingsProps {
   onSave: Function;
+  updateBackgrounds: Function;
   day: any;
   night: any;
 }
@@ -79,6 +81,9 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
               </button>
             </div>
             <div className="modal-body">
+              <ThemeSelector selectedTheme={-1} updateBackgrounds={this.props.updateBackgrounds}/>
+              <hr/>
+              <h5>Custom background</h5>
               <p>Day background</p>
               <input
                 id="day-url"
@@ -125,7 +130,7 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
                 className="btn btn-primary"
                 onClick={this.handleSave}
               >
-                Save
+                Apply custom
               </button>
             </div>
           </div>
