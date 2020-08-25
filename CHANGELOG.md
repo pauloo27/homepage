@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Option to expand the bookmarks bar.
 - Welcome modal displayed at the first time the homepage is used.
 - Text shadow.
+- Background selector from default ones.
 
 ### Changed
 - The gap between the cards from 10px to 4px.
