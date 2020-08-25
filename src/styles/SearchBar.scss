@@ -3,21 +3,7 @@
 #search-bar-container {
   width: 33%;
   display: flex;
-
-  input {
-    color: $texts;
-    padding: 5px 10px;
-    background: $backgrounds;
-    border: none;
-    border-radius: 10px;
-    width: 100%;
-    transition: all 1s;
-  }
-
-  input:focus {
-    outline: none;
-  }
-
+  
   button {
     margin-top: auto;
     margin-bottom: auto;

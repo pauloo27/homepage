@@ -3,19 +3,6 @@
 #todo-box {
   overflow-y: auto;
 
-  #todo-new-entry {
-    color: $texts;
-    padding: 4px 4px;
-    background: $backgrounds;
-    border: none;
-    border-radius: 10px;
-    width: 100%;
-    transition: all 1s;
-    outline: none;
-    margin: 0 0 10px 0;
-    align-self: center;
-  }
-
   .todo-entry {
     margin-top: 5px;
     display: flex;

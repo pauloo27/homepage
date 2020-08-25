@@ -37,6 +37,7 @@ class SearchBar extends Component<SearchBarProps> {
       <form action={action} id="search-bar-container" className={`homepage-card ${this.props.expand ? "expanded" : ""}`}>
         <input
           autoFocus
+          className="text-input"
           name="q"
           placeholder={`Search at ${name}`}
           autoComplete="off"

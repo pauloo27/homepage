@@ -146,7 +146,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
         <h4>To Do:</h4>
         <input
           id="todo-new-entry"
-          className=""
+          className="text-input"
           type="text"
           placeholder="Add new things to your To Do"
           autoComplete="off"
