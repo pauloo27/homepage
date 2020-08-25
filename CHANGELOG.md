@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2020-08-25
+
 ### Added
 - Option to enable/disable the weather in the calendar card.
 - Option to enable/disable the main cards.
