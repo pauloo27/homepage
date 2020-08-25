@@ -146,12 +146,18 @@ export default function WelcomeModal(props: WelcomeModalProps) {
                 />
               </div>
               <hr/>
-              <p id="license-notice">
-                This program is free software; you can redistribute it and/or modify it under the 
-                terms of the GNU General Public License as published by the Free Software Foundation;
-                either version 2 of the License, or (at your option) any later version.
-              </p>
-              <a href="https://github.com/Pauloo27/homepage/blob/master/LICENSE">Open LICENSE</a>
+              <div id="licese-notice">
+                <p>
+                  This program is free software; you can redistribute it and/or modify it under the 
+                  terms of the GNU General Public License.
+                </p>
+                <p>
+                  This program is distributed in the hope that it will be useful, but WITHOUT ANY 
+                  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+                  PARTICULAR PURPOSE.
+                </p>
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/Pauloo27/homepage/blob/master/LICENSE">See the license for more details</a>
+              </div>
             </div>
           </div>
           <div className="modal-footer">
