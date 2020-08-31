@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Opacity value in a variable in the Theme.scss file.
+- Opacity to Trello list indicator.
+- Opacity to scrollbar.
+- Opacity to calendar day entry.
+
 ## [2.3.0] - 2020-08-25
 
 ### Added
