@@ -27,7 +27,7 @@
     h6 {
       margin-bottom: 0;
     }
-    background: $components;
+    background: rgba($components, $entries-opacity);
     border: none;
     border-radius: 10px;
     color: $texts;
@@ -63,7 +63,7 @@
 }
 
 .trello-card {
-  background-color: rgba($backgrounds, 0.55) !important;
+  background-color: rgba($backgrounds, $entries-opacity) !important;
   padding: 10px 10px;
   border-radius: 10px;
   margin-bottom: 10px;

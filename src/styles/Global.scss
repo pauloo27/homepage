@@ -24,6 +24,8 @@ html {
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+  background: rgba($backgrounds, $cards-opacity) !important;
+  border-radius: 10px;
 }
 
 /* Track */
@@ -34,7 +36,7 @@ html {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $backgrounds;
+  background: rgba($backgrounds, $entries-opacity) !important;
   border-radius: 10px;
 }
 

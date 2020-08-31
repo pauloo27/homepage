@@ -9,7 +9,7 @@
 }
 
 .gcalendar-events {
-  background-color: rgba($backgrounds, 0.55) !important;
+  background-color: rgba($backgrounds, $entries-opacity) !important;
   padding: 10px 10px;
   border-radius: 10px;
   margin-bottom: 10px;

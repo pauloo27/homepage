@@ -11,7 +11,7 @@ body {
 
 .homepage-card {
   justify-content: space-around;
-  background-color: rgba($backgrounds, 0.55);
+  background-color: rgba($backgrounds, $cards-opacity);
   padding: 10px 20px;
   border-radius: 10px;
   margin: 2px;
@@ -59,7 +59,7 @@ body {
     display: flex;
     width: max-content;
     padding: 2px 5px;
-    background-color: rgba($backgrounds, 0.7);
+    background-color: rgba($backgrounds, $cards-opacity);
     border-radius: 10px;
   }
 }
@@ -92,7 +92,7 @@ body {
 .text-input {
   color: $texts;
   padding: 5px 10px;
-  background: rgba($backgrounds, 0.55);
+  background: rgba($backgrounds, $entries-opacity);
   border: none;
   border-radius: 10px;
   width: 100%;
