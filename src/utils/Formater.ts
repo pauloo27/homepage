@@ -10,3 +10,14 @@ export function formatDate(date: Date): string {
   const day = withLeadingZeroes(date.getDate(), 2);
   return `${year}-${month}-${day}`;
 }
+
+export function formatTime(date: Date, showSeconds = false): string {
+  const hours = withLeadingZeroes(date.getHours(), 2);
+  const minutes = withLeadingZeroes(date.getMinutes(), 2);
+  if (showSeconds) {
+    const seconds = withLeadingZeroes(date.getSeconds(), 2);
+    return `${hours}:${minutes}:${seconds}`;
+  } else {
+    return `${hours}:${minutes}`;
+  }
+}
