@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faSync } from "@fortawesome/free-solid-svg-icons";
 import { formatTime } from '../utils/Formater';
 import FadeIn from "react-fade-in";
 import { Lottie } from "@crello/react-lottie";
@@ -68,12 +68,11 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     let old = false;
 
-    if(now.getTime() - date >= 10 * 60 * 1000) {
-      console.log("Cache too old");
+    if(now.getTime() - date >= 15 * 60 * 1000) {
+      console.log("Calendar cache too old...");
       old = true;
     }
 
-    console.log("Cache is fine...");
     this.colors = colors;
     this.setState({ events, cache: {date, old} });
   }
@@ -81,7 +80,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
   loadEventsFromGoogle = async (start: Date) => {
     const { gapi } = window as any;
 
-    const end = new Date(start.getTime() + 30 * 24 * 60 * 60 * 1000);
+    const end = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000);
 
     const events = new Array<any>();
 
@@ -99,7 +98,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
           timeMax: end.toISOString(),
           showDeleted: false,
           singleEvents: true,
-          maxResults: 30,
+          maxResults: 50,
           orderBy: "startTime",
         });
         events.push(
@@ -138,6 +137,13 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     }
     this.setState({ loginState: isSignedIn ? 1 : -1 });
   };
+
+  forceUpdate = () => {
+    if (this.state.loginState === 1) {
+      this.setState((prev) => ({cache: {date: prev.cache.date, old: true }}));
+      this.loadEventsFromGoogle(new Date());
+    }
+  }
 
   listEvents = () => {
     if (this.state.loginState === -1) return null;
@@ -179,7 +185,15 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     if (this.state.cache !== undefined) {
       const cache = this.state.cache as unknown as any; 
       const display = formatTime(new Date(cache.date));
-      content.push(<h6 key="cache-status">Cached in {display}. {cache.old ? 'Updating...' : ''}</h6>);
+      content.push(
+        <div id="cache-status-container" key="cache-status">
+          <h6>Updated at {display}. {cache.old ? 'Updating...' : ''}</h6>
+          {cache.old ? null : <div title="Update now" data-toggle="tooltip" id="refresh-cache-button" onClick={this.forceUpdate}>
+            <FontAwesomeIcon icon={faSync} />
+          </div>
+          }
+        </div>
+      );
     }
 
     sorted.forEach((entry: Array<any>) => {

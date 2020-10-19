@@ -6,6 +6,23 @@
 
 #calendar-container {
   overflow-y: auto;
+
+
+  #cache-status-container {
+    margin: 10px;
+    h6 {
+      display: inline;
+      margin-right: 10px;
+    }
+
+    #refresh-cache-button {
+      display: inline;
+      padding: 5px;
+      border-radius: 10px;
+      background-color: $backgrounds;
+      cursor: pointer;
+    }
+  }
 }
 
 .gcalendar-events {
