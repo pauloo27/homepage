@@ -77,8 +77,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
     setTimeout(async () => {
       let { entries } = this.state;
       entries = entries.filter((value) => value.id !== id);
-      await this.setState({ entries });
-      this.saveTodoList();
+      this.setState({ entries }, () => this.saveTodoList());
     }, 200);
   };
 
@@ -90,8 +89,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
 
       return newValue;
     });
-    await this.setState({ entries });
-    this.saveTodoList();
+    this.setState({ entries }, () => this.saveTodoList());
   };
 
   handleEdit = async (id: string, newText: string) => {
@@ -102,8 +100,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
 
       return newValue;
     });
-    await this.setState({ entries });
-    this.saveTodoList();
+    this.setState({ entries }, () => this.saveTodoList());
   };
 
   getEntries = () => {

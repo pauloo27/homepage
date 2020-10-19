@@ -34,7 +34,7 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
       this.finishEdit();
       return;
     }
-    await this.setState((prevState) => ({ done: !prevState.done }));
+    this.setState((prevState) => ({ done: !prevState.done }));
 
     this.props.onDoneToggle(this.props.id, this.state.done);
   };
