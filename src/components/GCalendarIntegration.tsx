@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faSync } from "@fortawesome/free-solid-svg-icons";
-import { formatTime } from '../utils/Formater';
 import FadeIn from "react-fade-in";
 import { Lottie } from "@crello/react-lottie";
+import { formatTime } from '../utils/Formater';
 import GCalendarSettings from "./GCalendarSettings";
 import Clock from "./Clock";
 import Weather from "./Weather";
@@ -140,8 +140,9 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
   forceUpdate = () => {
     if (this.state.loginState === 1) {
-      this.setState((prev) => ({cache: {date: prev.cache.date, old: true }}));
-      this.loadEventsFromGoogle(new Date());
+      this.setState((prev) => ({cache: {date: prev.cache.date, old: true }}), () => {
+        this.loadEventsFromGoogle(new Date());
+      });
     }
   }
 
@@ -185,13 +186,15 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     if (this.state.cache !== undefined) {
       const cache = this.state.cache as unknown as any; 
       const display = formatTime(new Date(cache.date));
+
       content.push(
         <div id="cache-status-container" key="cache-status">
           <h6>Updated at {display}. {cache.old ? 'Updating...' : ''}</h6>
-          {cache.old || this.state.loginState !== 1 ? null : <div title="Update now" data-toggle="tooltip" id="refresh-cache-button" onClick={this.forceUpdate}>
-            <FontAwesomeIcon icon={faSync} />
-          </div>
-          }
+          {cache.old || this.state.loginState !== 1 ? null : (
+            <div title="Update now" id="refresh-cache-button" onClick={this.forceUpdate}>
+              <FontAwesomeIcon icon={faSync} />
+            </div>
+          )}
         </div>
       );
     }

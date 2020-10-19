@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from "react";
-import ThemeSelector from './ThemeSelector';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import $ from "jquery";
+import ThemeSelector from './ThemeSelector';
 
 interface WelcomeModalProps {
   updateBackgrounds: Function;
@@ -51,8 +51,8 @@ export default function WelcomeModal(props: WelcomeModalProps) {
               so you can use it without internet (with limitations)!
             </p>
             <hr />
-            <ThemeSelector selectedTheme={1} updateBackgrounds={props.updateBackgrounds}/>
-            <hr/>
+            <ThemeSelector selectedTheme={1} updateBackgrounds={props.updateBackgrounds} />
+            <hr />
             <div id="licese-notice">
               <p>
                 This program is free software; you can redistribute it and/or modify it under the 
