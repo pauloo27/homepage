@@ -39,7 +39,7 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
   handleBookmarkDelete = async (bookmark: any) => {
     let { entries } = this.state;
     entries = entries.filter((entry) => entry.id !== bookmark.id);
-    await this.setState({ entries });
+    this.setState({ entries });
     this.saveBookmarks();
   };
 

@@ -24,7 +24,7 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
   };
 
   render() {
-    let { icon } = this.props;
+    let { icon, name } = this.props;
 
     if (icon === "") {
       icon = `https://external-content.duckduckgo.com/ip3/${
@@ -35,6 +35,9 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
     return (
       <div
         className="bookmark-entry"
+        data-toggle="tooltip"
+        data-boundary="window"
+        title={name}
       >
         <a href={this.props.url}>
           <img src={icon} alt={`${this.props.name} icon`} />
