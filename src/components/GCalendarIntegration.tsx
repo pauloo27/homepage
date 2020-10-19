@@ -188,7 +188,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       content.push(
         <div id="cache-status-container" key="cache-status">
           <h6>Updated at {display}. {cache.old ? 'Updating...' : ''}</h6>
-          {cache.old ? null : <div title="Update now" data-toggle="tooltip" id="refresh-cache-button" onClick={this.forceUpdate}>
+          {cache.old || this.state.loginState !== 1 ? null : <div title="Update now" id="refresh-cache-button" onClick={this.forceUpdate}>
             <FontAwesomeIcon icon={faSync} />
           </div>
           }
