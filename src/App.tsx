@@ -59,7 +59,7 @@ class App extends Component<any, AppState> {
   loadBackgrounds = async () => {
     const backgrounds = localStorage.getItem("backgrounds");
     if (backgrounds === null) {
-      await this.setState({
+      this.setState({
         dayBackground: {
           url: "https://i.imgur.com/CdaQWae.jpg",
           author: "sebastianinman",
@@ -70,10 +70,9 @@ class App extends Component<any, AppState> {
           author: "sebastianinman",
           authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
         },
-      });
-      this.saveBackgrounds();
+      }, () => this.saveBackgrounds());
     } else {
-      await this.setState(JSON.parse(backgrounds));
+      this.setState(JSON.parse(backgrounds));
     }
   }
 
@@ -126,9 +125,8 @@ class App extends Component<any, AppState> {
     this.setBackground(newBackground);
   };
 
-  checkBackground = () => {
-    if (this.state.backgroundToggled) return;
-
+  
+  updateBackground = () => {
     const now = new Date();
     let newBackground: Background;
 
@@ -137,8 +135,14 @@ class App extends Component<any, AppState> {
     } else {
       newBackground = this.state.nightBackground;
     }
-
     this.setBackground(newBackground);
+  }
+
+
+  checkBackground = () => {
+    if (this.state.backgroundToggled) return;
+    
+    this.updateBackground();
   };
 
   saveBackgrounds = () => {
@@ -169,10 +173,10 @@ class App extends Component<any, AppState> {
     dayBackground: Background,
     nightBackground: Background
   ) => {
-    await this.setState({ dayBackground, nightBackground });
-    await this.saveBackgrounds();
-    this.setState({ backgroundToggled: false });
-    this.checkBackground();
+    this.setState({ dayBackground, nightBackground, backgroundToggled: false }, () => {
+      this.saveBackgrounds();
+      this.checkBackground();
+    });
   };
 
   loadTrelloIntegration = () => {
@@ -190,7 +194,7 @@ class App extends Component<any, AppState> {
   };
 
   handleBackgroundChange = () => {
-    this.loadBackgrounds().then(this.checkBackground);
+    this.loadBackgrounds().then(this.updateBackground);
   };
 
   render() {
