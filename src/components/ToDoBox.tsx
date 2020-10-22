@@ -31,12 +31,11 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
       const entries = JSON.parse(todo);
       this.setState({ entries, loaded: true });
     } else {
-      this.setState({ loaded: true });
-      this.saveTodoList();
+      this.setState({ loaded: true }, this.saveToDoList);
     }
   }
 
-  saveTodoList = () => {
+  saveToDoList = () => {
     getProvider().setValue("todo-list", JSON.stringify(this.state.entries));
     this.props.setupTooltip();
   };
@@ -64,8 +63,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
 
       const { entries } = this.state;
       entries.push({ text: value, done: false, id });
-      this.setState({ entries });
-      this.saveTodoList();
+      this.setState({ entries }, this.saveToDoList);
       (e.target as any).value = "";
     }
   };
@@ -77,7 +75,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
     setTimeout(async () => {
       let { entries } = this.state;
       entries = entries.filter((value) => value.id !== id);
-      this.setState({ entries }, () => this.saveTodoList());
+      this.setState({ entries }, this.saveToDoList);
     }, 200);
   };
 
@@ -89,7 +87,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
 
       return newValue;
     });
-    this.setState({ entries }, () => this.saveTodoList());
+    this.setState({ entries }, this.saveToDoList);
   };
 
   handleEdit = async (id: string, newText: string) => {
@@ -100,7 +98,7 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
 
       return newValue;
     });
-    this.setState({ entries }, () => this.saveTodoList());
+    this.setState({ entries }, this.saveToDoList);
   };
 
   getEntries = () => {

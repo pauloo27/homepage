@@ -34,9 +34,11 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
       this.finishEdit();
       return;
     }
-    this.setState((prevState) => ({ done: !prevState.done }));
+    this.setState(
+      (prevState) => ({ done: !prevState.done }),
+      () => this.props.onDoneToggle(this.props.id, this.state.done)
+    );
 
-    this.props.onDoneToggle(this.props.id, this.state.done);
   };
 
   handleDelete = () => {
