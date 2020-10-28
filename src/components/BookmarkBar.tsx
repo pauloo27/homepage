@@ -69,7 +69,6 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
     entries.push(entry);
     this.setState({ entries });
     this.saveBookmarks();
-    window.location.reload();
   };
 
   getEntries = () => {
