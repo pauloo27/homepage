@@ -161,6 +161,7 @@ class TrelloSettings extends Component<
               <button
                 onClick={this.handleSave}
                 type="button"
+                data-dismiss="modal"
                 className="btn btn-primary"
               >
                 Save

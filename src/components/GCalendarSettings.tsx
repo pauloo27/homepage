@@ -165,7 +165,12 @@ class GCalendarSettings extends Component<
               </div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-primary" onClick={this.handleSave}>
+              <button 
+                type="button"
+                className="btn btn-primary"
+                onClick={this.handleSave}
+                data-dismiss="modal"
+              >
                 Save
               </button>
             </div>

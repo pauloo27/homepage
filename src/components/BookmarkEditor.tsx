@@ -128,6 +128,7 @@ class BookmarkEditor extends Component<
                 type="button"
                 className="btn btn-primary"
                 onClick={this.handleSave}
+                data-dismiss="modal"
               >
                 {this.props.url === "" ? "Create" : "Save"}
               </button>

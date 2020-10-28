@@ -155,6 +155,7 @@ class GeneralSettings extends Component<
             </div>
             <div className="modal-footer">
               <button
+                data-dismiss="modal"
                 type="button"
                 className="btn btn-primary"
                 onClick={this.handleSave}
