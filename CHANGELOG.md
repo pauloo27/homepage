@@ -12,6 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opacity to Trello list indicator.
 - Opacity to scrollbar.
 - Opacity to calendar day entry.
+- Cache to Google Calendar card.
+- Tooltip to bookmarks entries.
+- Lint script to yarn.
+
+### Changed
+- Behavior of "Save" buttons to act as Save and Close.
+
+### Fixed
+- Theme Selector preview.
+- Page reload used to refresh the bookmarks when creating or editing.
+
+### Removed
+- `await` in favor of callbacks.
 
 ## [2.3.0] - 2020-08-25
 
