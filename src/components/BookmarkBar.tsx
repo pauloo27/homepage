@@ -8,6 +8,7 @@ import { getProvider } from "../utils/ProviderManager";
 
 interface BookmarkBarProps {
   expand: boolean;
+  setupTooltip: Function;
 }
 
 interface BookmarkBarState {
@@ -39,16 +40,14 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
   handleBookmarkDelete = async (bookmark: any) => {
     let { entries } = this.state;
     entries = entries.filter((entry) => entry.id !== bookmark.id);
-    this.setState({ entries });
-    this.saveBookmarks();
+    this.setState({ entries }, this.saveBookmarks);
   };
 
   handleBookmarkUpdate = async (bookmark: any) => {
     let { entries } = this.state;
     entries = entries.filter((entry) => entry.id !== bookmark.id);
     entries.push(bookmark);
-    await this.setState({ entries });
-    this.saveBookmarks();
+    this.setState({ entries }, this.saveBookmarks);
   };
 
   handleNewBookmark = (entry: any) => {
@@ -67,8 +66,10 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
 
     const { entries } = this.state;
     entries.push(entry);
-    this.setState({ entries });
-    this.saveBookmarks();
+    this.setState({ entries }, () => {
+      this.saveBookmarks();
+      this.props.setupTooltip();
+    });
   };
 
   getEntries = () => {

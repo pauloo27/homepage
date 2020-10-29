@@ -69,14 +69,10 @@ class ToDoBox extends Component<ToDoBoxProps, ToDoBoxState> {
   };
 
   handleDelete = (id: string) => {
-    $(() => {
-      ($('[data-toggle="tooltip"]') as any).tooltip("dispose");
-    });
-    setTimeout(async () => {
-      let { entries } = this.state;
-      entries = entries.filter((value) => value.id !== id);
-      this.setState({ entries }, this.saveToDoList);
-    }, 200);
+    ($('[data-toggle="tooltip"]') as any).tooltip("dispose");
+    let { entries } = this.state;
+    entries = entries.filter((value) => value.id !== id);
+    this.setState({ entries }, this.saveToDoList);
   };
 
   handleDoneToggle = async (id: string, done: boolean) => {

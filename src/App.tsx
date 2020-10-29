@@ -156,9 +156,7 @@ class App extends Component<any, AppState> {
   };
 
   setupTooltip = () => {
-    $(() => {
-      ($('[data-toggle="tooltip"]') as any).tooltip();
-    });
+    ($('[data-toggle="tooltip"]') as any).tooltip();
   };
 
   handleTrelloReady = () => {
@@ -225,13 +223,13 @@ class App extends Component<any, AppState> {
             engineUrl={this.state.engineUrl}
             expand={bookmarksExpanded}
           />
-          {bookmarksExpanded ? null : <BookmarkBar expand={false} /> }
+          {bookmarksExpanded ? null : <BookmarkBar setupTooltip={this.setupTooltip} expand={false} /> }
         </div>
         <div id="middle-container" className={`card-count-${cardsCount}`}>
           {this.state.showToDo ? <ToDoBox setupTooltip={this.setupTooltip} /> : null}
           {this.state.showCalendar ? <GCalendarIntegration /> : null}
           {this.state.showTrello ? this.loadTrelloIntegration() : null}
-          {bookmarksExpanded ? <BookmarkBar expand /> : null}
+          {bookmarksExpanded ? <BookmarkBar setupTooltip={this.setupTooltip} expand /> : null}
         </div>
         <div id="footer-container">
           <ProjectInfo />

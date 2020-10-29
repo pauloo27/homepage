@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import $ from "jquery";
 
 interface BookmarkEditorProps {
   id: string;
@@ -42,6 +43,7 @@ class BookmarkEditor extends Component<
   };
 
   handleDelete = () => {
+    ($('[data-toggle="tooltip"]') as any).tooltip("dispose");
     this.props.onClose({ name: this.state.name, icon: this.state.icon });
   };
 
