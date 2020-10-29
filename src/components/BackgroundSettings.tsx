@@ -81,57 +81,90 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
               </button>
             </div>
             <div className="modal-body">
-              <ThemeSelector selectedTheme={-1} updateBackgrounds={this.props.updateBackgrounds} />
-              <hr />
-              <h5>Custom background</h5>
-              <p>Day background</p>
-              <input
-                id="day-url"
-                name="day-url"
-                placeholder="Image URL"
-                onChange={this.handleChange}
-                defaultValue={this.state["day-url"]}
-              />
-              <input
-                name="day-author"
-                placeholder="Author name"
-                onChange={this.handleChange}
-                defaultValue={this.state["day-author"]}
-              />
-              <input
-                name="day-authorUrl"
-                placeholder="Author page URL"
-                onChange={this.handleChange}
-                defaultValue={this.state["day-authorUrl"]}
-              />
-              <p>Night background</p>
-              <input
-                name="night-url"
-                placeholder="Image URL"
-                onChange={this.handleChange}
-                defaultValue={this.state["night-url"]}
-              />
-              <input
-                name="night-author"
-                placeholder="Author name"
-                onChange={this.handleChange}
-                defaultValue={this.state["night-author"]}
-              />
-              <input
-                name="night-authorUrl"
-                placeholder="Author page URL"
-                onChange={this.handleChange}
-                defaultValue={this.state["night-authorUrl"]}
-              />
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={this.handleSave}
-              >
-                Apply custom
-              </button>
+              <div id="theme-accordion" className="accordion">
+                <button
+                  id="theme-select-heading"
+                  className="btn btn-info m-1"
+                  data-toggle="collapse"
+                  data-target="#theme-select"
+                  aria-expanded="true"
+                  aria-controls="theme-select"
+                >
+                  Select background
+                </button>
+                <div
+                  id="theme-select" 
+                  className="collapse show"
+                  aria-labelledby="theme-select-heading"
+                  data-parent="#theme-accordion"
+                >
+                  <ThemeSelector selectedTheme={-1} updateBackgrounds={this.props.updateBackgrounds} />
+                </div>
+                <br />
+                <button 
+                  id="theme-custom-heading"
+                  className="btn btn-info m-1"
+                  data-toggle="collapse"
+                  data-target="#theme-custom"
+                  aria-expanded="false"
+                  aria-controls="theme-custom"
+                >
+                  Custom background
+                </button>
+                <div 
+                  id="theme-custom"
+                  className="collapse"
+                  aria-labelledby="theme-custom-heading"
+                  data-parent="#theme-accordion"
+                >
+                  <p>Day background</p>
+                  <input
+                    id="day-url"
+                    name="day-url"
+                    placeholder="Image URL"
+                    onChange={this.handleChange}
+                    defaultValue={this.state["day-url"]}
+                  />
+                  <input
+                    name="day-author"
+                    placeholder="Author name"
+                    onChange={this.handleChange}
+                    defaultValue={this.state["day-author"]}
+                  />
+                  <input
+                    name="day-authorUrl"
+                    placeholder="Author page URL"
+                    onChange={this.handleChange}
+                    defaultValue={this.state["day-authorUrl"]}
+                  />
+                  <p>Night background</p>
+                  <input
+                    name="night-url"
+                    placeholder="Image URL"
+                    onChange={this.handleChange}
+                    defaultValue={this.state["night-url"]}
+                  />
+                  <input
+                    name="night-author"
+                    placeholder="Author name"
+                    onChange={this.handleChange}
+                    defaultValue={this.state["night-author"]}
+                  />
+                  <input
+                    name="night-authorUrl"
+                    placeholder="Author page URL"
+                    onChange={this.handleChange}
+                    defaultValue={this.state["night-authorUrl"]}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={this.handleSave}
+                  >
+                    Apply custom
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
