@@ -116,6 +116,14 @@ body {
   }
 }
 
+#middle-container.card-count-2 {
+  .homepage-card {
+    width: 50%;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}
+
 @media only screen and (max-width: $mobileWidth) {
   #header-container,
   #middle-container,
