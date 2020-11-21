@@ -28,6 +28,7 @@ Settings modal.
 - Page reload used to refresh the bookmarks when creating or editing.
 - Initial components visibility that caused useless call to unused APIs.
 - Deploy action.
+- ESLint warnings and errors.
 
 ### Removed
 - `await` in favor of callbacks.
