@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
-class ProjectInfo extends Component {
+interface ProjectInfoProps {
+  version: string;
+}
+
+class ProjectInfo extends Component<ProjectInfoProps, any>  {
   render() {
     return (
       <div className="footer-info">
@@ -15,15 +19,21 @@ class ProjectInfo extends Component {
             <FontAwesomeIcon icon={faCog} className="homepage-card-settings" />
           </div>
         </div>
-        Homepage made by{" "}
         <a
           href="https://github.com/Pauloo27/homepage"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Pauloo27
+        Homepage v{this.props.version}
         </a>{" "}
-        under GPL-2 license
+        under 
+        <a
+          href="https://github.com/Pauloo27/homepage/blob/master/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GPL-2 license
+        </a>
       </div>
     );
   }

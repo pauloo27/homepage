@@ -228,7 +228,7 @@ class App extends Component<any, AppState> {
           {bookmarksExpanded ? <BookmarkBar setupTooltip={this.setupTooltip} expand /> : null}
         </div>
         <div id="footer-container">
-          <ProjectInfo />
+          <ProjectInfo version={this.state.currentVersion} />
           <BackgroundInfo
             toggleBackground={this.toggleBackground}
             backgroundAuthor={this.state.currentBackground.author}
@@ -252,7 +252,7 @@ class App extends Component<any, AppState> {
               aria-labelledby="dropdownMenuButton"
             >
               <div className="dropdown-item footer-dropdown-item">
-                <ProjectInfo />
+                <ProjectInfo version={this.state.currentVersion} />
               </div>
               <div className="dropdown-item footer-dropdown-item">
                 <BackgroundInfo
