@@ -79,13 +79,9 @@ class App extends Component<any, AppState> {
   checkVersion() {
     const packageInfo = require("../package.json");
     let version = localStorage.getItem("version");
-    if (version !== null)  {
-      if (version !== packageInfo.version) {
-        console.log("Updated to version", version);
-      }
-    } else {
-      this.setState({firstStartup: true});
-    }
+
+    if (version === null) this.setState({firstStartup: true});
+
     localStorage.setItem("version", packageInfo.version);
     if (version === null) version = packageInfo.version;
     this.setState({currentVersion: packageInfo.version, lastVersion: version!});
