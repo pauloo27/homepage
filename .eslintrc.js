@@ -30,6 +30,12 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint"],
   rules: {
+    "no-console": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "no-param-reassign": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "react/prefer-stateless-function": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "class-methods-use-this": "off",
