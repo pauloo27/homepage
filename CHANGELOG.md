@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cache to Google Calendar card.
 - Tooltip to bookmarks entries.
 - Lint script to yarn.
+- Accordion with "Select background" and "Custom background" in Background 
+Settings modal.
+- Version in Project Info.
+- Link to the LICENSE in Project Info.
 
 ### Changed
 - Behavior of "Save" buttons to act as Save and Close.
@@ -22,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Theme Selector preview.
 - Page reload used to refresh the bookmarks when creating or editing.
+- Initial components visibility that caused useless call to unused APIs.
+- Deploy action.
 
 ### Removed
 - `await` in favor of callbacks.
