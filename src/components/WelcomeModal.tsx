@@ -47,7 +47,7 @@ export default function WelcomeModal(props: WelcomeModalProps) {
           <div className="modal-body">
             <h4>Hello!</h4>
             <p>
-              That's your first time using this homepage! Now this page is cached in your browser 
+              It&rsquo;s your first time using this homepage! Now this page is cached in your browser 
               so you can use it without internet (with limitations)!
             </p>
             <hr />

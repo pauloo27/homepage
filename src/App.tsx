@@ -56,6 +56,20 @@ class App extends Component<any, AppState> {
 
   timerId: any;
 
+  async componentDidMount() {
+    await this.loadBackgrounds();
+
+    this.checkBackground();
+
+    this.checkVersion();
+
+    this.timerId = setInterval(() => this.checkBackground(), 10 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
+  }
+
   loadBackgrounds = async () => {
     const backgrounds = localStorage.getItem("backgrounds");
     if (backgrounds === null) {
@@ -76,7 +90,8 @@ class App extends Component<any, AppState> {
     }
   }
 
-  checkVersion() {
+  checkVersion = () => {
+    // eslint-disable-next-line
     const packageInfo = require("../package.json");
     let version = localStorage.getItem("version");
 
@@ -85,20 +100,6 @@ class App extends Component<any, AppState> {
     localStorage.setItem("version", packageInfo.version);
     if (version === null) version = packageInfo.version;
     this.setState({currentVersion: packageInfo.version, lastVersion: version!});
-  }
-
-  async componentDidMount() {
-    await this.loadBackgrounds();
-
-    this.checkBackground();
-
-    this.checkVersion();
-
-    this.timerId = setInterval(() => this.checkBackground(), 10 * 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerId);
   }
 
   setBackground = (background: Background) => {
@@ -200,7 +201,7 @@ class App extends Component<any, AppState> {
     const bookmarksExpanded = cardsCount !== 3 && this.state.expandBookmarks;
 
     if (bookmarksExpanded) {
-      cardsCount++;
+      cardsCount+=1;
     }
 
     this.setupTooltip();

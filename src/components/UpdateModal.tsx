@@ -18,6 +18,7 @@ export default function UpdateModal(props: UpdateModalProps) {
     const githubUrl = `https://api.github.com/repos/Pauloo27/homepage/releases/tags/v${props.currentVersion}`;
 
     fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(githubUrl)}`)
+      // eslint-disable-next-line
       .then(response => {
         if (response.ok) return response.json();
         setChangelog("Cannot load changelog.");

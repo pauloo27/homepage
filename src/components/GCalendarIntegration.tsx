@@ -52,6 +52,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       return;
     }
 
+    // eslint-disable-next-line
     let {date, events, colors} = JSON.parse(cachedInfo);
 
     events = events.filter((event: any) => {
@@ -77,10 +78,10 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     this.setState({ events, cache: {date, old} });
   }
 
-  loadEventsFromGoogle = async (start: Date) => {
+  loadEventsFromGoogle = async (timeMin: Date) => {
     const { gapi } = window as any;
 
-    const end = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const timeMax = new Date(timeMin.getTime() + 7 * 24 * 60 * 60 * 1000);
 
     const events = new Array<any>();
 
@@ -94,8 +95,8 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       async (calendar) => {
         const res = await gapi.client.calendar.events.list({
           calendarId: calendar.id,
-          timeMin: start.toISOString(),
-          timeMax: end.toISOString(),
+          timeMin: timeMin.toISOString(),
+          timeMax: timeMax.toISOString(),
           showDeleted: false,
           singleEvents: true,
           maxResults: 50,
@@ -167,6 +168,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     this.state.events.forEach((event) => {
       let when = event.start.date;
+      // eslint-disable-next-line
       if (when === undefined) when = event.start.dateTime.split("T")[0];
 
       let events = new Array<any>();

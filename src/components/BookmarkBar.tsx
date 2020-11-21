@@ -133,6 +133,7 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
           url=""
           icon=""
           onSave={this.handleNewBookmark}
+          // eslint-disable-next-line
           onClose={() => {}}
         />
       </div>

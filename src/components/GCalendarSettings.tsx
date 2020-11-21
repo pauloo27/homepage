@@ -29,6 +29,7 @@ class GCalendarSettings extends Component<
   async componentDidMount() {
     this.setState({showWeather: this.props.showWeather});
     try {
+      // eslint-disable-next-line
       const config = require("../config/gapi.json");
       if (config !== undefined) {
         gapiconfig.clientId = config.clientId;
@@ -161,7 +162,7 @@ class GCalendarSettings extends Component<
               <hr />
               <div className="checkbox-input">
                 <input type="checkbox" defaultChecked={this.props.showWeather} onChange={this.handleShowWeather} />
-                <label>Show weather</label>
+                <span>Show weather</span>
               </div>
             </div>
             <div className="modal-footer">

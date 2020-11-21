@@ -31,16 +31,19 @@ class GeneralSettings extends Component<
 
     const searchEngineConfig = localStorage.getItem("search-engine");
     if (searchEngineConfig === null) {
-      await this.setState({ engineType: "duckduckgo" });
-      this.saveEngine();
+      this.setState({ engineType: "duckduckgo" }, () => {
+        this.saveEngine();
+        this.props.onSave(this.state);
+      });
     } else {
       const json = JSON.parse(searchEngineConfig);
-      await this.setState({
+      this.setState({
         engineType: json.engineType,
         engineUrl: json.engineUrl,
+      }, () => {
+        this.props.onSave(this.state);
       });
     }
-    this.props.onSave(this.state);
   }
 
   saveEngine = () => {
@@ -116,7 +119,7 @@ class GeneralSettings extends Component<
             </div>
             <div className="modal-body">
               <div>
-                <label>Search engine</label>
+                <span>Search engine</span>
                 <select
                   id="search-engine"
                   onChange={this.handleChange}
@@ -138,19 +141,19 @@ class GeneralSettings extends Component<
               <hr />
               <div className="checkbox-input">
                 <input defaultChecked={this.state.showToDo} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showToDo")} />
-                <label>Show To Do card</label>
+                <span>Show To Do card</span>
               </div>
               <div className="checkbox-input">
                 <input defaultChecked={this.state.showTrello} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showTrello")} />
-                <label>Show Trello card</label>
+                <span>Show Trello card</span>
               </div>
               <div className="checkbox-input">
                 <input defaultChecked={this.state.showCalendar} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showCalendar")} />
-                <label>Show Calendar card</label>
+                <span>Show Calendar card</span>
               </div>
               <div className="checkbox-input">
                 <input defaultChecked={this.state.expandBookmarks} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "expandBookmarks")} disabled={cardsCount === 3} />
-                <label>Expand bookmarks (requires 2 cards or less)</label>
+                <span>Expand bookmarks (requires 2 cards or less)</span>
               </div>
             </div>
             <div className="modal-footer">

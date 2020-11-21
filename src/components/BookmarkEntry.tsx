@@ -24,6 +24,7 @@ class BookmarkEntry extends Component<BookmarkEntryProps> {
   };
 
   render() {
+    // eslint-disable-next-line
     let { icon, name } = this.props;
 
     if (icon === "") {

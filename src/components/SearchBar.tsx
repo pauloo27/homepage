@@ -25,7 +25,7 @@ class SearchBar extends Component<SearchBarProps> {
     }
 
     if (this.props.engineType === "custom") {
-      name = this.props.engineUrl!.split("//")[1].split("/")[0];
+      [name] = this.props.engineUrl!.split("//")[1].split("/");
       action = this.props.engineUrl!;
     }
 
@@ -36,6 +36,7 @@ class SearchBar extends Component<SearchBarProps> {
     return (
       <form action={action} id="search-bar-container" className={`homepage-card ${this.props.expand ? "expanded" : ""}`}>
         <input
+          // eslint-disable-next-line
           autoFocus
           className="text-input"
           name="q"

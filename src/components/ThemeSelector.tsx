@@ -78,9 +78,9 @@ export default function ThemeSelector(props: ThemeSelectorProps) {
 
   return (
     <div id="theme-selector">
-      <label>
+      <span>
         Select your favorite background theme:
-      </label>
+      </span>
       <div id="theme-selector-options">
         <ThemeOption 
           id={0}

@@ -83,6 +83,7 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
             <div className="modal-body">
               <div id="theme-accordion" className="accordion">
                 <button
+                  type="button"
                   id="theme-select-heading"
                   className="btn btn-info m-1"
                   data-toggle="collapse"
@@ -102,6 +103,7 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
                 </div>
                 <br />
                 <button 
+                  type="button"
                   id="theme-custom-heading"
                   className="btn btn-info m-1"
                   data-toggle="collapse"

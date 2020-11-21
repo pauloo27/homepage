@@ -76,6 +76,7 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
         >
           <form onSubmit={this.handleEditSave} onKeyUp={this.handleFormEscape}>
             <input
+              // eslint-disable-next-line
               autoFocus
               onChange={(e) => this.setState({ newText: e.target.value })}
               onFocus={(e) => e.target.select()}
