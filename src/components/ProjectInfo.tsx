@@ -24,7 +24,7 @@ class ProjectInfo extends Component<ProjectInfoProps, any>  {
           target="_blank"
           rel="noopener noreferrer"
         >
-        Homepage v{this.props.version}
+          Homepage v{this.props.version}
         </a>{" "}
         under 
         <a
