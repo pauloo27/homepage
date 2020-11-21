@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2020-11-21
+
 ### Added
 - Opacity value in a variable in the Theme.scss file.
 - Opacity to Trello list indicator.
@@ -22,6 +24,7 @@ Settings modal.
 
 ### Changed
 - Behavior of "Save" buttons to act as Save and Close.
+- Layout when only 2 cards are enabled.
 
 ### Fixed
 - Theme Selector preview.
