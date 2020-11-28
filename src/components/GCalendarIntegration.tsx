@@ -183,7 +183,41 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     const sorted = Array.from(eventsByDay.entries()).sort();
 
     const content = new Array<any>();
-    content.push(<h5 key="header">Calendar:</h5>);
+
+    const today = formatDate(new Date());
+
+    const listTodayEvents = () => {
+      const entry = sorted[0];
+      if (entry[0] !== today) return "Nothing in your calendar today";
+      const events = entry[1] as Array<any>;
+
+      return events.map((event) => {
+              const color = this.colors[event.colorId];
+              return (
+                <div
+                  key={event.id}
+                  style={{
+                    backgroundColor: color.background,
+                    color: color.foreground,
+                  }}
+                >
+                  {`${event.displayTime}: ${event.summary}`}
+                </div>
+              );
+            });
+    }
+
+    const todayWeekDay = weekDays[new Date(today).getUTCDay()];
+    content.push(
+      <FadeIn key={today}>
+        <div className="gcalendar-events today">
+          <h6>{`${today} - ${todayWeekDay}`}</h6>
+          {listTodayEvents()}
+        </div>
+      </FadeIn>
+    );
+
+    content.push(<h5 key="header">Future events:</h5>);
 
     if (this.state.cache !== undefined) {
       const cache = this.state.cache as unknown as any; 
@@ -200,24 +234,12 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
         </div>
       );
     }
-    
-    const today = formatDate(new Date());
-
-    // add a empty entry when today isn't in the calendar
-    if (sorted[0][0] !== today) {
-      const weekDay = weekDays[new Date(today).getUTCDay()];
-      content.push(
-        <FadeIn key={today}>
-          <div className="gcalendar-events today">
-            <h6>{`${today} - ${weekDay}`}</h6>
-            Nothing in your calendar today, enjoy!
-          </div>
-        </FadeIn>
-      );
-    }
 
     sorted.forEach((entry: Array<any>) => {
       const when = entry[0] as string;
+      
+      if (when === today) return;
+
       const weekDay = weekDays[new Date(when).getUTCDay()];
       let events = entry[1] as Array<any>;
 
