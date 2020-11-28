@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { formatDate, withLeadingZeroes as pad } from "../utils/Formater";
+import { withLeadingZeroes as pad } from "../utils/Formater";
 
 interface ClockState {
   date: Date;
@@ -25,7 +25,6 @@ class Clock extends Component<any, ClockState> {
     const seconds = pad(date.getSeconds(), 2);
     return (
       <>
-        <h6 id="calendar-today">{formatDate(date)}</h6>
         <h3 id="calendar-clock">{`${hours}:${minutes}:${seconds}`}</h3>
       </>
     );

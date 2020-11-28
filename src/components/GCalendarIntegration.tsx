@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faSync } from "@fortawesome/free-solid-svg-icons";
 import FadeIn from "react-fade-in";
 import { Lottie } from "@crello/react-lottie";
-import { formatTime } from '../utils/Formater';
+import { formatTime, formatDate } from '../utils/Formater';
 import GCalendarSettings from "./GCalendarSettings";
 import Clock from "./Clock";
 import Weather from "./Weather";
@@ -183,7 +183,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     const sorted = Array.from(eventsByDay.entries()).sort();
 
     const content = new Array<any>();
-    content.push(<h5 key="header">Future events:</h5>);
+    content.push(<h5 key="header">Calendar:</h5>);
 
     if (this.state.cache !== undefined) {
       const cache = this.state.cache as unknown as any; 
@@ -198,6 +198,21 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
             </div>
           )}
         </div>
+      );
+    }
+    
+    const today = formatDate(new Date());
+
+    // add a empty entry when today isn't in the calendar
+    if (sorted[0][0] !== today) {
+      const weekDay = weekDays[new Date(today).getUTCDay()];
+      content.push(
+        <FadeIn key={today}>
+          <div className="gcalendar-events today">
+            <h6>{`${today} - ${weekDay}`}</h6>
+            Nothing in your calendar today, enjoy!
+          </div>
+        </FadeIn>
       );
     }
 
