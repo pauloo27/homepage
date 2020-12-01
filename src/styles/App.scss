@@ -125,6 +125,10 @@ body {
 }
 
 @media only screen and (max-width: $mobileWidth) {
+  body {
+    background-size: cover;
+  }
+
   #header-container,
   #middle-container,
   #footer-container {
