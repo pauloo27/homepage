@@ -187,9 +187,8 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     const today = formatDate(new Date());
 
     const listTodayEvents = () => {
-      const entry = sorted[0];
-      if (entry[0] !== today) return "Nothing in your calendar today";
-      const events = entry[1] as Array<any>;
+      if (sorted.length === 0 || sorted[0][0] !== today) return "Nothing in your calendar today";
+      const events = sorted[0][1] as Array<any>;
 
       return events.map((event) => {
               const color = this.colors[event.colorId];
