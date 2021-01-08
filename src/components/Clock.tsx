@@ -22,10 +22,9 @@ class Clock extends Component<any, ClockState> {
     const { date } = this.state;
     const hours = pad(date.getHours(), 2);
     const minutes = pad(date.getMinutes(), 2);
-    const seconds = pad(date.getSeconds(), 2);
     return (
       <>
-        <h3 id="calendar-clock">{`${hours}:${minutes}:${seconds}`}</h3>
+        <h3 id="calendar-clock">{`${hours}:${minutes}`}</h3>
       </>
     );
   }
