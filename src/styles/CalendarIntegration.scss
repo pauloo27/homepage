@@ -33,10 +33,20 @@
   margin-bottom: 10px;
   font-size: 14px;
 
-  div {
-    padding: 2px;
-    border-radius: 8px;
+  .gcalendar-event-container {
     margin: 1px;
     margin-bottom: 2px;
+    display: flex;
+
+    .gcalendar-event-info {
+      margin-right: 5px;
+      width: 100%;
+      padding: 2px;
+      border-radius: 8px;
+    }
+
+    .gcalendar-event-link {
+      color: $texts;
+    }
   }
 }

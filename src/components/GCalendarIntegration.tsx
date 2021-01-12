@@ -9,6 +9,7 @@ import Clock from "./Clock";
 import Weather from "./Weather";
 import loader from "../assets/loader.json";
 import "../styles/CalendarIntegration.scss";
+import GCalendarEvent from "./GCalendarEvent";
 
 interface GCalendarIntegrationState {
   /*
@@ -117,9 +118,10 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
               const eventEnd = event.end.dateTime.split("T")[1].substring(0, 5);
               displayTime = `${eventStart} - ${eventEnd}`;
             }
-            const { id, start, end, summary } = event;
+            const { id, start, end, summary, htmlLink: link} = event;
             return {
               id,
+              link,
               displayTime,
               start,
               end,
@@ -215,17 +217,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
       return events.map((event) => {
         const color = this.colors[event.colorId];
-        return (
-          <div
-            key={event.id}
-            style={{
-              backgroundColor: color.background,
-              color: color.foreground,
-            }}
-          >
-            {`${event.displayTime}: ${event.summary}`}
-          </div>
-        );
+        return <GCalendarEvent key={event.id} event={event} color={color} />;
       });
     };
 
@@ -288,15 +280,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
             {events.map((event) => {
               const color = this.colors[event.colorId];
               return (
-                <div
-                  key={event.id}
-                  style={{
-                    backgroundColor: color.background,
-                    color: color.foreground,
-                  }}
-                >
-                  {`${event.displayTime}: ${event.summary}`}
-                </div>
+                <GCalendarEvent key={event.id} event={event} color={color} />
               );
             })}
           </div>
