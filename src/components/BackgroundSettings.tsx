@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import ThemeSelector from './ThemeSelector';
+import ThemeSelector from "./ThemeSelector";
 
 interface BackgroundSettingsProps {
   onSave: Function;
@@ -94,15 +94,18 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
                   Select background
                 </button>
                 <div
-                  id="theme-select" 
+                  id="theme-select"
                   className="collapse show"
                   aria-labelledby="theme-select-heading"
                   data-parent="#theme-accordion"
                 >
-                  <ThemeSelector selectedTheme={-1} updateBackgrounds={this.props.updateBackgrounds} />
+                  <ThemeSelector
+                    selectedTheme={-1}
+                    updateBackgrounds={this.props.updateBackgrounds}
+                  />
                 </div>
                 <br />
-                <button 
+                <button
                   type="button"
                   id="theme-custom-heading"
                   className="btn btn-info m-1"
@@ -113,7 +116,7 @@ class BackgroundSettings extends Component<BackgroundSettingsProps> {
                 >
                   Custom background
                 </button>
-                <div 
+                <div
                   id="theme-custom"
                   className="collapse"
                   aria-labelledby="theme-custom-heading"

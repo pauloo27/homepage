@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from "react";
 import "../styles/ThemeSelector.scss";
 
 interface Theme {
@@ -12,7 +12,7 @@ interface Theme {
 const themes = [
   {
     name: "Pixelart city",
-    author: "Unknown", 
+    author: "Unknown",
     authorUrl: "https://imgur.com/a/WmmsFbs",
     dayUrl: "https://i.imgur.com/fxoldSH.jpg",
     nightUrl: "https://i.imgur.com/KccUkyq.jpg",
@@ -42,7 +42,9 @@ interface ThemeOptionProps {
 function ThemeOption(props: ThemeOptionProps) {
   return (
     <div
-      className={`theme-option ${props.selected === props.id ? "theme-option-selected" : ""}`}
+      className={`theme-option ${
+        props.selected === props.id ? "theme-option-selected" : ""
+      }`}
       onClick={() => props.setId(props.id)}
     >
       <img src={props.theme.dayUrl} alt={props.theme.name} />
@@ -58,43 +60,47 @@ interface ThemeSelectorProps {
 export default function ThemeSelector(props: ThemeSelectorProps) {
   const [theme, setTheme] = useState(props.selectedTheme);
 
-  const handleThemeChange = useCallback((index: number) => {
-    setTheme(index);
-    const t = themes[index];
-    localStorage.setItem("backgrounds", JSON.stringify({
-      dayBackground: {
-          url: t.dayUrl,
-          author: t.author,
-          authorUrl: t.authorUrl,
-        },
-        nightBackground: {
-          url: t.nightUrl,
-          author: t.author,
-          authorUrl: t.authorUrl,
-        },
-    }));
-    props.updateBackgrounds();
-  }, [setTheme, props]);
+  const handleThemeChange = useCallback(
+    (index: number) => {
+      setTheme(index);
+      const t = themes[index];
+      localStorage.setItem(
+        "backgrounds",
+        JSON.stringify({
+          dayBackground: {
+            url: t.dayUrl,
+            author: t.author,
+            authorUrl: t.authorUrl,
+          },
+          nightBackground: {
+            url: t.nightUrl,
+            author: t.author,
+            authorUrl: t.authorUrl,
+          },
+        })
+      );
+      props.updateBackgrounds();
+    },
+    [setTheme, props]
+  );
 
   return (
     <div id="theme-selector">
-      <span>
-        Select your favorite background theme:
-      </span>
+      <span>Select your favorite background theme:</span>
       <div id="theme-selector-options">
-        <ThemeOption 
+        <ThemeOption
           id={0}
           selected={theme}
           setId={handleThemeChange}
           theme={themes[0]}
         />
-        <ThemeOption 
+        <ThemeOption
           id={1}
           selected={theme}
           setId={handleThemeChange}
           theme={themes[1]}
         />
-        <ThemeOption 
+        <ThemeOption
           id={2}
           selected={theme}
           setId={handleThemeChange}
@@ -102,5 +108,5 @@ export default function ThemeSelector(props: ThemeSelectorProps) {
         />
       </div>
     </div>
-  )
+  );
 }

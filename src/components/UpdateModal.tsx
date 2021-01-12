@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import $ from "jquery";
@@ -19,11 +19,11 @@ export default function UpdateModal(props: UpdateModalProps) {
 
     fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(githubUrl)}`)
       // eslint-disable-next-line
-      .then(response => {
+      .then((response) => {
         if (response.ok) return response.json();
         setChangelog("Cannot load changelog.");
       })
-      .then(data => { 
+      .then((data) => {
         setChangelog(JSON.parse(data.contents).body);
       });
   }, [setChangelog, props.currentVersion]);
@@ -60,14 +60,11 @@ export default function UpdateModal(props: UpdateModalProps) {
               {`Homepage updated from version ${props.lastVersion} to ${props.currentVersion}.`}
             </p>
             <div id="changelog-container">
-              <pre id="changelog">
-                {changelog}
-              </pre>
+              <pre id="changelog">{changelog}</pre>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   );
 }

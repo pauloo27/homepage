@@ -34,7 +34,7 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
   };
 
   handleEditToggle = () => {
-    this.setState(prevState => ({ editable: !prevState.editable }));
+    this.setState((prevState) => ({ editable: !prevState.editable }));
   };
 
   handleBookmarkDelete = async (bookmark: any) => {
@@ -90,7 +90,10 @@ class BookmarkBar extends Component<BookmarkBarProps, BookmarkBarState> {
 
   render() {
     return (
-      <div id="bookmark-bar" className={`homepage-card ${this.props.expand ? "expand" : ""}`}>
+      <div
+        id="bookmark-bar"
+        className={`homepage-card ${this.props.expand ? "expand" : ""}`}
+      >
         <div className="homepage-card-header">
           <div
             id="bookmark-edit-toggle"

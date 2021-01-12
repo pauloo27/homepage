@@ -20,13 +20,25 @@ class GeneralSettings extends Component<
   GeneralSettingsProps,
   GeneralSettingsState
 > {
-  state = { engineType: "", engineUrl: "", showToDo: true, showCalendar: true, showTrello: true, expandBookmarks: false};
+  state = {
+    engineType: "",
+    engineUrl: "",
+    showToDo: true,
+    showCalendar: true,
+    showTrello: true,
+    expandBookmarks: false,
+  };
 
   async componentDidMount() {
     const layoutConfig = localStorage.getItem("layout");
     if (layoutConfig !== null) {
-      const { showToDo, showCalendar, showTrello, expandBookmarks} = JSON.parse(layoutConfig);
-      this.setState({showToDo, showCalendar, showTrello, expandBookmarks});
+      const {
+        showToDo,
+        showCalendar,
+        showTrello,
+        expandBookmarks,
+      } = JSON.parse(layoutConfig);
+      this.setState({ showToDo, showCalendar, showTrello, expandBookmarks });
     }
 
     const searchEngineConfig = localStorage.getItem("search-engine");
@@ -37,12 +49,15 @@ class GeneralSettings extends Component<
       });
     } else {
       const json = JSON.parse(searchEngineConfig);
-      this.setState({
-        engineType: json.engineType,
-        engineUrl: json.engineUrl,
-      }, () => {
-        this.props.onSave(this.state);
-      });
+      this.setState(
+        {
+          engineType: json.engineType,
+          engineUrl: json.engineUrl,
+        },
+        () => {
+          this.props.onSave(this.state);
+        }
+      );
     }
   }
 
@@ -51,10 +66,16 @@ class GeneralSettings extends Component<
   };
 
   saveLayout = () => {
-    localStorage.setItem("layout", JSON.stringify(
-      {showToDo: this.state.showToDo, showCalendar: this.state.showCalendar, showTrello: this.state.showTrello, expandBookmarks: this.state.expandBookmarks}
-    ));
-  }
+    localStorage.setItem(
+      "layout",
+      JSON.stringify({
+        showToDo: this.state.showToDo,
+        showCalendar: this.state.showCalendar,
+        showTrello: this.state.showTrello,
+        expandBookmarks: this.state.expandBookmarks,
+      })
+    );
+  };
 
   handleChange = (e: React.ChangeEvent<HTMLElement>) => {
     this.setState({ engineType: (e.target as any).value! });
@@ -86,10 +107,12 @@ class GeneralSettings extends Component<
 
   render() {
     if (this.state.engineType.length === 0) return null;
-    
-    const cardsCount = [this.state.showToDo, this.state.showCalendar, this.state.showTrello]
-      .filter(b => b)
-      .length;
+
+    const cardsCount = [
+      this.state.showToDo,
+      this.state.showCalendar,
+      this.state.showTrello,
+    ].filter((b) => b).length;
 
     return (
       <div
@@ -140,19 +163,38 @@ class GeneralSettings extends Component<
               </div>
               <hr />
               <div className="checkbox-input">
-                <input defaultChecked={this.state.showToDo} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showToDo")} />
+                <input
+                  defaultChecked={this.state.showToDo}
+                  type="checkbox"
+                  onChange={(e) => this.handleCheckboxChange(e, "showToDo")}
+                />
                 <span>Show To Do card</span>
               </div>
               <div className="checkbox-input">
-                <input defaultChecked={this.state.showTrello} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showTrello")} />
+                <input
+                  defaultChecked={this.state.showTrello}
+                  type="checkbox"
+                  onChange={(e) => this.handleCheckboxChange(e, "showTrello")}
+                />
                 <span>Show Trello card</span>
               </div>
               <div className="checkbox-input">
-                <input defaultChecked={this.state.showCalendar} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "showCalendar")} />
+                <input
+                  defaultChecked={this.state.showCalendar}
+                  type="checkbox"
+                  onChange={(e) => this.handleCheckboxChange(e, "showCalendar")}
+                />
                 <span>Show Calendar card</span>
               </div>
               <div className="checkbox-input">
-                <input defaultChecked={this.state.expandBookmarks} type="checkbox" onChange={(e) => this.handleCheckboxChange(e, "expandBookmarks")} disabled={cardsCount === 3} />
+                <input
+                  defaultChecked={this.state.expandBookmarks}
+                  type="checkbox"
+                  onChange={(e) =>
+                    this.handleCheckboxChange(e, "expandBookmarks")
+                  }
+                  disabled={cardsCount === 3}
+                />
                 <span>Expand bookmarks (requires 2 cards or less)</span>
               </div>
             </div>

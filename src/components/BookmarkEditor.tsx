@@ -125,7 +125,7 @@ class BookmarkEditor extends Component<
                 >
                   Delete
                 </button>
-            )}
+              )}
               <button
                 type="button"
                 className="btn btn-primary"

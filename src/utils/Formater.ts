@@ -17,7 +17,6 @@ export function formatTime(date: Date, showSeconds = false): string {
   if (showSeconds) {
     const seconds = withLeadingZeroes(date.getSeconds(), 2);
     return `${hours}:${minutes}:${seconds}`;
-  } 
-    return `${hours}:${minutes}`;
-  
+  }
+  return `${hours}:${minutes}`;
 }

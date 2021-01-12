@@ -130,7 +130,7 @@ class TrelloIntegration extends Component<
         }
       } else {
         listId = this.state.lists[0].id;
-        this.setState(prevState => ({ selectedList: prevState.lists[0] }));
+        this.setState((prevState) => ({ selectedList: prevState.lists[0] }));
       }
     }
     trello.get(
@@ -177,7 +177,7 @@ class TrelloIntegration extends Component<
     if (newIndex <= -1) newIndex = maxIndex;
     if (newIndex > maxIndex) newIndex = 0;
 
-    await this.setState(prevState => ({
+    await this.setState((prevState) => ({
       selectedList: prevState.lists[newIndex],
       status: 0,
     }));
@@ -186,7 +186,7 @@ class TrelloIntegration extends Component<
   };
 
   handleListSelect = async (id: string) => {
-    await this.setState(prevState => ({
+    await this.setState((prevState) => ({
       selectedList: prevState.lists.find((list) => list.id === id),
       status: -1,
     }));
@@ -195,7 +195,7 @@ class TrelloIntegration extends Component<
   };
 
   handleBoardSelect = async (id: string) => {
-    await this.setState(prevState => ({
+    await this.setState((prevState) => ({
       selectedBoard: prevState.boards.find((board) => board.id === id),
       selectedList: {} as any,
       status: -1,

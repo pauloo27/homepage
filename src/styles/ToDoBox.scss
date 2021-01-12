@@ -27,14 +27,13 @@
       div.checked {
         text-decoration: line-through;
         color: #939999;
-
       }
 
       .icon-checked {
         color: #939999;
       }
 
-      .todo-entry-text.edit{
+      .todo-entry-text.edit {
         input {
           background: transparent;
           color: $texts;

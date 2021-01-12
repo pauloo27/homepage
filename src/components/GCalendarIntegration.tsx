@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faSync } from "@fortawesome/free-solid-svg-icons";
 import FadeIn from "react-fade-in";
 import { Lottie } from "@crello/react-lottie";
-import { formatTime, formatDate } from '../utils/Formater';
+import { formatTime, formatDate } from "../utils/Formater";
 import GCalendarSettings from "./GCalendarSettings";
 import Clock from "./Clock";
 import Weather from "./Weather";
@@ -33,7 +33,12 @@ const weekDays = [
 ];
 
 class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
-  state = { loginState: 0, events: new Array<any>(), showWeather: true, cache: undefined };
+  state = {
+    loginState: 0,
+    events: new Array<any>(),
+    showWeather: true,
+    cache: undefined,
+  };
 
   colors: any = {};
 
@@ -44,19 +49,19 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     }
     this.loadEvents(new Date());
   }
-  
+
   loadEvents = async (now: Date) => {
     const cachedInfo = localStorage.getItem("gcalendar-cached");
-    if(cachedInfo === null) {
+    if (cachedInfo === null) {
       console.log("No calendar cache found");
       return;
     }
 
     // eslint-disable-next-line
-    let {date, events, colors} = JSON.parse(cachedInfo);
+    let { date, events, colors } = JSON.parse(cachedInfo);
 
     events = events.filter((event: any) => {
-      const {end} = event;
+      const { end } = event;
       let endDate: Date | undefined;
 
       if (end.date !== undefined) {
@@ -69,14 +74,14 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     let old = false;
 
-    if(now.getTime() - date >= 15 * 60 * 1000) {
+    if (now.getTime() - date >= 15 * 60 * 1000) {
       console.log("Calendar cache too old...");
       old = true;
     }
 
     this.colors = colors;
-    this.setState({ events, cache: {date, old} });
-  }
+    this.setState({ events, cache: { date, old } });
+  };
 
   loadEventsFromGoogle = async (timeMin: Date) => {
     const { gapi } = window as any;
@@ -110,10 +115,17 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
                 .split("T")[1]
                 .substring(0, 5);
               const eventEnd = event.end.dateTime.split("T")[1].substring(0, 5);
-              displayTime = `${eventStart} - ${ eventEnd}`;
+              displayTime = `${eventStart} - ${eventEnd}`;
             }
-            const {id, start, end, summary} = event;
-            return {id, displayTime, start, end, summary, colorId: calendar.colorId};
+            const { id, start, end, summary } = event;
+            return {
+              id,
+              displayTime,
+              start,
+              end,
+              summary,
+              colorId: calendar.colorId,
+            };
           })
         );
       }
@@ -121,7 +133,14 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     await Promise.all(promises);
 
-    localStorage.setItem("gcalendar-cached", JSON.stringify({date: new Date().getTime(), events, colors: this.colors}));
+    localStorage.setItem(
+      "gcalendar-cached",
+      JSON.stringify({
+        date: new Date().getTime(),
+        events,
+        colors: this.colors,
+      })
+    );
     this.setState({ events, cache: undefined });
   };
 
@@ -132,7 +151,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
   };
 
   handleLoginStatusChange = async (isSignedIn: boolean) => {
-    const cache = this.state.cache as unknown as undefined | any;
+    const cache = (this.state.cache as unknown) as undefined | any;
     if (isSignedIn && (cache === undefined || cache.old)) {
       await this.loadEventsFromGoogle(new Date());
     }
@@ -141,11 +160,14 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
   forceUpdate = () => {
     if (this.state.loginState === 1) {
-      this.setState((prev) => ({cache: {date: prev.cache.date, old: true }}), () => {
-        this.loadEventsFromGoogle(new Date());
-      });
+      this.setState(
+        (prev) => ({ cache: { date: prev.cache.date, old: true } }),
+        () => {
+          this.loadEventsFromGoogle(new Date());
+        }
+      );
     }
-  }
+  };
 
   listEvents = () => {
     if (this.state.loginState === -1) return null;
@@ -187,24 +209,25 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     const today = formatDate(new Date());
 
     const listTodayEvents = () => {
-      if (sorted.length === 0 || sorted[0][0] !== today) return "Nothing in your calendar today";
+      if (sorted.length === 0 || sorted[0][0] !== today)
+        return "Nothing in your calendar today";
       const events = sorted[0][1] as Array<any>;
 
       return events.map((event) => {
-              const color = this.colors[event.colorId];
-              return (
-                <div
-                  key={event.id}
-                  style={{
-                    backgroundColor: color.background,
-                    color: color.foreground,
-                  }}
-                >
-                  {`${event.displayTime}: ${event.summary}`}
-                </div>
-              );
-            });
-    }
+        const color = this.colors[event.colorId];
+        return (
+          <div
+            key={event.id}
+            style={{
+              backgroundColor: color.background,
+              color: color.foreground,
+            }}
+          >
+            {`${event.displayTime}: ${event.summary}`}
+          </div>
+        );
+      });
+    };
 
     const todayWeekDay = weekDays[new Date(today).getUTCDay()];
     content.push(
@@ -219,14 +242,20 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     content.push(<h5 key="header">Future events:</h5>);
 
     if (this.state.cache !== undefined) {
-      const cache = this.state.cache as unknown as any; 
+      const cache = (this.state.cache as unknown) as any;
       const display = formatTime(new Date(cache.date));
 
       content.push(
         <div id="cache-status-container" key="cache-status">
-          <h6>Updated at {display}. {cache.old ? 'Updating...' : ''}</h6>
+          <h6>
+            Updated at {display}. {cache.old ? "Updating..." : ""}
+          </h6>
           {cache.old || this.state.loginState !== 1 ? null : (
-            <div title="Update now" id="refresh-cache-button" onClick={this.forceUpdate}>
+            <div
+              title="Update now"
+              id="refresh-cache-button"
+              onClick={this.forceUpdate}
+            >
               <FontAwesomeIcon icon={faSync} />
             </div>
           )}
@@ -236,7 +265,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     sorted.forEach((entry: Array<any>) => {
       const when = entry[0] as string;
-      
+
       if (when === today) return;
 
       const weekDay = weekDays[new Date(when).getUTCDay()];
@@ -280,7 +309,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
   handleSave = (config: any) => {
     this.setState(config);
-  }
+  };
 
   render() {
     return (
@@ -308,10 +337,10 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
         <Clock />
         {this.getStatus()}
         {this.listEvents()}
-        <GCalendarSettings 
-          showWeather={this.state.showWeather} 
+        <GCalendarSettings
+          showWeather={this.state.showWeather}
           onSave={this.handleSave}
-          onLoginStatusChange={this.handleLoginStatusChange} 
+          onLoginStatusChange={this.handleLoginStatusChange}
         />
       </div>
     );

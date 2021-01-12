@@ -27,7 +27,7 @@ class GCalendarSettings extends Component<
   };
 
   async componentDidMount() {
-    this.setState({showWeather: this.props.showWeather});
+    this.setState({ showWeather: this.props.showWeather });
     try {
       // eslint-disable-next-line
       const config = require("../config/gapi.json");
@@ -118,13 +118,16 @@ class GCalendarSettings extends Component<
   };
 
   handleSave = () => {
-    localStorage.setItem("show-weather", JSON.stringify({showWeather: this.state.showWeather}));
-    this.props.onSave({showWeather: this.state.showWeather});
-  }
+    localStorage.setItem(
+      "show-weather",
+      JSON.stringify({ showWeather: this.state.showWeather })
+    );
+    this.props.onSave({ showWeather: this.state.showWeather });
+  };
 
   handleShowWeather = (e: React.ChangeEvent<any>) => {
-    this.setState({showWeather: e.target.checked});
-  }
+    this.setState({ showWeather: e.target.checked });
+  };
 
   render() {
     if (this.state.isSignedIn === undefined) return null;
@@ -161,12 +164,16 @@ class GCalendarSettings extends Component<
               {this.getActionButton(gapi)}
               <hr />
               <div className="checkbox-input">
-                <input type="checkbox" defaultChecked={this.props.showWeather} onChange={this.handleShowWeather} />
+                <input
+                  type="checkbox"
+                  defaultChecked={this.props.showWeather}
+                  onChange={this.handleShowWeather}
+                />
                 <span>Show weather</span>
               </div>
             </div>
             <div className="modal-footer">
-              <button 
+              <button
                 type="button"
                 className="btn btn-primary"
                 onClick={this.handleSave}

@@ -73,34 +73,40 @@ class App extends Component<any, AppState> {
   loadBackgrounds = async () => {
     const backgrounds = localStorage.getItem("backgrounds");
     if (backgrounds === null) {
-      this.setState({
-        dayBackground: {
-          url: "https://i.imgur.com/CdaQWae.jpg",
-          author: "sebastianinman",
-          authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
+      this.setState(
+        {
+          dayBackground: {
+            url: "https://i.imgur.com/CdaQWae.jpg",
+            author: "sebastianinman",
+            authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
+          },
+          nightBackground: {
+            url: "https://i.imgur.com/eSK3Xdd.jpg",
+            author: "sebastianinman",
+            authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
+          },
         },
-        nightBackground: {
-          url: "https://i.imgur.com/eSK3Xdd.jpg",
-          author: "sebastianinman",
-          authorUrl: "https://dynamicwallpaper.club/wallpaper/ci7xe3twgfv",
-        },
-      }, () => this.saveBackgrounds());
+        () => this.saveBackgrounds()
+      );
     } else {
       this.setState(JSON.parse(backgrounds));
     }
-  }
+  };
 
   checkVersion = () => {
     // eslint-disable-next-line
     const packageInfo = require("../package.json");
     let version = localStorage.getItem("version");
 
-    if (version === null) this.setState({firstStartup: true});
+    if (version === null) this.setState({ firstStartup: true });
 
     localStorage.setItem("version", packageInfo.version);
     if (version === null) version = packageInfo.version;
-    this.setState({currentVersion: packageInfo.version, lastVersion: version!});
-  }
+    this.setState({
+      currentVersion: packageInfo.version,
+      lastVersion: version!,
+    });
+  };
 
   setBackground = (background: Background) => {
     if (this.state.currentBackground === background) return;
@@ -122,7 +128,6 @@ class App extends Component<any, AppState> {
     this.setBackground(newBackground);
   };
 
-  
   updateBackground = () => {
     const now = new Date();
     let newBackground: Background;
@@ -133,12 +138,11 @@ class App extends Component<any, AppState> {
       newBackground = this.state.nightBackground;
     }
     this.setBackground(newBackground);
-  }
-
+  };
 
   checkBackground = () => {
     if (this.state.backgroundToggled) return;
-    
+
     this.updateBackground();
   };
 
@@ -168,10 +172,13 @@ class App extends Component<any, AppState> {
     dayBackground: Background,
     nightBackground: Background
   ) => {
-    this.setState({ dayBackground, nightBackground, backgroundToggled: false }, () => {
-      this.saveBackgrounds();
-      this.checkBackground();
-    });
+    this.setState(
+      { dayBackground, nightBackground, backgroundToggled: false },
+      () => {
+        this.saveBackgrounds();
+        this.checkBackground();
+      }
+    );
   };
 
   loadTrelloIntegration = () => {
@@ -195,13 +202,16 @@ class App extends Component<any, AppState> {
   render() {
     if (this.state.currentBackground.url === "") return null;
 
-    let cardsCount = [this.state.showToDo, this.state.showCalendar, this.state.showTrello]
-      .filter(b => b).length;
+    let cardsCount = [
+      this.state.showToDo,
+      this.state.showCalendar,
+      this.state.showTrello,
+    ].filter((b) => b).length;
 
     const bookmarksExpanded = cardsCount !== 3 && this.state.expandBookmarks;
 
     if (bookmarksExpanded) {
-      cardsCount+=1;
+      cardsCount += 1;
     }
 
     this.setupTooltip();
@@ -210,23 +220,34 @@ class App extends Component<any, AppState> {
       <>
         <link rel="preload" href={this.state.dayBackground.url} as="image" />
         <link rel="preload" href={this.state.nightBackground.url} as="image" />
-        {this.state.firstStartup ? <WelcomeModal updateBackgrounds={this.handleBackgroundChange} /> : null}
-        {this.state.currentVersion !== this.state.lastVersion ? 
-          <UpdateModal currentVersion={this.state.currentVersion} lastVersion={this.state.lastVersion} /> 
-        : null}
+        {this.state.firstStartup ? (
+          <WelcomeModal updateBackgrounds={this.handleBackgroundChange} />
+        ) : null}
+        {this.state.currentVersion !== this.state.lastVersion ? (
+          <UpdateModal
+            currentVersion={this.state.currentVersion}
+            lastVersion={this.state.lastVersion}
+          />
+        ) : null}
         <div id="header-container">
           <SearchBar
             engineType={this.state.engineType}
             engineUrl={this.state.engineUrl}
             expand={bookmarksExpanded}
           />
-          {bookmarksExpanded ? null : <BookmarkBar setupTooltip={this.setupTooltip} expand={false} /> }
+          {bookmarksExpanded ? null : (
+            <BookmarkBar setupTooltip={this.setupTooltip} expand={false} />
+          )}
         </div>
         <div id="middle-container" className={`card-count-${cardsCount}`}>
-          {this.state.showToDo ? <ToDoBox setupTooltip={this.setupTooltip} /> : null}
+          {this.state.showToDo ? (
+            <ToDoBox setupTooltip={this.setupTooltip} />
+          ) : null}
           {this.state.showCalendar ? <GCalendarIntegration /> : null}
           {this.state.showTrello ? this.loadTrelloIntegration() : null}
-          {bookmarksExpanded ? <BookmarkBar setupTooltip={this.setupTooltip} expand /> : null}
+          {bookmarksExpanded ? (
+            <BookmarkBar setupTooltip={this.setupTooltip} expand />
+          ) : null}
         </div>
         <div id="footer-container">
           <ProjectInfo version={this.state.currentVersion} />
@@ -260,8 +281,7 @@ class App extends Component<any, AppState> {
                   toggleBackground={this.toggleBackground}
                   backgroundAuthor={this.state.currentBackground.author}
                   backgroundAuthorUrl={this.state.currentBackground.authorUrl}
-                />
-                {" "}
+                />{" "}
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ interface ProjectInfoProps {
   version: string;
 }
 
-class ProjectInfo extends Component<ProjectInfoProps, any>  {
+class ProjectInfo extends Component<ProjectInfoProps, any> {
   render() {
     return (
       <div className="footer-info">
@@ -26,7 +26,7 @@ class ProjectInfo extends Component<ProjectInfoProps, any>  {
         >
           Homepage v{this.props.version}
         </a>{" "}
-        under 
+        under
         <a
           href="https://github.com/Pauloo27/homepage/blob/master/LICENSE"
           target="_blank"

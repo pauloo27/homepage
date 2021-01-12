@@ -38,7 +38,6 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
       (prevState) => ({ done: !prevState.done }),
       () => this.props.onDoneToggle(this.props.id, this.state.done)
     );
-
   };
 
   handleDelete = () => {
@@ -46,7 +45,7 @@ class ToDoEntry extends Component<ToDoEntryProps, ToDoEntryState> {
   };
 
   toggleEditMode = () => {
-    this.setState(prevState => ({ edit: !prevState.edit }));
+    this.setState((prevState) => ({ edit: !prevState.edit }));
   };
 
   handleEditSave = (e: React.FormEvent) => {
