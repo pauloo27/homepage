@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const gapiconfig = { apiKey: "", clientId: "" };
-
 export interface GCalendarSettingsProps {
   onLoginStatusChange: Function;
   showWeather: boolean;
@@ -14,6 +12,8 @@ export interface GCalendarSettingsState {
   isSignedIn?: boolean;
   isClientReady: boolean;
   showWeather: boolean;
+  clientId: string;
+  clientSecret: string;
 }
 
 class GCalendarSettings extends Component<
@@ -23,66 +23,51 @@ class GCalendarSettings extends Component<
   state = {
     isSignedIn: undefined,
     isClientReady: false,
+    clientId: "",
+    clientSecret: "",
     showWeather: true,
   };
 
   async componentDidMount() {
     this.setState({ showWeather: this.props.showWeather });
-    try {
-      // eslint-disable-next-line
-      const config = require("../config/gapi.json");
-      if (config !== undefined) {
-        gapiconfig.clientId = config.clientId;
-        gapiconfig.apiKey = config.apiKey;
-      }
-    } catch (e) {
-      console.log("Cannot find credentials file at src/config/gapi.json");
+
+    const rawConfig = localStorage.getItem("gcalendar-config");
+    if (rawConfig === null) {
+      this.handleSave();
+    } else {
+      const {clientId, clientSecret} = JSON.parse(rawConfig!);
+      this.setState({clientId, clientSecret});
     }
 
-    const script = document.createElement("script");
-    script.src = "https://apis.google.com/js/api.js";
-
-    script.onload = () => {
-      const { gapi } = window as any;
-      gapi.load("client:auth2", this.initClient);
-    };
-
-    document.body.appendChild(script);
+    this.initClient();
   }
 
   initClient = () => {
     const { gapi } = window as any;
 
-    gapi.client
-      .init({
-        apiKey: gapiconfig.apiKey,
-        clientId: gapiconfig.clientId,
-        discoveryDocs: [
-          "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
-        ],
-        scope: "https://www.googleapis.com/auth/calendar.readonly",
-      })
-      .catch(() => {
-        console.log("Cannot init the Calendar client.");
-        if (gapi.auth2.getAuthInstance() === null) {
-          console.log("Calendar client's auth instance not found");
-          this.updateSigninStatus(false);
-        }
-      })
-      .then(() => {
-        console.log("Calendar client loaded");
-        if (gapi.auth2.getAuthInstance() === null) {
-          console.log("Calendar client's auth instance not found");
-          this.updateSigninStatus(false);
-          return;
-        }
+    const gcalendarToken = localStorage.getItem("gcalendar-token");
+    if (gcalendarToken === null) {
+      console.log("No credentials found...");
+      this.updateSigninStatus(false);
+    } else {
+      console.log("Token found");
+      gapi.load("client", async () => {
+        gapi.client.init({
+          clientId: this.state.clientId,
+          discoveryDocs: [
+            "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+          ],
+          scope: "https://www.googleapis.com/auth/calendar.readonly"
+        });
 
-        this.setState({ isClientReady: true });
-
-        gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
-
-        this.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        const token = JSON.parse(gcalendarToken);
+        gapi.client.setToken(token);
+        setTimeout(() => {
+          this.updateSigninStatus(true);
+          console.log("GAPI client is ready");
+        }, 6500);
       });
+    }
   };
 
   updateSigninStatus = (isSignedIn: boolean) => {
@@ -92,8 +77,8 @@ class GCalendarSettings extends Component<
   };
 
   getActionButton = (gapi: any) => {
-    if (gapiconfig.clientId === "" || gapiconfig.apiKey === "")
-      return "No credentials provided (see ./config/gapi.json)";
+    if (this.state.clientId === undefined)
+      return "This extension is not ready to be used... read the docs.";
     if (!this.state.isClientReady) return null;
     if (this.state.isSignedIn) {
       return (
