@@ -59,9 +59,8 @@ class GCalendarSettings extends Component<
         clientId: gapiconfig.clientId,
         discoveryDocs: [
           "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
-          "https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest",
         ],
-        scope: "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/tasks.readonly",
+        scope: "https://www.googleapis.com/auth/calendar.readonly",
       })
       .catch(() => {
         console.log("Cannot init the Calendar client.");
