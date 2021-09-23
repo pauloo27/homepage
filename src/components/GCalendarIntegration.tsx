@@ -222,16 +222,6 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     };
 
     const todayWeekDay = weekDays[new Date(today).getUTCDay()];
-    content.push(
-      <FadeIn key={today}>
-        <div className="gcalendar-events today">
-          <h6>{`${today} - ${todayWeekDay}`}</h6>
-          {listTodayEvents()}
-        </div>
-      </FadeIn>
-    );
-
-    content.push(<h5 key="header">Future events:</h5>);
 
     if (this.state.cache !== undefined) {
       const cache = (this.state.cache as unknown) as any;
@@ -254,6 +244,17 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
         </div>
       );
     }
+
+    content.push(
+      <FadeIn key={today}>
+        <div className="gcalendar-events today">
+          <h6>{`${today} - ${todayWeekDay}`}</h6>
+          {listTodayEvents()}
+        </div>
+      </FadeIn>
+    );
+
+    content.push(<h5 key="header">Future events:</h5>);
 
     sorted.forEach((entry: Array<any>) => {
       const when = entry[0] as string;
