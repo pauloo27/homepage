@@ -17,6 +17,8 @@
 - Trello Integration.
 - Day and Night wallpaper.
 
+_Extra feature: a really mess code that needs a rewrite_
+
 ## How to use
 
 You can run it locally or use [the one hosted at GitHub Pages](https://pauloo27.github.io/homepage).
