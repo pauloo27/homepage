@@ -118,7 +118,7 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
               const eventEnd = event.end.dateTime.split("T")[1].substring(0, 5);
               displayTime = `${eventStart} - ${eventEnd}`;
             }
-            const { id, start, end, summary, htmlLink: link} = event;
+            const { id, start, end, summary, htmlLink: link } = event;
             return {
               id,
               link,

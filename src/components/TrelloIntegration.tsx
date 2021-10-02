@@ -48,6 +48,7 @@ class TrelloIntegration extends Component<
     cards: new Array<any>(),
     boards: new Array<any>(),
     lists: new Array<any>(),
+    users: new Array<any>(),
   };
 
   saveHistory = () => {
@@ -65,8 +66,7 @@ class TrelloIntegration extends Component<
       "members/me/boards",
       async (res: any) => {
         console.log("get boards");
-        await this.setState({ boards: res });
-        this.loadLists(trello);
+        this.setState({ boards: res }, () => this.loadLists(trello));
       },
       (err: any) => {
         console.log(err);
@@ -101,9 +101,7 @@ class TrelloIntegration extends Component<
     trello.get(
       `boards/${boardId}/lists`,
       async (res: any) => {
-        console.log("get lists");
-        await this.setState({ lists: res });
-        this.loadCards(trello);
+        this.setState({ lists: res }, () => this.loadCards(trello));
       },
       (err: any) => {
         console.log(err);
@@ -177,31 +175,43 @@ class TrelloIntegration extends Component<
     if (newIndex <= -1) newIndex = maxIndex;
     if (newIndex > maxIndex) newIndex = 0;
 
-    await this.setState((prevState) => ({
-      selectedList: prevState.lists[newIndex],
-      status: 0,
-    }));
-    this.loadCards(this.state.trello);
-    this.saveHistory();
+    this.setState(
+      (prevState) => ({
+        selectedList: prevState.lists[newIndex],
+        status: 0,
+      }),
+      () => {
+        this.loadCards(this.state.trello);
+        this.saveHistory();
+      }
+    );
   };
 
   handleListSelect = async (id: string) => {
-    await this.setState((prevState) => ({
-      selectedList: prevState.lists.find((list) => list.id === id),
-      status: -1,
-    }));
-    this.loadCards(this.state.trello);
-    this.saveHistory();
+    this.setState(
+      (prevState) => ({
+        selectedList: prevState.lists.find((list) => list.id === id),
+        status: -1,
+      }),
+      () => {
+        this.loadCards(this.state.trello);
+        this.saveHistory();
+      }
+    );
   };
 
   handleBoardSelect = async (id: string) => {
-    await this.setState((prevState) => ({
-      selectedBoard: prevState.boards.find((board) => board.id === id),
-      selectedList: {} as any,
-      status: -1,
-    }));
-    this.loadBoards(this.state.trello);
-    this.saveHistory();
+    this.setState(
+      (prevState) => ({
+        selectedBoard: prevState.boards.find((board) => board.id === id),
+        selectedList: {} as any,
+        status: -1,
+      }),
+      () => {
+        this.loadBoards(this.state.trello);
+        this.saveHistory();
+      }
+    );
   };
 
   getNavigator = () => (
