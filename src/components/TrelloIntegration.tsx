@@ -25,6 +25,7 @@ interface TrelloIntegrationState {
   cards?: Array<any>;
   boards: Array<any>;
   lists: Array<any>;
+  members: Map<string, any>;
   selectedList: any;
   selectedBoard: any;
   /*
@@ -48,6 +49,7 @@ class TrelloIntegration extends Component<
     cards: new Array<any>(),
     boards: new Array<any>(),
     lists: new Array<any>(),
+    members: new Map<string, any>(),
   };
 
   saveHistory = () => {
@@ -60,13 +62,31 @@ class TrelloIntegration extends Component<
     );
   };
 
+  getMember = async (id: string): Promise<any> => {
+    if (this.state.members.has(id)) {
+      return this.state.members.get(id);
+    }
+
+    return new Promise<any>((resolve) => {
+      console.log("api called for", id);
+      this.state.trello.get(
+        `members/${id}`,
+        async (res: any) => {
+          this.state.members.set(id, res);
+          resolve(this.state.members.get(id));
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    });
+  };
+
   loadBoards = async (trello: any) => {
     trello.get(
       "members/me/boards",
       async (res: any) => {
-        console.log("get boards");
-        await this.setState({ boards: res });
-        this.loadLists(trello);
+        this.setState({ boards: res }, () => this.loadLists(trello));
       },
       (err: any) => {
         console.log(err);
@@ -101,9 +121,7 @@ class TrelloIntegration extends Component<
     trello.get(
       `boards/${boardId}/lists`,
       async (res: any) => {
-        console.log("get lists");
-        await this.setState({ lists: res });
-        this.loadCards(trello);
+        this.setState({ lists: res }, () => this.loadCards(trello));
       },
       (err: any) => {
         console.log(err);
@@ -177,31 +195,43 @@ class TrelloIntegration extends Component<
     if (newIndex <= -1) newIndex = maxIndex;
     if (newIndex > maxIndex) newIndex = 0;
 
-    await this.setState((prevState) => ({
-      selectedList: prevState.lists[newIndex],
-      status: 0,
-    }));
-    this.loadCards(this.state.trello);
-    this.saveHistory();
+    this.setState(
+      (prevState) => ({
+        selectedList: prevState.lists[newIndex],
+        status: 0,
+      }),
+      () => {
+        this.loadCards(this.state.trello);
+        this.saveHistory();
+      }
+    );
   };
 
   handleListSelect = async (id: string) => {
-    await this.setState((prevState) => ({
-      selectedList: prevState.lists.find((list) => list.id === id),
-      status: -1,
-    }));
-    this.loadCards(this.state.trello);
-    this.saveHistory();
+    this.setState(
+      (prevState) => ({
+        selectedList: prevState.lists.find((list) => list.id === id),
+        status: -1,
+      }),
+      () => {
+        this.loadCards(this.state.trello);
+        this.saveHistory();
+      }
+    );
   };
 
   handleBoardSelect = async (id: string) => {
-    await this.setState((prevState) => ({
-      selectedBoard: prevState.boards.find((board) => board.id === id),
-      selectedList: {} as any,
-      status: -1,
-    }));
-    this.loadBoards(this.state.trello);
-    this.saveHistory();
+    this.setState(
+      (prevState) => ({
+        selectedBoard: prevState.boards.find((board) => board.id === id),
+        selectedList: {} as any,
+        status: -1,
+      }),
+      () => {
+        this.loadBoards(this.state.trello);
+        this.saveHistory();
+      }
+    );
   };
 
   getNavigator = () => (
@@ -320,7 +350,7 @@ class TrelloIntegration extends Component<
           <div id="trello-cards-container">
             {this.state.cards.map((card) => (
               <FadeIn key={card.id}>
-                <TrelloCard card={card} />
+                <TrelloCard getMember={this.getMember} card={card} />
               </FadeIn>
             ))}
           </div>
