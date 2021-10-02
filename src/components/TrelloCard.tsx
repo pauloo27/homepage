@@ -21,9 +21,18 @@ const TrelloLabelColors = {
 
 interface TrelloCardProps {
   card: any;
+  getMember: Function;
 }
 
-class TrelloCard extends Component<TrelloCardProps> {
+interface TrelloCardState {
+  members?: Array<string>;
+}
+
+class TrelloCard extends Component<TrelloCardProps, TrelloCardState> {
+  state = {
+    members: new Array<string>(),
+  };
+
   parseDate = (dateString: string) => {
     const date = new Date(Date.parse(dateString));
     return formatDate(date);
@@ -32,7 +41,28 @@ class TrelloCard extends Component<TrelloCardProps> {
   getDueDate = (card: any) => {
     if (card.due === null) return null;
 
-    return <div className="trello-card-due">{this.parseDate(card.due)}</div>;
+    return <div className="trello-card-info">{this.parseDate(card.due)}</div>;
+  };
+
+  loadMembers = (card: any) => {
+    Promise.all(
+      card.idMembers.map(async (id: string) => {
+        return (await this.props.getMember(id)).username;
+      })
+    ).then((arr) => this.setState({ members: (arr as unknown) as Array<any> }));
+  };
+
+  getMembers = (card: any) => {
+    if (card.idMembers === null) return null;
+
+    if (this.state.members.length === 0) {
+      if (card.idMembers.length !== 0) this.loadMembers(card);
+      return null;
+    }
+
+    return (
+      <div className="trello-card-info">{this.state.members.join(", ")}</div>
+    );
   };
 
   getChecklists = (card: any) => {
@@ -108,6 +138,7 @@ class TrelloCard extends Component<TrelloCardProps> {
         </div>
         {this.getDueDate(card)}
         {this.getChecklists(card)}
+        {this.getMembers(card)}
       </div>
     );
   }
