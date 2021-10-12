@@ -171,6 +171,18 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
     }
   };
 
+  // sort events by hour
+  sortEvents = (events: Array<any>) => {
+    return events.sort((a, b) => {
+      if (a.displayTime === "All day") return -1;
+      if (b.displayTime === "All day") return 1;
+
+      if (a.displayTime < b.displayTime) return -1;
+      if (a.displayTime > b.displayTime) return 1;
+      return 0;
+    });
+  };
+
   listEvents = () => {
     if (this.state.loginState === -1) return null;
     if (this.state.loginState === 0 && !this.state.cache) {
@@ -203,17 +215,17 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
       eventsByDay.set(when, events);
     });
 
-    // sort days
-    const sorted = Array.from(eventsByDay.entries()).sort();
+    // sort events by day (but not by hour)
+    const orderedDaysEvents = Array.from(eventsByDay.entries()).sort();
 
     const content = new Array<any>();
 
     const today = formatDate(new Date());
 
     const listTodayEvents = () => {
-      if (sorted.length === 0 || sorted[0][0] !== today)
+      if (orderedDaysEvents.length === 0 || orderedDaysEvents[0][0] !== today)
         return "Nothing in your calendar today";
-      const events = sorted[0][1] as Array<any>;
+      const events = this.sortEvents(orderedDaysEvents[0][1]);
 
       return events.map((event) => {
         const color = this.colors[event.colorId];
@@ -256,23 +268,13 @@ class GCalendarIntegration extends Component<any, GCalendarIntegrationState> {
 
     content.push(<h5 key="header">Future events:</h5>);
 
-    sorted.forEach((entry: Array<any>) => {
+    orderedDaysEvents.forEach((entry: Array<any>) => {
       const when = entry[0] as string;
 
       if (when === today) return;
 
       const weekDay = weekDays[new Date(when).getUTCDay()];
-      let events = entry[1] as Array<any>;
-
-      // sort events
-      events = events.sort((a, b) => {
-        if (a.displayTime === "All day") return -1;
-        if (b.displayTime === "All day") return 1;
-
-        if (a.displayTime < b.displayTime) return -1;
-        if (a.displayTime > b.displayTime) return 1;
-        return 0;
-      });
+      const events = this.sortEvents(entry[1]);
 
       content.push(
         <FadeIn key={when}>
