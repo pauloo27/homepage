@@ -1,0 +1,9 @@
+{
+  "Version": "0.0.2-dev",
+  "PrefixPack": "emoji",
+  "AskFilesToCommit": false,
+  "PreCommit": null,
+  "PostCommit": null,
+  "Modules": null,
+  "AskCISkip": false
+}
